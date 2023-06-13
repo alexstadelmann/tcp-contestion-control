@@ -15,7 +15,7 @@
   }
   html body header p {
     display: flex;
-    font-size: 6em;
+    font-size: 600%;
   }
   html body main div {
     display: none;
@@ -36,7 +36,7 @@
     align-items: center;
   }
   html body nav ul li {
-    flex: 1 1 auto;
+    flex: 1 1 0;
     display: flex;
     height: 100%;
     padding: 0.5em;
