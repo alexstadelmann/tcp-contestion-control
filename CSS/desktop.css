@@ -1,0 +1,34 @@
+@media screen and (min-width: 1000px) {
+  body header {
+    justify-content: center;
+  }
+  body header p {
+    display: none;
+  }
+  body main {
+    display: grid;
+    gap: 3px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas: "seq data" "seq cong-win" "automaton automaton";
+  }
+  body main div {
+    display: flex;
+  }
+  body main div#seq {
+    grid-area: seq;
+  }
+  body main div#data {
+    grid-area: data;
+  }
+  body main div#congwin {
+    grid-area: cong-win;
+  }
+  body main div#automaton {
+    grid-area: automaton;
+  }
+  body nav {
+    display: none;
+  }
+}
+
+/*# sourceMappingURL=desktop.css.map */
