@@ -1,7 +1,4 @@
 @media screen and (max-width: 999px) {
-  html {
-    font-family: "Roboto", sans-serif;
-  }
   html h1 {
     font-size: 400%;
   }

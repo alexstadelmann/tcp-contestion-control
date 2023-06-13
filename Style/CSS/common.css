@@ -1,7 +1,6 @@
 html {
   height: 100%;
   box-sizing: border-box;
-  font-family: "Roboto", sans-serif;
 }
 html a {
   color: black;
@@ -44,6 +43,8 @@ html body main div#automaton {
   padding: 0;
   text-decoration: none;
   list-style-type: none;
+  font-family: "Helvetica", sans-serif;
+  font-weight: lighter;
 }
 *:before, *:after {
   box-sizing: inherit;
