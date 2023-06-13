@@ -1,0 +1,26 @@
+@media screen and (min-width: 1000px) 
+
+  body
+    header
+      justify-content: center
+      p
+        display: none
+    main 
+      display: grid
+      gap: 3px
+      grid-template-columns: repeat(2, 1fr)
+      grid-template-areas:"seq data" "seq cong-win" "automaton automaton"  
+      div
+        display: flex
+        &#seq
+          grid-area: seq
+        &#data
+          grid-area: data
+        &#congwin
+          grid-area: cong-win
+        &#automaton
+          grid-area: automaton
+  
+    nav
+      display: none
+    

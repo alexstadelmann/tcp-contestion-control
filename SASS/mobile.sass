@@ -1,0 +1,58 @@
+@use 'const'
+
+// CSS only for mobile
+@media screen and (max-width: 999px) 
+
+  // Font-sizes
+  $font-size-1: 120%
+  $font-size-2: $font-size-1 * 1.4
+  $font-size-3: $font-size-2 * 1.4
+  $font-size-4: $font-size-3 * 1.4
+  $font-size-5: $font-size-4 * 1.4
+  $font-size-6: $font-size-5 * 1.4
+
+  html
+    font-family: Arial, Helvetica, sans-serif
+    h1
+        font-size: $font-size-5
+    body
+      overflow: hidden
+      header
+        justify-content: space-between
+        align-items: center
+        padding: 0 const.$spacing-llarge
+       
+        p
+          display: flex
+          font-size: $font-size-6
+          
+      main 
+        div
+          display: none
+          &#seq
+            display: flex
+      nav
+          background-color: const.$background-6
+          min-height: 12vh
+         
+          bottom: 0
+
+          ul
+            display: flex
+            height: 100%
+            flex-direction: row
+            align-items: center
+            justify-content: stretch
+
+            li
+              display: flex
+              height: 100%
+              flex: 1 1 auto
+              padding: const.$spacing-small
+              text-align: center
+              align-items: center
+              font-size: $font-size-4
+              &:hover
+                
+                backdrop-filter: brightness(90%)
+              
