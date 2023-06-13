@@ -4,17 +4,17 @@
 @media screen and (max-width: 999px) 
 
   // Font-sizes
-  $font-size-1: 120%
-  $font-size-2: $font-size-1 * 1.4
-  $font-size-3: $font-size-2 * 1.4
-  $font-size-4: $font-size-3 * 1.4
-  $font-size-5: $font-size-4 * 1.4
-  $font-size-6: $font-size-5 * 1.4
+  $font-size-1: 100%
+  $font-size-2: 200%
+  $font-size-3: 300%
+  $font-size-4: 400%
+  $font-size-5: 5em
+  $font-size-6: 6em
 
   html
     font-family: 'Roboto', sans-serif
     h1
-        font-size: $font-size-5
+      font-size: $font-size-4
     body
       overflow: hidden
       header
@@ -32,26 +32,28 @@
           &#seq
             display: flex
       nav
-          background-color: const.$background-6
+          background-color: const.$background-4
           min-height: 12vh
-         
+          font-size: $font-size-1
           bottom: 0
 
           ul
             display: flex
+            
             height: 100%
             flex-direction: row
             align-items: center
-            justify-content: stretch
+            
 
             li
+              flex: 1 1 auto
               display: flex
               height: 100%
-              flex: 1 1 auto
               padding: const.$spacing-small
               text-align: center
               align-items: center
-              font-size: $font-size-4
+              justify-content: center
+              font-size: $font-size-3
               &:hover
                 
                 backdrop-filter: brightness(90%)

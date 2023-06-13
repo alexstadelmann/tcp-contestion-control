@@ -3,7 +3,7 @@
     font-family: "Roboto", sans-serif;
   }
   html h1 {
-    font-size: 460.992%;
+    font-size: 400%;
   }
   html body {
     overflow: hidden;
@@ -15,7 +15,7 @@
   }
   html body header p {
     display: flex;
-    font-size: 645.3888%;
+    font-size: 6em;
   }
   html body main div {
     display: none;
@@ -24,8 +24,9 @@
     display: flex;
   }
   html body nav {
-    background-color: #d8e2dc;
+    background-color: rgba(236, 228, 219, 0.5215686275);
     min-height: 12vh;
+    font-size: 100%;
     bottom: 0;
   }
   html body nav ul {
@@ -33,16 +34,16 @@
     height: 100%;
     flex-direction: row;
     align-items: center;
-    justify-content: stretch;
   }
   html body nav ul li {
+    flex: 1 1 auto;
     display: flex;
     height: 100%;
-    flex: 1 1 auto;
     padding: 0.5em;
     text-align: center;
     align-items: center;
-    font-size: 329.28%;
+    justify-content: center;
+    font-size: 300%;
   }
   html body nav ul li:hover {
     backdrop-filter: brightness(90%);
