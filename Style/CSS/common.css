@@ -1,0 +1,58 @@
+html {
+  height: 100vh;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+html a {
+  color: black;
+}
+html body {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  height: 100%;
+}
+html body header {
+  min-height: 10vh;
+  background-color: rgba(213, 183, 178, 0.4705882353);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+html body main {
+  height: 100%;
+}
+html body main div {
+  height: 100%;
+}
+html body main div#seq {
+  background-color: rgba(232, 232, 228, 0.5882352941);
+}
+html body main div#data {
+  background-color: rgba(216, 226, 220, 0.5607843137);
+}
+html body main div#congwin {
+  background-color: rgba(236, 228, 219, 0.5215686275);
+}
+html body main div#automaton {
+  background-color: rgba(255, 229, 217, 0.3490196078);
+}
+
+* {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  list-style-type: none;
+}
+*:before, *:after {
+  box-sizing: inherit;
+}
+
+html body main div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/*# sourceMappingURL=common.css.map */
