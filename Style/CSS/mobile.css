@@ -43,7 +43,7 @@
     font-size: 300%;
     border: solid 1px white;
   }
-  html body nav ul li:active {
+  html body nav ul li a {
     backdrop-filter: brightness(90%);
   }
 }
