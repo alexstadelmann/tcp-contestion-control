@@ -41,8 +41,9 @@
     align-items: center;
     justify-content: center;
     font-size: 300%;
+    border: solid 1px white;
   }
-  html body nav ul li:hover {
+  html body nav ul li:active {
     backdrop-filter: brightness(90%);
   }
 }
