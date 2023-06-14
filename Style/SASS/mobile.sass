@@ -44,7 +44,8 @@
             flex-direction: row
             align-items: center
             
-
+            & .active
+              backdrop-filter: brightness(96%)
             li
               flex: 1 1 0
               display: flex
@@ -55,9 +56,9 @@
               justify-content: center
               font-size: $font-size-3
               border: solid 1px white
-              &:active
+              
                 
-                backdrop-filter: brightness(90%)
+                
 
               a
                 -webkit-tap-highlight-color: transparent
