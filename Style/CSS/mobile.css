@@ -43,8 +43,11 @@
     font-size: 300%;
     border: solid 1px white;
   }
-  html body nav ul li a {
+  html body nav ul li:active {
     backdrop-filter: brightness(90%);
+  }
+  html body nav ul li a {
+    -webkit-tap-highlight-color: transparent;
   }
 }
 
