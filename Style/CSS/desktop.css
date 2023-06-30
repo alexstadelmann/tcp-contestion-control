@@ -1,33 +1,80 @@
 @media screen and (min-width: 1000px) {
-  body header {
+  html {
+    height: 100%;
+    box-sizing: border-box;
+  }
+  html body {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    height: 100%;
+    overflow: hidden;
+  }
+  html body header {
+    display: flex;
+    background-color: rgba(213, 183, 178, 0.4705882353);
     justify-content: center;
+    align-items: center;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 4rem;
   }
-  body header p {
-    display: none;
+  html body header h1 {
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
   }
-  body main {
+  html body header p {
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    font-size: 8vh;
+  }
+  html body main {
+    height: 100%;
     display: grid;
     gap: 3px;
     grid-template-columns: repeat(2, 1fr);
     grid-template-areas: "seq data" "seq cong-win" "automaton automaton";
   }
-  body main div {
+  html body main div {
     display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
   }
-  body main div#seq {
+  html body main div#seq {
     grid-area: seq;
+    background-color: rgba(232, 232, 228, 0.5882352941);
   }
-  body main div#data {
+  html body main div#data {
     grid-area: data;
+    background-color: rgba(216, 226, 220, 0.5607843137);
   }
-  body main div#congwin {
+  html body main div#congwin {
     grid-area: cong-win;
+    background-color: rgba(236, 228, 219, 0.5215686275);
   }
-  body main div#automaton {
+  html body main div#auto {
     grid-area: automaton;
+    background-color: rgba(255, 229, 217, 0.3490196078);
   }
-  body nav {
+  html body nav {
     display: none;
+  }
+  * {
+    box-sizing: inherit;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    list-style-type: none;
+    font-family: "Helvetica", sans-serif;
+    font-weight: lighter;
+  }
+  *:before, *:after {
+    box-sizing: inherit;
   }
 }
 

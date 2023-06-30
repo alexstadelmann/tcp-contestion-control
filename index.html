@@ -3,11 +3,10 @@
   <head>
     <title>TCP-Congestion-Control</title>
     <meta charset="utf-8" />
-
-    <!-- <link rel="stylesheet" href="./Style/CSS/colors.css" /> -->
-    <link rel="stylesheet" href="./Style/CSS/common.css" />
     <link rel="stylesheet" href="./Style/CSS/mobile.css" />
     <link rel="stylesheet" href="./Style/CSS/desktop.css" />
+
+    <script src='JS/navbar.js'></script>
   </head>
   <body>
     <header>
@@ -15,24 +14,24 @@
       <p>&#8801</p>
     </header>
     <main>
-      <div id="seq">
+      <div id="seq" class='visual'>
         <h1>Sequence Diagram</h1>
       </div>
-      <div id="data">
+      <div id="data" class='visual'>
         <h1>Data Panel</h1>
       </div>
-      <div id="congwin">
+      <div id="congwin"  class='visual'>
         <h1>Congestion Window Diagram</h1>
       </div>
-      <div id="automaton">
+      <div id="auto" class='visual'>
         <h1>TCP State Automaton</h1>
       </div>
     </main>
     <nav>
       <ul>
-        <li class='active'><a href="#seq">Sequence</a></li>
-        <li><a href="#automaton">Automaton</a></li>
-        <li><a href="#congwin">Congestion Window</a></li>
+        <li class='tap active' >Sequence</li>
+        <li class='tap'>Automaton</li>
+        <li class='tap'>Congestion Window</li>
       </ul>
     </nav>
   </body>

@@ -1,38 +1,87 @@
-@use 'const'
-
 // CSS only for mobile
 @media screen and (max-width: 999px) 
 
-  // Font-sizes
-  $font-size-1: 100%
-  $font-size-2: 200%
-  $font-size-3: 300%
-  $font-size-4: 400%
-  $font-size-5: 500%
-  $font-size-6: 600%
+  // Colors
+  $background-1: #d5b7b278
+  $background-2: #e8e8e496
+  $background-3: #d8e2dc8f
+  $background-4: #ece4db85
+  $background-5: #ffe5d959
+  $background-6: #d8e2dc
+  $border-1: #6e8a79
 
+  // Spacing
+  $spacing-xxl: 10em
+  $spacing-llarge: 4em
+  $spacing-large: 2em
+  $spacing-med: 1em
+  $spacing-small: 0.5em
+
+  // Font-sizes
+  $font-size-1: 1rem
+  $font-size-2: 1.5rem
+  $font-size-3: 2rem
+  $font-size-4: 2.5rem
+  $font-size-5: 3rem
+  $font-size-6: 3.5rem
+  $font-size-7: 4rem
+    
+  $menu-size: 8vh
 
   html
-    h1
-      font-size: $font-size-4
+    height: 100%
+    box-sizing: border-box
     body
+      display: flex
+      flex-direction: column
+      gap: 3px
+      height: 100%
       overflow: hidden
       header
+        display: flex
+        min-height: 10vh
+        background-color: $background-1
+        
+        justify-content: center
+        align-items: center
         justify-content: space-between
         align-items: center
-        padding: 0 const.$spacing-llarge
-       
+        padding: 0 $spacing-llarge
+        h1
+          display: flex
+          height:100%
+          justify-content: center
+          align-items: center
+          font-size: $font-size-7
+      
         p
           display: flex
-          font-size: $font-size-6
+          height:100%
+          justify-content: center
+          font-size: $menu-size
           
       main 
+        height: 100%
         div
+          height: 100%
+          justify-content: center
+          align-items: center
           display: none
+          h1
+            font-size: $font-size-7
           &#seq
             display: flex
+            background-color: $background-2
+          &#data
+            background-color: $background-3
+
+          &#congwin
+            background-color: $background-4
+
+          &#auto
+            background-color: $background-5
       nav
-          background-color: const.$background-4
+          background-color: $background-4
           min-height: 12vh
           font-size: $font-size-1
           bottom: 0
@@ -44,22 +93,32 @@
             flex-direction: row
             align-items: center
             
-            & .active
+            .active
               backdrop-filter: brightness(96%)
             li
               flex: 1 1 0
               display: flex
               height: 100%
-              padding: const.$spacing-small
+              padding: $spacing-small
               text-align: center
               align-items: center
               justify-content: center
-              font-size: $font-size-3
+              font-size: $font-size-5
               border: solid 1px white
               
-                
-                
-
               a
                 -webkit-tap-highlight-color: transparent
+                color: black
               
+  *
+    box-sizing: inherit
+    &:before, &:after
+      box-sizing: inherit
+
+    margin: 0
+    padding: 0
+    text-decoration: none
+    list-style-type: none
+    font-family: 'Helvetica', sans-serif
+    font-weight: lighter
+

@@ -1,26 +1,103 @@
 @media screen and (min-width: 1000px) 
+  // Constants
 
-  body
-    header
-      justify-content: center
-      p
-        display: none
-    main 
-      display: grid
-      gap: 3px
-      grid-template-columns: repeat(2, 1fr)
-      grid-template-areas:"seq data" "seq cong-win" "automaton automaton"  
-      div
-        display: flex
-        &#seq
-          grid-area: seq
-        &#data
-          grid-area: data
-        &#congwin
-          grid-area: cong-win
-        &#automaton
-          grid-area: automaton
-  
-    nav
-      display: none
+  // Colors
+  $background-1: #d5b7b278
+  $background-2: #e8e8e496
+  $background-3: #d8e2dc8f
+  $background-4: #ece4db85
+  $background-5: #ffe5d959
+  $background-6: #d8e2dc
+  $border-1: #6e8a79
+
+  // Spacing
+  $spacing-xxl: 10rem
+  $spacing-llarge: 4rem
+  $spacing-large: 2rem
+  $spacing-med: 1rem
+  $spacing-small: 0.5rem
+
+  // Font-sizes
+  $font-size-1: 1rem
+  $font-size-2: 1.5rem
+  $font-size-3: 2rem
+  $font-size-4: 2.5rem
+  $font-size-5: 3rem
+  $font-size-6: 3.5rem
+  $font-size-7: 4rem
+
+  $menu-size: 8vh
     
+    
+
+  html
+    height: 100%
+    box-sizing: border-box
+    body
+      display: flex
+      flex-direction: column
+      gap: 3px
+      height: 100%
+      overflow: hidden
+      header
+        display: flex
+        background-color: $background-1
+        
+        justify-content: center
+        align-items: center
+        justify-content: space-between
+        align-items: center
+        padding: 0 $spacing-llarge
+        h1
+          display: flex
+          height:100%
+          justify-content: center
+          align-items: center
+          font-size: $font-size-5
+      
+        p
+          display: flex
+          height:100%
+          justify-content: center
+          font-size: $menu-size
+      main 
+        height: 100%
+        display: grid
+        gap: 3px
+        grid-template-columns: repeat(2, 1fr)
+        grid-template-areas:"seq data" "seq cong-win" "automaton automaton"  
+        div
+          display: flex
+          height: 100%
+          justify-content: center
+          align-items: center
+          
+          &#seq
+            grid-area: seq
+            background-color: $background-2
+          &#data
+            grid-area: data
+            background-color: $background-3
+          &#congwin
+            grid-area: cong-win
+            background-color: $background-4
+          &#auto
+            grid-area: automaton
+            background-color: $background-5
+
+      nav
+        display: none
+        
+
+  *
+    box-sizing: inherit
+    &:before, &:after
+      box-sizing: inherit
+
+    margin: 0
+    padding: 0
+    text-decoration: none
+    list-style-type: none
+    font-family: 'Helvetica', sans-serif
+    font-weight: lighter
+
