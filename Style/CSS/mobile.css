@@ -71,7 +71,7 @@
     align-items: center;
   }
   html body nav ul .active {
-    backdrop-filter: brightness(96%);
+    background-color: rgba(255, 229, 217, 0.3490196078);
   }
   html body nav ul li {
     flex: 1 1 0;
