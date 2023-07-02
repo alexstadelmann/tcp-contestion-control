@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <link rel="stylesheet" href="./Style/CSS/mobile.css" />
     <link rel="stylesheet" href="./Style/CSS/desktop.css" />
-
+    <link rel='stylesheet' href='./Style/CSS/canvas.css' />
     <script src='JS/navbar.js'></script>
   </head>
   <body>
@@ -15,7 +15,24 @@
     </header>
     <main>
       <div id="seq" class='visual'>
-        <h1>Sequence Diagram</h1>
+        <!-- <h1>Sequence Diagram</h1> -->
+        <div id='canvas'>
+          <div id='names'>
+            <svg width='100%' viewbox='0 0 250 28' preserveAspectRatio='none' xmlns="http://www.w3.org/2000/svg">
+              <text x='10' y='25' class='users'>Client</text>
+              <text x='200' y='25' class='users'>Server</text>
+    
+            </svg>
+            
+          </div>
+          <div id='lines'>
+            <svg id='main_svg' height='100%' width='100%' viewbox='0 0 100 100' preserveAspectRatio="none">
+              <line x1='10' y1='0' x2='10' y2='100%' stroke='black' stroke-width='0.3'></line>
+              <line x1='90' y1='0' x2='90' y2='100%' stroke='black' stroke-width='0.3'></line>
+    
+            </svg>
+          </div>     
+        </div>
       </div>
       <div id="data" class='visual'>
         <h1>Data Panel</h1>

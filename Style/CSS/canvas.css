@@ -1,0 +1,20 @@
+div#canvas {
+  display: flex;
+  flex-direction: column;
+}
+
+div#lines {
+  overflow: scroll;
+}
+
+#main_svg {
+  height: 3000px;
+}
+
+.users {
+  font-family: "Helvetica", sans-serif;
+  font-weight: lighter;
+  font-size: 0.9rem;
+}
+
+/*# sourceMappingURL=canvas.css.map */
