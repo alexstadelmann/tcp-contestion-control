@@ -37,6 +37,9 @@ function switchDropdownMobile(tab) {
         vis.style.display = 'none';
       }
     });
+    document.querySelectorAll('li.tab').forEach ( (tab) => {
+      tab.style['pointer-events'] = 'auto';
+    })
   } else {
     document.querySelectorAll('.visual').forEach( function(vis) {
       
@@ -47,6 +50,9 @@ function switchDropdownMobile(tab) {
         vis.style.display = 'none';
       }
     });
+    document.querySelectorAll('li.tab').forEach ( (tab) => {
+      tab.style['pointer-events'] = 'none';
+    })
   }
 
   
