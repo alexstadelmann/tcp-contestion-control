@@ -18,48 +18,48 @@
     
     <main>
       <div id='dropdown' class='visual'>
-        <form>
+        <form id='version' class='string'>
           <fieldset>
             <legend>Congestion Control Algorithm</legend>
-            <input type="radio" id="tahoe" name="version" value='Tahoe' checked>
+            <input type="radio" id="tahoe" name="option" value='Tahoe' checked>
             <label for='tahoe'>Tahoe</label><br>
           
-            <input type="radio" id="reno" name="version" value="Reno">
+            <input type="radio" id="reno" name="option" value="Reno">
             <label for='reno'>Reno</label><br>
             
           </fieldset>
         </form>
-        <form>
+        <form id='rtt_ms' class='numeric'>
           <fieldset>
             <legend>Round Trip Delay in ms</legend>
-            <input type='number' id='rtt' value='200'>
+            <input type='number' value='200'>
             
           </fieldset>
         </form>
-        <form>
+        <form id='segsize_byte' class='numeric'>
           <fieldset>
             <legend>Segment Size in Byte</legend>
-            <input type='number' id='segsize' value='500'>
+            <input type='number' value='500'>
           </fieldset>
         </form>
-        <form>
+        <form id='initial_threshold' class='numeric'>
           <fieldset>
             <legend>Initial Threshhold</legend>
-            <input type='number' id='initthresh' value='10'>
+            <input type='number' value='10'>
           </fieldset>
         </form>
-        <form>
+        <form id='transrate_kbyte_per_second' class='numeric'>
           <fieldset>
             <legend>Transmission Rate in kByte/s</legend>
-            <input type='number' id='transrate' value='20'>
+            <input type='number' value='20'>
           </fieldset>
         </form>
-        <form>
+        <form id='lang' class='string'>
           <fieldset>
             <legend>Language</legend>
-            <input type='radio' id='english' name='lang' checked>
+            <input type='radio' id='english' name='option' value='en' checked>
             <label for='english'>English</label><br>
-            <input type='radio' id='german' name='lang'>
+            <input type='radio' id='german' name='option' value='de'>
             <label for='german'>German</label><br>
           </fieldset>
           
