@@ -65,13 +65,28 @@
         display: grid
         gap: 3px
         grid-template-columns: repeat(2, 1fr)
-        grid-template-rows: 1fr 1fr 1fr
-        grid-template-areas:"seq data" "seq cong-win" "automaton automaton"  
+        grid-template-rows: auto 1fr 1fr 1fr
+        grid-template-areas:'drop drop' "seq data" "seq cong-win" "automaton automaton"  
         div
-          // display: flex
-          
-          // justify-content: center
-          // align-items: center
+          &#dropdown
+            grid-area: drop
+            display: grid
+            grid-template-columns: repeat(3, 1fr)
+            grid-template-rows: 1fr 1fr
+            background-color: $background-2
+            height: 30vh
+            form
+              font-size: $font-size-1
+              display: flex
+              justify-content: center
+              align-items: center
+              fieldset
+                padding: 1vh
+                
+                height: 80%
+                width: 80%
+              input
+                font-size: $font-size-1
           &#canvas
             height: 100%
             width: 100%

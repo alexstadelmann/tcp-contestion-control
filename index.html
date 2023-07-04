@@ -6,14 +6,66 @@
     <link rel="stylesheet" href="./Style/CSS/mobile.css" />
     <link rel="stylesheet" href="./Style/CSS/desktop.css" />
     <link rel='stylesheet' href='./Style/CSS/canvas.css' />
-    <script src='JS/navbar.js'></script>
+    <script src='JS/navbar_mobile.js'></script>
+    <script src='JS/dropdown_desktop.js'></script>
+    <script src='JS/session.js'></script>
   </head>
   <body>
     <header>
       <h1>TCP Congestion Control</h1>
-      <p>&#8801</p>
+      <p class='tab'>&#8801</p>
     </header>
+    
     <main>
+      <div id='dropdown' class='visual'>
+        <form>
+          <fieldset>
+            <legend>Congestion Control Algorithm</legend>
+            <input type="radio" id="tahoe" name="version" value='Tahoe' checked>
+            <label for='tahoe'>Tahoe</label><br>
+          
+            <input type="radio" id="reno" name="version" value="Reno">
+            <label for='reno'>Reno</label><br>
+            
+          </fieldset>
+        </form>
+        <form>
+          <fieldset>
+            <legend>Round Trip Delay in ms</legend>
+            <input type='number' id='rtt' value='200'>
+            
+          </fieldset>
+        </form>
+        <form>
+          <fieldset>
+            <legend>Segment Size in Byte</legend>
+            <input type='number' id='segsize' value='500'>
+          </fieldset>
+        </form>
+        <form>
+          <fieldset>
+            <legend>Initial Threshhold</legend>
+            <input type='number' id='initthresh' value='10'>
+          </fieldset>
+        </form>
+        <form>
+          <fieldset>
+            <legend>Transmission Rate in kByte/s</legend>
+            <input type='number' id='transrate' value='20'>
+          </fieldset>
+        </form>
+        <form>
+          <fieldset>
+            <legend>Language</legend>
+            <input type='radio' id='english' name='lang' checked>
+            <label for='english'>English</label><br>
+            <input type='radio' id='german' name='lang'>
+            <label for='german'>German</label><br>
+          </fieldset>
+          
+        </form>
+       
+      </div>
       <div id="seq" class='visual'>
         <!-- <h1>Sequence Diagram</h1> -->
         <div id='canvas'>
@@ -46,9 +98,9 @@
     </main>
     <nav>
       <ul>
-        <li class='tap active' >Sequence</li>
-        <li class='tap'>Automaton</li>
-        <li class='tap'>Congestion Window</li>
+        <li class='tab active' >Sequence</li>
+        <li class='tab'>Automaton</li>
+        <li class='tab'>Congestion Window</li>
       </ul>
     </nav>
   </body>

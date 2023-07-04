@@ -1,10 +1,14 @@
 'use strict'
 
 document.addEventListener('DOMContentLoaded', function () {
-  const taps = document.querySelectorAll('.tap').forEach(function (tap) {
-    tap.addEventListener('click', function () {
-      activateTap(tap);
-      switch (tap.textContent) {
+  const x = window.matchMedia("(max-width: 999px)");
+  if (!x.matches) {
+    return
+  }
+  const tabs = document.querySelectorAll('.tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      activateTab(tab);
+      switch (tab.textContent) {
         case 'Sequence':
           activateDiv('seq');
           break;
@@ -12,16 +16,17 @@ document.addEventListener('DOMContentLoaded', function () {
           activateDiv('auto');
           break;
         case 'Congestion Window':
-          activateDiv('congwin')
+          activateDiv('congwin');
           break;
       }
     });
   });
 });
 
-function activateDiv(tap) {
+function activateDiv(tab) {
   document.querySelectorAll('.visual').forEach( function(vis) {
-    if (vis.id == tap) {
+    
+    if (vis.id == tab) {
       vis.style.display = 'flex';
     } else {
       vis.style.display = 'none';
@@ -29,9 +34,9 @@ function activateDiv(tap) {
   });
 }
 
-function activateTap(tap) {
-  document.querySelectorAll('.tap').forEach(function(t) {
-    if (t == tap) {
+function activateTab(tab) {
+  document.querySelectorAll('.tab').forEach(function(t) {
+    if (t == tab) {
       t.classList.add('active');
     } else {
       t.classList.remove('active');

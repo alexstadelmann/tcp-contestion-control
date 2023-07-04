@@ -8,7 +8,7 @@
   $background-4: #ece4db85
   $background-5: #ffe5d959
   $background-6: #d8e2dc
-  $border-1: #6e8a79
+  $dropdown: #e8e8e4
 
   // Spacing
   $spacing-xxl: 10em
@@ -67,11 +67,34 @@
         height: 80%
         flex: 0 0 auto
         div
-          &.visual
-            height: 100%
           justify-content: center
           align-items: center
           display: none
+          &#dropdown
+            background-color: $background-1
+            grid-border: 3px
+            grid-template-columns: repeat(2, 1fr)
+            grid-template-rows: 1fr 1fr 1fr
+            form
+              display: flex
+              justify-content: center
+              align-items: center
+              font-size: $font-size-5
+              fieldset
+                padding: 1vh 2vh
+                height: 100%
+                width: 100%
+               
+                input[type='number']
+                  font-size: $font-size-5
+                  width: 60%
+                input[type='radio']
+                  height: 35px
+                  width: 35px
+                
+          &.visual
+            height: 100%
+          
           h1
             font-size: $font-size-7
 

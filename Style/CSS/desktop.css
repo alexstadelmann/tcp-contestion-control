@@ -37,8 +37,30 @@
     display: grid;
     gap: 3px;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 1fr 1fr 1fr;
-    grid-template-areas: "seq data" "seq cong-win" "automaton automaton";
+    grid-template-rows: auto 1fr 1fr 1fr;
+    grid-template-areas: "drop drop" "seq data" "seq cong-win" "automaton automaton";
+  }
+  html body main div#dropdown {
+    grid-area: drop;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr 1fr;
+    background-color: rgba(232, 232, 228, 0.5882352941);
+    height: 30vh;
+  }
+  html body main div#dropdown form {
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  html body main div#dropdown form fieldset {
+    padding: 1vh;
+    height: 80%;
+    width: 80%;
+  }
+  html body main div#dropdown form input {
+    font-size: 1rem;
   }
   html body main div#canvas {
     height: 100%;
