@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
   
   document.querySelectorAll('form.numeric').forEach( (form) => {
     
-    form.onsubmit = () => {
+    form.onsubmit = (e) => {
   
       //Each form has only one input
       var newValue = parseInt(form.elements[1].value);
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       setNewEntry(form.id, newValue);
      
-      return false; 
+      e.preventDefault()
     };
   });
 
