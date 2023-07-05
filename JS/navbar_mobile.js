@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function activateDiv(tab) {
   document.querySelectorAll(".visual").forEach(function (vis) {
-    if (vis.id == tab) {
+    if (vis.id == tab || vis.id =='data') {
       vis.style.display = "flex"
     } else {
       vis.style.display = "none"

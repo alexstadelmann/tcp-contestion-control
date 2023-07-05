@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (!window.matchMedia("(max-width: 999px)").matches) {
     return
   }
-  console.log("A")
+  
   document.querySelector("#mobile_menu").addEventListener("click", () => {
     switchDropdownMobile()
   })
@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
 function switchDropdownMobile() {
   if (document.querySelector("#dropdown").style.display == "grid") {
     document.querySelectorAll(".visual").forEach((elem) => {
-      if (elem.id == "seq") {
+      if (elem.id == "seq" || elem.id == 'data') {
         elem.style.display = "flex"
       } else {
         elem.style.display = "none"

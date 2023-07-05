@@ -6,25 +6,14 @@ const basic_settings = {
   transrate_kbyte_per_second: 20,
   initial_threshold: 10,
   lang: "en",
-  tcp_state: 'listen',
-  cc_state: 'slowStart',
   
+
 }
-export const dinamic_settings = [{...basic_settings}]
+const dinamic_settings = [{...basic_settings}]
 
 document.addEventListener("DOMContentLoaded", function () {
-   const basic_settings = {
-    version: "tahoe",
-    rtt_ms: 200,
-    segsize_byte: 500,
-    transrate_kbyte_per_second: 20,
-    initial_threshold: 10,
-    lang: "en",
-  }
-
   
   
-  console.log(dinamic_settings[0])
 
   document.querySelectorAll("form.numeric").forEach((form) => {
     form.addEventListener('submit', (e) => {
@@ -37,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       setNewEntry(form.id, newValue)
-      console.log(dinamic_settings)
+      
 
       e.preventDefault()
     })
@@ -47,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
     form.addEventListener('change', () => {
       const newValue = form.elements.option.value
       setNewEntry(form.id, newValue)
-      console.log(dinamic_settings)
+      
 
       return false
     })

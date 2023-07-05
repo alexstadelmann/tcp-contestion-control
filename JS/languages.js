@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll("form.string").forEach((form) => {
     form.addEventListener('change', () => {
       const newValue = form.elements.option.value
-      console.log(newValue)
+      
       if (newValue == 'en') {
         setLang('en')
       } else if(newValue == 'de') {
