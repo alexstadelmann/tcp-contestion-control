@@ -1,20 +1,19 @@
 div#canvas {
   display: flex;
   flex-direction: column;
+  height: 100%;
+  width: 100%;
 }
-
-div#lines {
+div#canvas text.users {
+  font-size: 0.9rem;
+}
+div#canvas div#lines {
+  height: 100%;
+  width: 100%;
   overflow: scroll;
 }
-
-#main_svg {
+div#canvas div#lines svg#main_svg {
   height: 3000px;
-}
-
-.users {
-  font-family: "Helvetica", sans-serif;
-  font-weight: lighter;
-  font-size: 0.9rem;
 }
 
 /*# sourceMappingURL=canvas.css.map */

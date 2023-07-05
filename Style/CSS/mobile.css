@@ -28,23 +28,25 @@
     align-items: center;
     font-size: 4rem;
   }
-  html body header p {
+  html body header menu {
     display: flex;
     height: 100%;
     justify-content: center;
     align-items: center;
+  }
+  html body header menu span#mobile_menu {
+    display: block;
     font-size: 8vh;
+  }
+  html body header menu span#desktop_menu {
+    display: none;
   }
   html body main {
     height: 80%;
     flex: 0 0 auto;
   }
-  html body main div {
-    justify-content: center;
-    align-items: center;
-    display: none;
-  }
   html body main div#dropdown {
+    display: none;
     background-color: rgba(213, 183, 178, 0.4705882353);
     grid-border: 3px;
     grid-template-columns: repeat(2, 1fr);
@@ -72,35 +74,39 @@
   html body main div.visual {
     height: 100%;
   }
-  html body main div h1 {
-    font-size: 4rem;
+  html body main section {
+    justify-content: center;
+    align-items: center;
+    display: none;
   }
-  html body main div#names {
-    height: 10%;
-    width: 100%;
-    display: block;
-  }
-  html body main div#canvas {
+  html body main section#seq {
     height: 100%;
-    width: 100%;
-  }
-  html body main div#lines {
-    height: 90%;
-    width: 100%;
-    display: block;
-  }
-  html body main div#seq {
     display: flex;
     background-color: rgba(232, 232, 228, 0.5882352941);
   }
-  html body main div#data {
+  html body main section#seq h2 {
+    font-size: 4rem;
+  }
+  html body main section#data {
+    height: 100%;
     background-color: rgba(216, 226, 220, 0.5607843137);
   }
-  html body main div#congwin {
+  html body main section#data h2 {
+    font-size: 4rem;
+  }
+  html body main section#congwin {
+    height: 100%;
     background-color: rgba(236, 228, 219, 0.5215686275);
   }
-  html body main div#auto {
+  html body main section#congwin h2 {
+    font-size: 4rem;
+  }
+  html body main section#auto {
+    height: 100%;
     background-color: rgba(255, 229, 217, 0.3490196078);
+  }
+  html body main section#auto h2 {
+    font-size: 4rem;
   }
   html body nav {
     background-color: rgba(236, 228, 219, 0.5215686275);
@@ -130,13 +136,13 @@
     color: black;
   }
   * {
-    box-sizing: inherit;
     margin: 0;
     padding: 0;
     text-decoration: none;
     list-style-type: none;
     font-family: "Helvetica", sans-serif;
     font-weight: lighter;
+    box-sizing: inherit;
   }
   *:before, *:after {
     box-sizing: inherit;

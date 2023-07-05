@@ -13,8 +13,7 @@
   html body header {
     display: flex;
     background-color: rgba(213, 183, 178, 0.4705882353);
-    justify-content: center;
-    align-items: center;
+    min-height: 8vh;
     justify-content: space-between;
     align-items: center;
     padding: 0 4rem;
@@ -24,13 +23,24 @@
     height: 100%;
     justify-content: center;
     align-items: center;
-    font-size: 3rem;
+    font-size: 2.5rem;
   }
-  html body header p {
+  html body header menu {
+    display: flex;
+    height: 80%;
+    justify-content: center;
+  }
+  html body header menu span#mobile_menu {
+    display: none;
+  }
+  html body header menu span#desktop_menu {
     display: flex;
     height: 100%;
     justify-content: center;
-    font-size: 8vh;
+    padding: 0vh 0.5vh;
+    align-items: center;
+    font-size: 1.5rem;
+    border: solid 2px black;
   }
   html body main {
     height: 100%;
@@ -42,7 +52,7 @@
   }
   html body main div#dropdown {
     grid-area: drop;
-    display: grid;
+    display: none;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: 1fr 1fr;
     background-color: rgba(232, 232, 228, 0.5882352941);
@@ -59,30 +69,22 @@
     height: 80%;
     width: 80%;
   }
-  html body main div#dropdown form input {
+  html body main div#dropdown form fieldset input {
     font-size: 1rem;
   }
-  html body main div#canvas {
-    height: 100%;
-    width: 100%;
-  }
-  html body main div#lines {
-    height: 100%;
-    width: 100%;
-  }
-  html body main div#seq {
+  html body main section#seq {
     grid-area: seq;
     background-color: rgba(232, 232, 228, 0.5882352941);
   }
-  html body main div#data {
+  html body main section#data {
     grid-area: data;
     background-color: rgba(216, 226, 220, 0.5607843137);
   }
-  html body main div#congwin {
+  html body main section#congwin {
     grid-area: cong-win;
     background-color: rgba(236, 228, 219, 0.5215686275);
   }
-  html body main div#auto {
+  html body main section#auto {
     grid-area: automaton;
     background-color: rgba(255, 229, 217, 0.3490196078);
   }
@@ -90,13 +92,13 @@
     display: none;
   }
   * {
-    box-sizing: inherit;
     margin: 0;
     padding: 0;
     text-decoration: none;
     list-style-type: none;
     font-family: "Helvetica", sans-serif;
     font-weight: lighter;
+    box-sizing: inherit;
   }
   *:before, *:after {
     box-sizing: inherit;

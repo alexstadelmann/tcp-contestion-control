@@ -7,13 +7,17 @@
     <link rel="stylesheet" href="./Style/CSS/desktop.css" />
     <link rel='stylesheet' href='./Style/CSS/canvas.css' />
     <script src='JS/navbar_mobile.js'></script>
+    <script src='JS/dropdown_mobile.js'></script>
     <script src='JS/dropdown_desktop.js'></script>
     <script src='JS/session.js'></script>
   </head>
   <body>
     <header>
       <h1>TCP Congestion Control</h1>
-      <p class='tab'>&#8801</p>
+      <menu class='tab'>
+        <span id='mobile_menu'>&#8801</span>
+        <span id='desktop_menu'>Configuration</span>
+      </menu>
     </header>
     
     <main>
@@ -66,7 +70,7 @@
         </form>
        
       </div>
-      <div id="seq" class='visual'>
+      <section id="seq" class='visual'>
         <!-- <h1>Sequence Diagram</h1> -->
         <div id='canvas'>
           <div id='names'>
@@ -85,16 +89,16 @@
             </svg>
           </div>     
         </div>
-      </div>
-      <div id="data" class='visual'>
-        <h1>Data Panel</h1>
-      </div>
-      <div id="congwin"  class='visual'>
-        <h1>Congestion Window Diagram</h1>
-      </div>
-      <div id="auto" class='visual'>
-        <h1>TCP State Automaton</h1>
-      </div>
+      </section>
+      <section id="data" class='visual'>
+        <h2>Data Panel</h2>
+      </section>
+      <section id="congwin"  class='visual'>
+        <h2>Congestion Window Diagram</h2>
+      </section>
+      <section id="auto" class='visual'>
+        <h2>TCP State Automaton</h2>
+      </section>
     </main>
     <nav>
       <ul>

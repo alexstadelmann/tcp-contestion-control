@@ -1,5 +1,5 @@
 // CSS only for mobile
-@media screen and (max-width: 999px) 
+@media screen and (max-width: 999px)
 
   // Colors
   $background-1: #d5b7b278
@@ -25,7 +25,7 @@
   $font-size-5: 3rem
   $font-size-6: 3.5rem
   $font-size-7: 4rem
-    
+
   $menu-size: 8vh
 
   html
@@ -35,7 +35,7 @@
     body
       display: flex
       flex-direction: column
-      
+
       gap: 3px
       height: 100%
       overflow: hidden
@@ -43,7 +43,7 @@
         display: flex
         min-height: 10%
         background-color: $background-1
-        
+
         justify-content: center
         align-items: center
         justify-content: space-between
@@ -51,26 +51,30 @@
         padding: 0 $spacing-llarge
         h1
           display: flex
-          height:100%
+          height: 100%
           justify-content: center
           align-items: center
           font-size: $font-size-7
-      
-        p
+
+        menu
           display: flex
-          height:100%
+          height: 100%
           justify-content: center
           align-items: center
-          font-size: $menu-size
-          
-      main 
+
+          span#mobile_menu
+            display: block
+            font-size: $menu-size
+          span#desktop_menu
+            display: none
+
+      main
         height: 80%
         flex: 0 0 auto
         div
-          justify-content: center
-          align-items: center
-          display: none
+
           &#dropdown
+            display: none
             background-color: $background-1
             grid-border: 3px
             grid-template-columns: repeat(2, 1fr)
@@ -84,81 +88,80 @@
                 padding: 1vh 2vh
                 height: 100%
                 width: 100%
-               
+
                 input[type='number']
                   font-size: $font-size-5
                   width: 60%
                 input[type='radio']
                   height: 35px
                   width: 35px
-                
+
           &.visual
             height: 100%
-          
           h1
-            font-size: $font-size-7
 
-          &#names
-            height: 10%
-            width: 100%
-            display: block
-            
-          &#canvas
-            height: 100%
-            width: 100%
-            
-          &#lines
-            height: 90%
-            width: 100%
-            display: block
+        section
+          justify-content: center
+          align-items: center
+          display: none
           &#seq
+            height: 100%
             display: flex
             background-color: $background-2
+            h2
+              font-size: $font-size-7
           &#data
-            background-color: $background-3
-
-          &#congwin
-            background-color: $background-4
-
-          &#auto
-            background-color: $background-5
-      nav
-          background-color: $background-4
-          height: 10%
-          font-size: $font-size-1
-          bottom: 0
-
-          ul
-            display: flex
-            
             height: 100%
-            flex-direction: row
-            align-items: center
-            
-            li
-              flex: 1 1 0
-              display: flex
-              height: 100%
-              padding: $spacing-small
-              text-align: center
-              align-items: center
-              justify-content: center
-              font-size: $font-size-5
-              border: solid 1px white
-              
-              a
-                -webkit-tap-highlight-color: transparent
-                color: black
-              
-  *
-    box-sizing: inherit
-    &:before, &:after
-      box-sizing: inherit
+            background-color: $background-3
+            h2
+              font-size: $font-size-7
+          &#congwin
+            height: 100%
+            background-color: $background-4
+            h2
+              font-size: $font-size-7
+          &#auto
+            height: 100%
+            background-color: $background-5
+            h2
+              font-size: $font-size-7
+      nav
+        background-color: $background-4
+        height: 10%
+        font-size: $font-size-1
+        bottom: 0
 
+        ul
+          display: flex
+
+          height: 100%
+          flex-direction: row
+          align-items: center
+
+          li
+            flex: 1 1 0
+            display: flex
+            height: 100%
+            padding: $spacing-small
+            text-align: center
+            align-items: center
+            justify-content: center
+            font-size: $font-size-5
+            border: solid 1px white
+
+            a
+              -webkit-tap-highlight-color: transparent
+              color: black
+
+  *
     margin: 0
     padding: 0
     text-decoration: none
     list-style-type: none
     font-family: 'Helvetica', sans-serif
     font-weight: lighter
+    box-sizing: inherit
+    &:before, &:after
+      box-sizing: inherit
 
+      

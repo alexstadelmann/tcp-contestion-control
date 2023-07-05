@@ -1,5 +1,4 @@
-@media screen and (min-width: 1000px) 
-  // Constants
+@media screen and (min-width: 1000px)
 
   // Colors
   $background-1: #d5b7b278
@@ -26,10 +25,6 @@
   $font-size-6: 3.5rem
   $font-size-7: 4rem
 
-  $menu-size: 8vh
-    
-    
-
   html
     height: 100%
     box-sizing: border-box
@@ -42,57 +37,58 @@
       header
         display: flex
         background-color: $background-1
-        
-        justify-content: center
-        align-items: center
+        min-height: 8vh
         justify-content: space-between
         align-items: center
         padding: 0 $spacing-llarge
         h1
           display: flex
-          height:100%
+          height: 100%
           justify-content: center
           align-items: center
-          font-size: $font-size-5
-      
-        p
+          font-size: $font-size-4
+
+        menu
           display: flex
-          height:100%
+          height: 80%
           justify-content: center
-          font-size: $menu-size
-      main 
+          span#mobile_menu
+            display: none
+          span#desktop_menu
+            display: flex
+            height: 100%
+            justify-content: center
+            padding: 0vh 0.5vh
+            align-items: center
+            font-size: $font-size-2
+            border: solid 2px black
+
+      main
         height: 100%
         display: grid
         gap: 3px
         grid-template-columns: repeat(2, 1fr)
         grid-template-rows: auto 1fr 1fr 1fr
-        grid-template-areas:'drop drop' "seq data" "seq cong-win" "automaton automaton"  
-        div
-          &#dropdown
-            grid-area: drop
-            display: grid
-            grid-template-columns: repeat(3, 1fr)
-            grid-template-rows: 1fr 1fr
-            background-color: $background-2
-            height: 30vh
-            form
-              font-size: $font-size-1
-              display: flex
-              justify-content: center
-              align-items: center
-              fieldset
-                padding: 1vh
-                
-                height: 80%
-                width: 80%
+        grid-template-areas: 'drop drop' "seq data" "seq cong-win" "automaton automaton"
+        div#dropdown
+          grid-area: drop
+          display: none
+          grid-template-columns: repeat(3, 1fr)
+          grid-template-rows: 1fr 1fr
+          background-color: $background-2
+          height: 30vh
+          form
+            font-size: $font-size-1
+            display: flex
+            justify-content: center
+            align-items: center
+            fieldset
+              padding: 1vh
+              height: 80%
+              width: 80%
               input
                 font-size: $font-size-1
-          &#canvas
-            height: 100%
-            width: 100%
-          &#lines
-            height: 100%
-            width: 100%
+        section
           &#seq
             grid-area: seq
             background-color: $background-2
@@ -105,21 +101,16 @@
           &#auto
             grid-area: automaton
             background-color: $background-5
-
       nav
         display: none
-        
 
   *
-    box-sizing: inherit
-    &:before, &:after
-      box-sizing: inherit
-
     margin: 0
     padding: 0
     text-decoration: none
     list-style-type: none
     font-family: 'Helvetica', sans-serif
     font-weight: lighter
-
-
+    box-sizing: inherit
+    &:before, &:after
+      box-sizing: inherit
