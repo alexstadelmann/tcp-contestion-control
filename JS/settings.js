@@ -1,7 +1,19 @@
 "use strict"
+const basic_settings = {
+  version: "tahoe",
+  rtt_ms: 200,
+  segsize_byte: 500,
+  transrate_kbyte_per_second: 20,
+  initial_threshold: 10,
+  lang: "en",
+  tcp_state: 'listen',
+  cc_state: 'slowStart',
+  
+}
+export const dinamic_settings = [{...basic_settings}]
 
 document.addEventListener("DOMContentLoaded", function () {
-  const basic_settings = {
+   const basic_settings = {
     version: "tahoe",
     rtt_ms: 200,
     segsize_byte: 500,
@@ -10,13 +22,14 @@ document.addEventListener("DOMContentLoaded", function () {
     lang: "en",
   }
 
-  const dinamic_settings = [{...basic_settings}]
+  
+  
   console.log(dinamic_settings[0])
 
   document.querySelectorAll("form.numeric").forEach((form) => {
     form.addEventListener('submit', (e) => {
       //Each form has only one input
-      var newValue = parseInt(form.elements[1].value)
+      const newValue = parseInt(form.elements[1].value)
 
       // Validate that input is a positive integer
       if (!newValue || newValue < 0) {
@@ -46,7 +59,12 @@ document.addEventListener("DOMContentLoaded", function () {
     
     
   }
+
 })
+
+
+
+
 
 
 

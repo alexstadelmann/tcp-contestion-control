@@ -9,14 +9,15 @@
     <script src='JS/navbar_mobile.js'></script>
     <script src='JS/dropdown_mobile.js'></script>
     <script src='JS/dropdown_desktop.js'></script>
-    <script src='JS/session.js'></script>
+    <script src='JS/settings.js'></script>
+    <script src='JS/languages.js'></script>
   </head>
   <body>
     <header>
-      <h1>TCP Congestion Control</h1>
+      <h1 id='text0' class='lang'>TCP Congestion Control</h1>
       <menu class='tab'>
         <span id='mobile_menu'>&#8801</span>
-        <span id='desktop_menu'>Configuration</span>
+        <span id='desktop_menu' class='lang'>Configuration</span>
       </menu>
     </header>
     
@@ -24,7 +25,7 @@
       <div id='dropdown' class='visual'>
         <form id='version' class='string'>
           <fieldset>
-            <legend>Congestion Control Algorithm</legend>
+            <legend class='lang' id='text8'>Congestion Control Algorithm</legend>
             <input type="radio" id="tahoe" name="option" value='Tahoe' checked>
             <label for='tahoe'>Tahoe</label><br>
           
@@ -35,36 +36,36 @@
         </form>
         <form id='rtt_ms' class='numeric'>
           <fieldset>
-            <legend>Round Trip Delay in ms</legend>
+            <legend class='lang' id='text3'>Round Trip Delay in ms</legend>
             <input type='number' value='200'>
             
           </fieldset>
         </form>
         <form id='segsize_byte' class='numeric'>
           <fieldset>
-            <legend>Segment Size in Byte</legend>
+            <legend class='lang' id='text9'>Segment Size in Byte</legend>
             <input type='number' value='500'>
           </fieldset>
         </form>
         <form id='initial_threshold' class='numeric'>
           <fieldset>
-            <legend>Initial Threshhold</legend>
+            <legend class='lang' id='text10'>Initial Threshhold</legend>
             <input type='number' value='10'>
           </fieldset>
         </form>
         <form id='transrate_kbyte_per_second' class='numeric'>
           <fieldset>
-            <legend>Transmission Rate in kByte/s</legend>
+            <legend class='lang' id='text4'>Transmission Rate in kByte/s</legend>
             <input type='number' value='20'>
           </fieldset>
         </form>
         <form id='lang' class='string'>
           <fieldset>
-            <legend>Language</legend>
+            <legend class='lang' id='text13'>Language</legend>
             <input type='radio' id='english' name='option' value='en' checked>
-            <label for='english'>English</label><br>
+            <label for='english' class='lang' id='text11'>English</label><br>
             <input type='radio' id='german' name='option' value='de'>
-            <label for='german'>German</label><br>
+            <label for='german' class='lang' id='text12'>German</label><br>
           </fieldset>
           
         </form>
@@ -102,9 +103,9 @@
     </main>
     <nav>
       <ul>
-        <li class='tab active' >Sequence</li>
-        <li class='tab'>Automaton</li>
-        <li class='tab'>Congestion Window</li>
+        <li class='tab active lang' id='text5' >Sequence</li>
+        <li class='tab lang' id='text6'>Automaton</li>
+        <li class='tab lang' id='text7'>Congestion Window</li>
       </ul>
     </nav>
   </body>
