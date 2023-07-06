@@ -26,7 +26,7 @@
     height: 100%;
     justify-content: center;
     align-items: center;
-    font-size: 4rem;
+    font-size: 2.5em;
   }
   html body header menu {
     display: flex;
@@ -63,7 +63,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 3rem;
+    font-size: 2.5em;
   }
   html body main section#dropdown_space div#dropdown_content form fieldset {
     padding: 1vh 2vh;
@@ -71,7 +71,7 @@
     width: 100%;
   }
   html body main section#dropdown_space div#dropdown_content form fieldset input[type=number] {
-    font-size: 3rem;
+    font-size: 2.5em;
     width: 60%;
   }
   html body main section#dropdown_space div#dropdown_content form fieldset input[type=radio] {
@@ -93,8 +93,50 @@
     display: block;
   }
   html body main section#data_space div#data_content {
-    display: flex;
+    display: grid;
     height: 100%;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas: "tcp cc" "thresh unack" "press press";
+  }
+  html body main section#data_space div#data_content form {
+    border: solid 1px white;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: 1.5em;
+  }
+  html body main section#data_space div#data_content form#tcp_state {
+    grid-area: tcp;
+  }
+  html body main section#data_space div#data_content form#cc_state {
+    grid-area: cc;
+  }
+  html body main section#data_space div#data_content form#thresh {
+    grid-area: thresh;
+  }
+  html body main section#data_space div#data_content form#unack {
+    grid-area: unack;
+  }
+  html body main section#data_space div#data_content form#press {
+    grid-area: press;
+  }
+  html body main section#data_space div#data_content form input[type=number] {
+    font-size: 1.5em;
+    width: 50%;
+    padding: 1% 5%;
+    pointer-events: none;
+  }
+  html body main section#data_space div#data_content form input[type=text] {
+    font-size: 1.5em;
+    width: 60%;
+    padding: 1% 5%;
+    pointer-events: none;
+  }
+  html body main section#data_space div#data_content form input[type=button] {
+    width: 80%;
+    height: 60%;
+    font-size: 1.5em;
   }
   html body main section#congwin_space {
     height: 80%;
@@ -115,7 +157,7 @@
   html body nav {
     background-color: rgba(236, 228, 219, 0.5215686275);
     height: 10%;
-    font-size: 1rem;
+    font-size: 0.5em;
     bottom: 0;
   }
   html body nav ul {
@@ -132,7 +174,7 @@
     text-align: center;
     align-items: center;
     justify-content: center;
-    font-size: 3rem;
+    font-size: 2.5em;
     border: solid 1px white;
   }
   html body nav ul li a {

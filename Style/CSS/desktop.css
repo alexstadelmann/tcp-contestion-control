@@ -87,6 +87,53 @@
     grid-area: data;
     background-color: rgba(216, 226, 220, 0.5607843137);
   }
+  html body main section#data_space div#data_content {
+    display: grid;
+    height: 100%;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas: "tcp cc" "thresh unack" "press press";
+  }
+  html body main section#data_space div#data_content form {
+    border: solid 1px white;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: 1rem;
+  }
+  html body main section#data_space div#data_content form#tcp_state {
+    grid-area: tcp;
+  }
+  html body main section#data_space div#data_content form#cc_state {
+    grid-area: cc;
+  }
+  html body main section#data_space div#data_content form#thresh {
+    grid-area: thresh;
+  }
+  html body main section#data_space div#data_content form#unack {
+    grid-area: unack;
+  }
+  html body main section#data_space div#data_content form#press {
+    grid-area: press;
+  }
+  html body main section#data_space div#data_content form input[type=number] {
+    font-size: 1rem;
+    width: 40%;
+    justify-content: center;
+    padding: 2% 5%;
+    pointer-events: none;
+  }
+  html body main section#data_space div#data_content form input[type=text] {
+    font-size: 1rem;
+    width: 60%;
+    padding: 2% 5%;
+    pointer-events: none;
+  }
+  html body main section#data_space div#data_content form input[type=button] {
+    width: 80%;
+    height: 60%;
+    font-size: 1rem;
+  }
   html body main section#congwin_space {
     grid-area: cong-win;
     background-color: rgba(236, 228, 219, 0.5215686275);

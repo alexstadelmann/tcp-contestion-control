@@ -101,6 +101,46 @@
           &#data_space
             grid-area: data
             background-color: $background-3
+            div#data_content
+              display: grid
+              
+              height: 100%
+              grid-template-columns: repeat(2, 1fr)
+              grid-template-rows: 1fr 1fr 1fr
+              grid-template-areas: "tcp cc" "thresh unack" "press press"
+
+              form
+                border: solid 1px white
+                display: flex
+                justify-content: space-evenly
+                align-items: center
+                font-size: $font-size-1
+                &#tcp_state
+                  grid-area: tcp
+                &#cc_state
+                  grid-area: cc
+                &#thresh
+                  grid-area: thresh
+                &#unack
+                  grid-area: unack
+                &#press
+                  grid-area: press
+                input[type='number']
+                  font-size: $font-size-1
+                  width: 40%
+                  justify-content: center
+                  padding: 2% 5%
+                  pointer-events: none
+                input[type='text']
+                  font-size: $font-size-1
+                  width: 60%
+                  padding: 2% 5%
+                  pointer-events: none
+                input[type='button']
+                  width: 80%
+                  height: 60%
+                  font-size: $font-size-1
+                  
           &#congwin_space
             grid-area: cong-win
             background-color: $background-4

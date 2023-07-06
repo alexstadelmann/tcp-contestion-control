@@ -9,7 +9,8 @@ const basic_settings = {
   
 
 }
-const dinamic_settings = [{...basic_settings}]
+const dynamic_settings = [{...basic_settings}]
+
 
 document.addEventListener("DOMContentLoaded", function () {
   
@@ -35,16 +36,16 @@ document.addEventListener("DOMContentLoaded", function () {
   document.querySelectorAll("form.string").forEach((form) => {
     form.addEventListener('change', () => {
       const newValue = form.elements.option.value
-      setNewEntry(form.id, newValue)
+      setNewEntrySettings(form.id, newValue)
       
 
       return false
     })
   })
-  function setNewEntry(key, newValue) {
-    const new_entry = {...dinamic_settings[0]}
+  function setNewEntrySettings(key, newValue) {
+    const newEntrySettings = {...dynamic_settings[0]}
     new_entry[key] = newValue
-    dinamic_settings.unshift(new_entry)
+    dynamic_settings.unshift(newEntrySettings)
     
     
   }

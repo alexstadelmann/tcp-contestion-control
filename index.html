@@ -12,6 +12,8 @@
     <script src='JS/settings.js'></script>
     <script src='JS/languages.js'></script>
     <script src='JS/session.js'></script>
+    <script src='JS/data_panel.js'></script>
+    <script src='JS/tcp_meta.js'></script>
   </head>
   <body>
     <header>
@@ -76,36 +78,33 @@
       </section>
       <section id="data_space" class='visual'>
         <div id='data_content'>
-          <form>
-            <fieldset>
-              <legend>TCP State</legend>
-              <output>Listen</output>
-            </fieldset>
+          <form id='tcp_state_form'>
+            
+              <span>TCP State: </span>
+              <input type='text' value='CLOSED' id='tcp_state' class='data'>
+            
           </form>
-          <form>
-            <fieldset>
-              <legend>Congestion Control State</legend>
-              <output>Slow Start</output>
-            </fieldset>
+          <form id='cc_state'>
+              <span>CC State</span>
+              <input type='text' value='SLOW_START' id='cc_state' class='data'>
           </form>
-          <form>
-            <fieldset>
-              <legend>Sequence Number</legend>
-              <output>0</output>
-            </fieldset>
+          <form id='thresh'>
+              <span>Threshold</span>
+              <input type='number' value='5' id='threshold' class='data'>
           </form>
-          <form>
-            <fieldset>
-              <legend>Last Acknowledged</legend>
-              <output>0</output>
-            </fieldset>
+          <form id='unack'>
+              <span>Unacknowleged</span>
+              <input type='number' value='0' id='unacked' class='data'>
+          </form> 
+          <form id='press'>
+              <input type='button' value='Send' id='send'>
+              <input type='button' value='Loss'>
+              <input type='button' value='Start' id='TCP_message'>
+              <input type='button' value='End' id='TCP_end'>
           </form>
-          <menu>
-            <ul>
-              <li>Send</li>
-              <li>Packet Loss</li>
-            </ul>
-          </menu>
+          
+          
+          
         </div>
       </section>
       <section id="seq_space" class='visual'>
