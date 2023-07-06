@@ -45,68 +45,72 @@
     height: 80%;
     flex: 0 0 auto;
   }
-  html body main div#dropdown {
-    height: 100%;
+  html body main section {
+    justify-content: center;
+    align-items: center;
     display: none;
+    height: 100%;
+  }
+  html body main section#dropdown_space div#dropdown_content {
+    height: 100%;
+    display: grid;
     background-color: rgba(213, 183, 178, 0.4705882353);
     grid-border: 3px;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: 1fr 1fr 1fr;
   }
-  html body main div#dropdown form {
+  html body main section#dropdown_space div#dropdown_content form {
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 3rem;
   }
-  html body main div#dropdown form fieldset {
+  html body main section#dropdown_space div#dropdown_content form fieldset {
     padding: 1vh 2vh;
     height: 100%;
     width: 100%;
   }
-  html body main div#dropdown form fieldset input[type=number] {
+  html body main section#dropdown_space div#dropdown_content form fieldset input[type=number] {
     font-size: 3rem;
     width: 60%;
   }
-  html body main div#dropdown form fieldset input[type=radio] {
+  html body main section#dropdown_space div#dropdown_content form fieldset input[type=radio] {
     height: 35px;
     width: 35px;
   }
-  html body main section {
-    justify-content: center;
-    align-items: center;
-    display: none;
-  }
-  html body main section#seq {
-    height: 80%;
-    display: flex;
+  html body main section#seq_space {
     background-color: rgba(232, 232, 228, 0.5882352941);
+    height: 80%;
+    display: block;
   }
-  html body main section#seq h2 {
-    font-size: 4rem;
-  }
-  html body main section#data {
-    height: 100%;
+  html body main section#seq_space div#seq_content {
     display: flex;
-    height: 20%;
-    background-color: rgba(216, 226, 220, 0.5607843137);
-  }
-  html body main section#data h2 {
-    font-size: 4rem;
-  }
-  html body main section#congwin {
     height: 100%;
+  }
+  html body main section#data_space {
+    background-color: rgba(216, 226, 220, 0.5607843137);
+    height: 20%;
+    display: block;
+  }
+  html body main section#data_space div#data_content {
+    display: flex;
+    height: 100%;
+  }
+  html body main section#congwin_space {
+    height: 80%;
     background-color: rgba(236, 228, 219, 0.5215686275);
   }
-  html body main section#congwin h2 {
-    font-size: 4rem;
-  }
-  html body main section#auto {
+  html body main section#congwin_space div#congwin_content {
+    display: flex;
     height: 100%;
+  }
+  html body main section#auto_space {
+    height: 80%;
     background-color: rgba(255, 229, 217, 0.3490196078);
   }
-  html body main section#auto h2 {
-    font-size: 4rem;
+  html body main section#auto_space div#auto_content {
+    display: flex;
+    height: 100%;
   }
   html body nav {
     background-color: rgba(236, 228, 219, 0.5215686275);

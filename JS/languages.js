@@ -17,15 +17,15 @@ var lang_dictionary = {
       'en': 'Transmission Rate in kByte/s:',
       'de': 'Übertragungsrate in kByte/s:',
   },
-  'text5': {
+  'seq_tab': {
     'en': 'Sequence',
     'de': 'Sequenz',
 },
-'text6': {
+'auto_tab': {
   'en': 'Automaton',
   'de': 'Automat',
 },
-'text7': {
+'cong_tab': {
   'en': 'Congestion Window',
   'de': 'Staufenster',
 },

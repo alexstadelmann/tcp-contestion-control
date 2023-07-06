@@ -1,22 +1,22 @@
 "use strict"
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () =>{
   const x = window.matchMedia("(max-width: 999px)")
   if (!x.matches) {
     return
   }
-  const tabs = document.querySelectorAll(".tab").forEach(function (tab) {
-    tab.addEventListener("click", function () {
-      activateTab(tab)
-      switch (tab.textContent) {
-        case "Sequence":
-          activateDiv("seq")
+  const tabs = document.querySelectorAll(".tab").forEach((tab) => {
+    tab.addEventListener("click", ()=> {
+      
+      switch (tab.id) {
+        case "seq_tab":
+          activateDiv("seq_space")
           break
-        case "Automaton":
-          activateDiv("auto")
+        case "auto_tab":
+          activateDiv("auto_space")
           break
-        case "Congestion Window":
-          activateDiv("congwin")
+        case "cong_tab":
+          activateDiv("congwin_space")
           break
       }
     })
@@ -24,21 +24,11 @@ document.addEventListener("DOMContentLoaded", function () {
 })
 
 function activateDiv(tab) {
-  document.querySelectorAll(".visual").forEach(function (vis) {
-    if (vis.id == tab || vis.id =='data') {
-      vis.style.display = "flex"
+  document.querySelectorAll(".visual").forEach((vis)=> {
+    if (vis.id == tab || vis.id =='data_space') {
+      vis.style.display = "block"
     } else {
       vis.style.display = "none"
-    }
-  })
-}
-
-function activateTab(tab) {
-  document.querySelectorAll(".tab").forEach(function (t) {
-    if (t == tab) {
-      t.classList.add("active")
-    } else {
-      t.classList.remove("active")
     }
   })
 }

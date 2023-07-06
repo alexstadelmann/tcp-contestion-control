@@ -35,7 +35,6 @@
     body
       display: flex
       flex-direction: column
-
       gap: 3px
       height: 100%
       overflow: hidden
@@ -71,62 +70,62 @@
       main
         height: 80%
         flex: 0 0 auto
-        
-        div
-
-          &#dropdown
-            height: 100%
-            display: none
-            background-color: $background-1
-            grid-border: 3px
-            grid-template-columns: repeat(2, 1fr)
-            grid-template-rows: 1fr 1fr 1fr
-            form
-              display: flex
-              justify-content: center
-              align-items: center
-              font-size: $font-size-5
-              fieldset
-                padding: 1vh 2vh
-                height: 100%
-                width: 100%
-
-                input[type='number']
-                  font-size: $font-size-5
-                  width: 60%
-                input[type='radio']
-                  height: 35px
-                  width: 35px
-
-         
 
         section
           justify-content: center
           align-items: center
           display: none
-          &#seq
-            height: 80%
-            display: flex
+          height: 100%
+          &#dropdown_space
+            div#dropdown_content
+              height: 100%
+              display: grid
+              background-color: $background-1
+              grid-border: 3px
+              grid-template-columns: repeat(2, 1fr)
+              grid-template-rows: 1fr 1fr 1fr
+              form
+                display: flex
+                justify-content: center
+                align-items: center
+                font-size: $font-size-5
+                fieldset
+                  padding: 1vh 2vh
+                  height: 100%
+                  width: 100%
+
+                  input[type='number']
+                    font-size: $font-size-5
+                    width: 60%
+                  input[type='radio']
+                    height: 35px
+                    width: 35px
+          &#seq_space
             background-color: $background-2
-            h2
-              font-size: $font-size-7
-          &#data
-            height: 100%
-            display: flex
-            height: 20%
+            height: 80%
+            display: block
+            div#seq_content
+              display: flex
+              height: 100%
+          &#data_space
             background-color: $background-3
-            h2
-              font-size: $font-size-7
-          &#congwin
-            height: 100%
+            height: 20%
+            display: block
+            div#data_content
+              display: flex
+              height: 100%
+          &#congwin_space
+            height: 80%
             background-color: $background-4
-            h2
-              font-size: $font-size-7
-          &#auto
-            height: 100%
+            div#congwin_content
+              display: flex
+              height: 100%
+          &#auto_space
+            height: 80%
             background-color: $background-5
-            h2
-              font-size: $font-size-7
+            div#auto_content
+              display: flex
+              height: 100%
       nav
         background-color: $background-4
         height: 10%
@@ -165,5 +164,3 @@
     box-sizing: inherit
     &:before, &:after
       box-sizing: inherit
-
-      

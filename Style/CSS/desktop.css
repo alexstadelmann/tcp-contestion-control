@@ -50,41 +50,48 @@
     grid-template-rows: auto 1fr 1fr 1fr;
     grid-template-areas: "drop drop" "seq data" "seq cong-win" "automaton automaton";
   }
-  html body main div#dropdown {
-    grid-area: drop;
+  html body main section#dropdown_space {
     display: none;
+    grid-area: drop;
+  }
+  html body main section#dropdown_space div#dropdown_content {
+    display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: 1fr 1fr;
     background-color: rgba(232, 232, 228, 0.5882352941);
     height: 30vh;
   }
-  html body main div#dropdown form {
+  html body main section#dropdown_space div#dropdown_content form {
     font-size: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
   }
-  html body main div#dropdown form fieldset {
+  html body main section#dropdown_space div#dropdown_content form fieldset {
     padding: 1vh;
     height: 80%;
     width: 80%;
   }
-  html body main div#dropdown form fieldset input {
+  html body main section#dropdown_space div#dropdown_content form fieldset input {
     font-size: 1rem;
   }
-  html body main section#seq {
+  html body main section#seq_space {
     grid-area: seq;
     background-color: rgba(232, 232, 228, 0.5882352941);
   }
-  html body main section#data {
+  html body main section#seq_space div#seq_content {
+    display: flex;
+    height: 100%;
+  }
+  html body main section#data_space {
     grid-area: data;
     background-color: rgba(216, 226, 220, 0.5607843137);
   }
-  html body main section#congwin {
+  html body main section#congwin_space {
     grid-area: cong-win;
     background-color: rgba(236, 228, 219, 0.5215686275);
   }
-  html body main section#auto {
+  html body main section#auto_space {
     grid-area: automaton;
     background-color: rgba(255, 229, 217, 0.3490196078);
   }

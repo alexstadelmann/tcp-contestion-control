@@ -70,35 +70,41 @@
         grid-template-columns: repeat(2, 1fr)
         grid-template-rows: auto 1fr 1fr 1fr
         grid-template-areas: 'drop drop' "seq data" "seq cong-win" "automaton automaton"
-        div#dropdown
-          grid-area: drop
-          display: none
-          grid-template-columns: repeat(3, 1fr)
-          grid-template-rows: 1fr 1fr
-          background-color: $background-2
-          height: 30vh
-          form
-            font-size: $font-size-1
-            display: flex
-            justify-content: center
-            align-items: center
-            fieldset
-              padding: 1vh
-              height: 80%
-              width: 80%
-              input
-                font-size: $font-size-1
+
         section
-          &#seq
+          &#dropdown_space
+            display: none
+            grid-area: drop
+            div#dropdown_content
+              display: grid
+              grid-template-columns: repeat(3, 1fr)
+              grid-template-rows: 1fr 1fr
+              background-color: $background-2
+              height: 30vh
+              form
+                font-size: $font-size-1
+                display: flex
+                justify-content: center
+                align-items: center
+                fieldset
+                  padding: 1vh
+                  height: 80%
+                  width: 80%
+                  input
+                    font-size: $font-size-1
+          &#seq_space
             grid-area: seq
             background-color: $background-2
-          &#data
+            div#seq_content
+              display: flex
+              height: 100%
+          &#data_space
             grid-area: data
             background-color: $background-3
-          &#congwin
+          &#congwin_space
             grid-area: cong-win
             background-color: $background-4
-          &#auto
+          &#auto_space
             grid-area: automaton
             background-color: $background-5
       nav

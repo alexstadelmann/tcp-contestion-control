@@ -4,17 +4,16 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!window.matchMedia("(min-width: 1000px)").matches) {
     return
   }
-  document.querySelectorAll(".tab").forEach((tab) => {
-    tab.addEventListener("click", function () {
-      switchDropdownDesktop()
-    })
+  document.querySelector("#dropdown_menu").addEventListener("click", () => {
+    switchDropdownDesktop()
   })
 })
+
 function switchDropdownDesktop() {
-  const drop = document.querySelector("#dropdown")
-  if (drop.style.display == "grid") {
+  const drop = document.querySelector("#dropdown_space")
+  if (drop.style.display == "block") {
     drop.style.display = "none"
   } else {
-    drop.style.display = "grid"
+    drop.style.display = "block"
   }
 }
