@@ -26,10 +26,8 @@ document.addEventListener("DOMContentLoaded", function () {
         return false
       }
 
-      setNewEntry(form.id, newValue)
-      
-
-      e.preventDefault()
+      setNewEntrySettings(form.id, newValue)
+      e.preventDefault(dynamic_settings)
     })
   })
 
@@ -43,15 +41,12 @@ document.addEventListener("DOMContentLoaded", function () {
     })
   })
   function setNewEntrySettings(key, newValue) {
-    const newEntrySettings = {...dynamic_settings[0]}
-    new_entry[key] = newValue
-    dynamic_settings.unshift(newEntrySettings)
-    
-    
+    const newEntrySettings = {...dynamic_settings.at(-1)}
+    newEntrySettings[key] = newValue
+    dynamic_settings.push(newEntrySettings)
   }
 
 })
-
 
 
 
