@@ -15,7 +15,7 @@ function establishTCP() {
     serverSendSYNACK()
     setNewEntryServer('unacked', 1)
     setNewEntryServer('seq_num', 1)
-  } else {
+  } else if (dynamic_server_state[0].tcp_state == 'SYN_RECEIVED'){
     clientSendACK()
     setNewEntryServer('tcp_state', 'ESTABLISHED')
     setNewEntryServer('unacked', 0)
