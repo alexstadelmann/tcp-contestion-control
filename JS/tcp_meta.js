@@ -1,34 +1,38 @@
-'use strict'
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelector('#TCP_message').addEventListener('click', () => {
+"use strict"
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelector("#TCP_message").addEventListener("click", () => {
     establishTCP()
   })
 })
 
 function establishTCP() {
   console.log(dynamic_server_state.at(-1))
-  if (dynamic_server_state.at(-1).tcp_state == 'CLOSED') {
-    setNewEntryServer('tcp_state', 'LISTEN')
-  } else if (dynamic_server_state.at(-1).tcp_state == 'LISTEN') {
+  if (dynamic_server_state.at(-1).tcp_state == "CLOSED") {
+    setServerState({ tcp_state: "LISTEN" })
+  } else if (dynamic_server_state.at(-1).tcp_state == "LISTEN") {
     clientSendSYN()
-    setNewEntryServer('tcp_state', 'SYN_RECEIVED')
-  } else if (dynamic_server_state.at(-1).tcp_state == 'SYN_RECEIVED' && dynamic_server_state.at(-1).unacked == 0) {
+    //Server receives SYN
+    setServerState({ tcp_state: "SYN_RECEIVED" })
+    
+  } else if (
+    dynamic_server_state.at(-1).tcp_state == "SYN_RECEIVED" &&
+    dynamic_server_state.at(-1).unacked == 0
+  ) {
     serverSendSYNACK()
-    setNewEntryServer('unacked', 1)
-    setNewEntryServer('seq_num', 1)
-  } else if (dynamic_server_state.at(-1).tcp_state == 'SYN_RECEIVED'){
+    setServerState({ unacked: 1, seq_num: 1 })
+  } else if (dynamic_server_state.at(-1).tcp_state == "SYN_RECEIVED") {
     clientSendACK()
-    setNewEntryServer('tcp_state', 'ESTABLISHED')
-    setNewEntryServer('unacked', 0)
+    setServerState({ tcp_state: "ESTABLISHED", unacked: 0,'cong_win': 1 })
   }
-  
   notify()
   return
 }
 
-function setNewEntryServer(key, newValue) {
-  const new_entry = {...dynamic_server_state.at(-1)}
-  new_entry[key] = newValue
+function setServerState(array_of_key_value_pairs) {
+  const new_entry = { ...dynamic_server_state.at(-1) }
+  for (const [key, newValue] of Object.entries(array_of_key_value_pairs)) {
+    new_entry[key] = newValue
+  }
   dynamic_server_state.push(new_entry)
   return
 }
@@ -39,41 +43,50 @@ function notify() {
 }
 
 function clientSendSYN() {
+  const now = dynamic_server_state.at(-1).clock_ms
+  const rtt_ms = dynamic_settings.at(-1).rtt_ms
 
   const new_entry = {
-    flag: 'SYN',
-    timestamp: 0,
-    delivery_time: (dynamic_settings.at(-1).rtt_ms / 2),
-    ack_num: 0
+    flag: "SYN",
+    start_ms: now,
+    end_ms: now + rtt_ms/2,
+    ack_num: 0,
   }
-  console.log('Client:', new_entry)
+
+  console.log("Client:", new_entry)
   dynamic_clientside_packets.push(new_entry)
+  addToClockMs(rtt_ms/2)
   return
 }
 
-function serverSendSYNACK() {
-  const now = dynamic_clientside_packets.at(-1).delivery_time
-  const new_entry = {
-    flag: 'SYN_ACK',
-    timestamp: now,
-    delivery_time: now + (dynamic_settings.at(-1).rtt_ms / 2),
-    ack_num: 1
-  }
-  console.log('Server:', new_entry)
+function addToClockMs(time_ms) {
+  dynamic_server_state.at(-1).clock_ms += time_ms
+}
 
+function serverSendSYNACK() {
+  const now = dynamic_server_state.at(-1).clock_ms
+  const rtt_ms = dynamic_settings.at(-1).rtt_ms
+  const new_entry = {
+    flag: "SYN_ACK",
+    start_ms: now,
+    end_ms: now + rtt_ms/2,
+    ack_num: 1,
+  }
+  
   dynamic_serverside_packets.push(new_entry)
+  addToClockMs(rtt_ms/2)
   return
 }
 
 function clientSendACK() {
-  const now = dynamic_serverside_packets.at(-1).delivery_time
+  const now = dynamic_server_state.at(-1).clock_ms
+  const rtt_ms = dynamic_settings.at(-1).rtt_ms
   const new_entry = {
-    flag: 'ACK',
-    timestamp: now,
-    delivery_time: now + (dynamic_settings.at(-1).rtt_ms / 2),
-    ack_num: 1
+    flag: "ACK",
+    start: now,
+    end: now + rtt_ms/2,
+    ack_num: 1,
   }
-  console.log('Client:', new_entry)
-
+  addToClockMs(rtt_ms/2)
   dynamic_clientside_packets.push(new_entry)
 }

@@ -19,6 +19,10 @@
   <body>
     <header>
       <h1 id='text0' class='lang'>TCP Congestion Control</h1>
+      <form>
+        <span>Clock in ms:</span>
+        <input type='number' id='clock_ms' value='0' class='data'>
+      </form>
       <menu id='dropdown_menu'>
         <span id='mobile_menu'>&#8801</span>
         <span id='desktop_menu' class='lang'>Configuration</span>
@@ -46,7 +50,7 @@
               
             </fieldset>
           </form>
-          <form id='segsize_byte' class='numeric'>
+          <form id='seqsize_byte' class='numeric'>
             <fieldset>
               <legend class='lang' id='text9'>Segment Size in Byte</legend>
               <input type='number' value='500'>
@@ -90,8 +94,8 @@
               <input type='text' value='SLOW_START' id='cc_state' class='data'>
           </form>
           <form id='thresh'>
-              <span>Threshold</span>
-              <input type='number' value='5' id='threshold' class='data'>
+              <span>Congestion Window</span>
+              <input type='number' value='0' id='cong_win' class='data'>
           </form>
           <form id='unack'>
               <span>Unacknowleged</span>

@@ -2,7 +2,7 @@
 const basic_settings = {
   version: "tahoe",
   rtt_ms: 200,
-  segsize_byte: 500,
+  seqsize_byte: 500,
   transrate_kbyte_per_second: 20,
   initial_threshold: 10,
   lang: "en",
