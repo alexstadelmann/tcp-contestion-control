@@ -6,6 +6,7 @@ const basic_settings = {
   transrate_kbyte_per_second: 20,
   initial_threshold: 10,
   lang: "en",
+  ratio1px_ms: 0.5,
   
 
 }

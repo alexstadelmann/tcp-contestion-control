@@ -39,14 +39,17 @@ function setServerState(array_of_key_value_pairs) {
 
 function notify() {
   update_data_panel()
+  update_seq_diagram_meta()
   return
 }
+
 
 function clientSendSYN() {
   const now = dynamic_server_state.at(-1).clock_ms
   const rtt_ms = dynamic_settings.at(-1).rtt_ms
 
   const new_entry = {
+    sender: 'client',
     flag: "SYN",
     start_ms: now,
     end_ms: now + rtt_ms/2,
@@ -54,7 +57,7 @@ function clientSendSYN() {
   }
 
   console.log("Client:", new_entry)
-  dynamic_clientside_packets.push(new_entry)
+  dynamic_meta_packets.push(new_entry)
   addToClockMs(rtt_ms/2)
   return
 }
@@ -67,13 +70,14 @@ function serverSendSYNACK() {
   const now = dynamic_server_state.at(-1).clock_ms
   const rtt_ms = dynamic_settings.at(-1).rtt_ms
   const new_entry = {
+    sender: 'server',
     flag: "SYN_ACK",
     start_ms: now,
     end_ms: now + rtt_ms/2,
     ack_num: 1,
   }
   
-  dynamic_serverside_packets.push(new_entry)
+  dynamic_meta_packets.push(new_entry)
   addToClockMs(rtt_ms/2)
   return
 }
@@ -82,11 +86,12 @@ function clientSendACK() {
   const now = dynamic_server_state.at(-1).clock_ms
   const rtt_ms = dynamic_settings.at(-1).rtt_ms
   const new_entry = {
+    sender: 'client',
     flag: "ACK",
-    start: now,
-    end: now + rtt_ms/2,
+    start_ms: now,
+    end_ms: now + rtt_ms/2,
     ack_num: 1,
   }
   addToClockMs(rtt_ms/2)
-  dynamic_clientside_packets.push(new_entry)
+  dynamic_meta_packets.push(new_entry)
 }

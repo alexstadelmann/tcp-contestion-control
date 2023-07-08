@@ -82,6 +82,7 @@
   html body main section#seq_space div#seq_content {
     display: flex;
     height: 100%;
+    font-size: 0.15rem;
   }
   html body main section#data_space {
     grid-area: data;

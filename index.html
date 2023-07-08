@@ -15,6 +15,7 @@
     <script src='JS/data_panel.js'></script>
     <script src='JS/tcp_meta.js'></script>
     <script src='JS/slow_start.js'></script>
+    <script src='JS/tcp_visual.js'></script>
   </head>
   <body>
     <header>
@@ -125,9 +126,11 @@
             </div>
             <div id='lines'>
               <svg id='main_svg' height='100%' width='100%' viewbox='0 0 100 100' preserveAspectRatio="none">
-                <line x1='10' y1='0' x2='10' y2='100%' stroke='black' stroke-width='0.3'></line>
-                <line x1='90' y1='0' x2='90' y2='100%' stroke='black' stroke-width='0.3'></line>
-      
+                <line x1='10%' y1='0' x2='10%' y2='100%' stroke='black' stroke-width='0.1'></line>
+                <line x1='90%' y1='0' x2='90%' y2='100%' stroke='black' stroke-width='0.1'></line>
+                <g id='tcp_meta_messages'>
+                  
+                </g>
               </svg>
             </div>     
           </div>

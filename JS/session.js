@@ -7,7 +7,7 @@ const initial_server_state = {
   unacked: 0,
   threshold: 5,
   cong_win: 0,
-  clock_ms: 0
+  clock_ms: 0,
 }
 
 const initial_client_state ={
@@ -23,6 +23,7 @@ const dynamic_client_state = [{...initial_client_state}]
 const dynamic_serverside_packets = []
 const dynamic_clientside_packets = []
 const dynamic_pending_acks = []
+const dynamic_meta_packets = []
 console.log('client',dynamic_clientside_packets)
 console.log('server',dynamic_serverside_packets)
 document.addEventListener('DOMContentLoaded', () => {

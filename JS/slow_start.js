@@ -63,7 +63,6 @@ function sendNewSegment() {
     const newSegment = {
     start_ms: now,
     end_ms: now + delay_ms,
-    config_number: dynamic_settings.length - 1,
     sequence_number: seq_num,
   }
 
