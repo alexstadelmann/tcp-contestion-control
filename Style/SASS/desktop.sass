@@ -69,8 +69,8 @@
         display: grid
         gap: 3px
         grid-template-columns: repeat(2, 1fr)
-        grid-template-rows: auto 1fr 1fr 1fr
-        grid-template-areas: 'drop drop' "seq data" "seq cong-win" "automaton automaton"
+        grid-template-rows: auto repeat(3, 1fr)
+        grid-template-areas: 'drop drop' 'seq data' 'seq cong-win' 'automaton automaton'
 
         section
           &#dropdown_space
@@ -79,7 +79,7 @@
             div#dropdown_content
               display: grid
               grid-template-columns: repeat(3, 1fr)
-              grid-template-rows: 1fr 1fr
+              grid-template-rows: repeat(2, 1fr)
               background-color: $background-2
               height: 30vh
               form
@@ -108,8 +108,8 @@
               
               height: 100%
               grid-template-columns: repeat(2, 1fr)
-              grid-template-rows: 1fr 1fr 1fr
-              grid-template-areas: "tcp cc" "thresh unack" "press press"
+              grid-template-rows: repeat(3, 1fr)
+              grid-template-areas: 'tcp cc' 'thresh unack' 'press press'
 
               form
                 border: solid 1px white

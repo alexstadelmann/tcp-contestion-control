@@ -1,11 +1,11 @@
 'use strict'
 
 function displayNewSegment() {
-  const start = dynamic_serverside_packets.at(-1).start_ms / SMALL_FACTOR
-  const end= dynamic_serverside_packets.at(-1).end_ms / SMALL_FACTOR
-  const ratio = dynamic_settings.at(-1).ratio1px_ms
-  const rtt_ms = dynamic_settings.at(-1).rtt_ms /SMALL_FACTOR
-  const sequence_number = dynamic_serverside_packets.at(-1).sequence_number
+  const start = dynamicServersidePackets.at(-1).start_ms / SMALL_FACTOR
+  const end= dynamicServersidePackets.at(-1).end_ms / SMALL_FACTOR
+  const ratio = dynamicSettings.at(-1).ratio1px_ms
+  const rtt_ms = dynamicSettings.at(-1).rtt_ms /SMALL_FACTOR
+  const sequence_number = dynamicServersidePackets.at(-1).sequence_number
   const viewBoxHeight = document.getElementById('main_svg').viewBox.baseVal.height
   console.log(viewBoxHeight)
   
@@ -38,11 +38,11 @@ function displayNewSegment() {
 }
 
 function displayNewAck() {
-  const newAck = dynamic_pending_acks.pop()
+  const newAck = dynamicPendingAcks.pop()
   const start = newAck.start_ms / SMALL_FACTOR
   const end = newAck.end_ms / SMALL_FACTOR
-  const ratio = dynamic_settings.at(-1).ratio1px_ms
-  const rtt_ms = dynamic_settings.at(-1).rtt_ms /SMALL_FACTOR
+  const ratio = dynamicSettings.at(-1).ratio1px_ms
+  const rtt_ms = dynamicSettings.at(-1).rtt_ms /SMALL_FACTOR
   const newPacket = document.createElementNS(NAME_SPACE_URI, 'path')
   newPacket.setAttribute('stroke', 'black')
   newPacket.setAttribute('stroke-width', '0.05')

@@ -1,8 +1,10 @@
-'use strict'
+"use strict"
+// need of use strict
 
-const initial_server_state = {
-  tcp_state: 'CLOSED',
-  cc_state: 'SLOW_START',
+// property naming convension
+const initialServerState = {
+  tcp_state: "CLOSED", // reuse of state keywords
+  cc_state: "SLOW_START",
   seq_num: 0,
   unacked: 0,
   threshold: 5,
@@ -10,22 +12,17 @@ const initial_server_state = {
   clock_ms: 0,
 }
 
-const initial_client_state ={
-  tcp_state: 'CLOSED',
+const initialClientState ={
+  tcp_state: "CLOSED",
   send_ack: 0,
-
 }
 
-
-
-const dynamic_server_state = [{...initial_server_state}]
-const dynamic_client_state = [{...initial_client_state}]
-const dynamic_serverside_packets = []
-const dynamic_clientside_packets = []
-const dynamic_pending_acks = []
-const dynamic_meta_packets = []
-console.log('client',dynamic_clientside_packets)
-console.log('server',dynamic_serverside_packets)
-document.addEventListener('DOMContentLoaded', () => {
-
-})
+const dynamicServerState = [initialServerState]
+// not used anyway
+const dynamicClientState = [initialClientState]
+const dynamicServersidePackets = []
+const dynamicClientsidePackets = []
+const dynamicPendingAcks = []
+const dynamicMetaPackets = []
+console.log("client", dynamicClientsidePackets)
+console.log("server", dynamicServersidePackets)

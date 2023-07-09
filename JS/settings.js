@@ -1,5 +1,7 @@
 "use strict"
-const basic_settings = {
+
+// property naming convension
+const basicSettings = {
   version: "tahoe",
   rtt_ms: 200,
   seqsize_byte: 500,
@@ -8,21 +10,19 @@ const basic_settings = {
   lang: "en",
   ratio1px_ms: 1,
 }
-const dynamic_settings = [{ ...basic_settings }]
 
-document.addEventListener("DOMContentLoaded", function () {
+const dynamicSettings = [{...basicSettings}]
+
+document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll("form.numeric").forEach((form) => {
     form.addEventListener("submit", (e) => {
       //Each form has only one input
       const newValue = parseInt(form.elements[1].value)
-
-      // Validate that input is a positive integer
-      if (!newValue || newValue < 0) {
-        return false
-      }
+      
+      if (!newValue > 0) return false
 
       setNewEntrySettings(form.id, newValue)
-      e.preventDefault(dynamic_settings)
+      e.preventDefault()
     })
   })
 
@@ -30,13 +30,12 @@ document.addEventListener("DOMContentLoaded", function () {
     form.addEventListener("change", () => {
       const newValue = form.elements.option.value
       setNewEntrySettings(form.id, newValue)
-
-      return false
     })
   })
+
   function setNewEntrySettings(key, newValue) {
-    const newEntrySettings = { ...dynamic_settings.at(-1) }
+    const newEntrySettings = { ...dynamicSettings.at(-1) }
     newEntrySettings[key] = newValue
-    dynamic_settings.push(newEntrySettings)
+    dynamicSettings.push(newEntrySettings)
   }
 })

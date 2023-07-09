@@ -84,7 +84,7 @@
               background-color: $background-1
               grid-border: 3px
               grid-template-columns: repeat(2, 1fr)
-              grid-template-rows: 1fr 1fr 1fr
+              grid-template-rows: repeat(3, 1fr)
               form
                 display: flex
                 justify-content: center
@@ -120,8 +120,8 @@
               
               height: 100%
               grid-template-columns: repeat(2, 1fr)
-              grid-template-rows: 1fr 1fr 1fr
-              grid-template-areas: "tcp cc" "thresh unack" "press press"
+              grid-template-rows: repeat(3, 1fr)
+              grid-template-areas: 'tcp cc' 'thresh unack' 'press press'
               form
                 border: solid 1px white
                 display: flex

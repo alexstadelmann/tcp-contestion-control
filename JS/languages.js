@@ -1,6 +1,7 @@
 "use strict"
 
-var lang_dictionary = {
+// use templates and meaningful variable names instead of ids
+const langDictionary = {
   text0: {
     en: "TCP-Congestion-Control",
     de: "TCP Staukontrolle",
@@ -64,23 +65,17 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll("form.string").forEach((form) => {
     form.addEventListener("change", () => {
       const newValue = form.elements.option.value
-
-      if (newValue == "en") {
-        setLang("en")
-      } else if (newValue == "de") {
-        setLang("de")
-      }
-
-      return false
+      setLang(newValue)
     })
   })
 })
 
 function setLang(lang) {
-  document.querySelectorAll(".lang").forEach((elem) => {
-    elem.innerHTML = lang_dictionary[elem.id][lang]
+  document.getElementsByClassName("lang").forEach((elem) => {
+    elem.innerHTML = langDictionary[elem.id][lang]
   })
 }
 
+// instead of having comments that explain implementation details, use functions with meaningful names
 // obj.innerHTML = dict[obj.id]['de'];
 // // Change language to german

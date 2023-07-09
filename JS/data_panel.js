@@ -1,7 +1,10 @@
 'use strict'
 
-function update_data_panel() {
+function updateDataPanel() {
+  // using classes for business logic
   document.querySelectorAll('.data').forEach((elem) => {
-  elem.value=dynamic_server_state.at(-1)[elem.id]
+    // using a const from another file without any contract. This depends on order of the files
+    // -1 magic number
+    elem.value = dynamicServerState.at(-1)[elem.id]
   })
 }
