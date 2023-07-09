@@ -1,4 +1,4 @@
-'use strict'
+
 
 function displayNewSegment() {
   const start = dynamicServersidePackets.at(-1).start_ms / SMALL_FACTOR
