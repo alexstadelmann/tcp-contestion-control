@@ -6,19 +6,13 @@ const basic_settings = {
   transrate_kbyte_per_second: 20,
   initial_threshold: 10,
   lang: "en",
-  ratio1px_ms: 0.5,
-  
-
+  ratio1px_ms: 1,
 }
-const dynamic_settings = [{...basic_settings}]
-
+const dynamic_settings = [{ ...basic_settings }]
 
 document.addEventListener("DOMContentLoaded", function () {
-  
-  
-
   document.querySelectorAll("form.numeric").forEach((form) => {
-    form.addEventListener('submit', (e) => {
+    form.addEventListener("submit", (e) => {
       //Each form has only one input
       const newValue = parseInt(form.elements[1].value)
 
@@ -33,24 +27,16 @@ document.addEventListener("DOMContentLoaded", function () {
   })
 
   document.querySelectorAll("form.string").forEach((form) => {
-    form.addEventListener('change', () => {
+    form.addEventListener("change", () => {
       const newValue = form.elements.option.value
       setNewEntrySettings(form.id, newValue)
-      
 
       return false
     })
   })
   function setNewEntrySettings(key, newValue) {
-    const newEntrySettings = {...dynamic_settings.at(-1)}
+    const newEntrySettings = { ...dynamic_settings.at(-1) }
     newEntrySettings[key] = newValue
     dynamic_settings.push(newEntrySettings)
   }
-
 })
-
-
-
-
-
-

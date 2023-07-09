@@ -20,25 +20,13 @@ function update_seq_diagram_meta() {
  
 }
 
-// const newPacket = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-// newPacket.classList.add('segment');
-// newPacket.setAttribute('d',
-//     'M' + xStart + ' ' + yFirstByteStart + 
-//     'L' + xEnd + ' ' + yFirstByteEnd +
-//     'L' + xEnd + ' ' + yLastByteEnd +
-//     'L' + xStart + ' ' + yLastByteStart + 
-//     'Z' 
-// );
+
 
 function TCPMetaSegmentClientToServer(start, end, flag) {
   if (dynamic_meta_packets.length == 0) {return}
   const ratio = dynamic_settings.at(-1).ratio1px_ms
   
   const newPacket = document.createElementNS(NAME_SPACE_URI, 'path')
-  // newPacket.setAttribute('x1', '10%')
-  // newPacket.setAttribute('y1', start*ratio)
-  // newPacket.setAttribute('x2', '90%')
-  // newPacket.setAttribute('y2', end*ratio)
   newPacket.setAttribute('stroke', 'black')
   newPacket.setAttribute('stroke-width', '0.1')
   newPacket.setAttribute('d', 'M10 ' + start*ratio +' ' + 'L90 '+ end*ratio)
@@ -58,13 +46,20 @@ function TCPMetaSegmentClientToServer(start, end, flag) {
 
 function TCPMetaSegmentServerToClient(start, end, flag) {
   const ratio = dynamic_settings.at(-1).ratio1px_ms
-  const newPacket = document.createElementNS(NAME_SPACE_URI, 'line')
-  newPacket.setAttribute('x1', '90%')
-  newPacket.setAttribute('y1', start*ratio)
-  newPacket.setAttribute('x2', '10%')
-  newPacket.setAttribute('y2', end*ratio)
+  const newPacket = document.createElementNS(NAME_SPACE_URI, 'path')
+  newPacket.setAttribute('d', 'M10 ' + end*ratio +'L90 ' + start*ratio )
   newPacket.setAttribute('stroke', 'black')
   newPacket.setAttribute('stroke-width', '0.1')
+  newPacket.setAttribute('id', flag)
+
+  const newPacketTextPath = document.createElementNS(NAME_SPACE_URI, 'textPath')
+  newPacketTextPath.setAttribute('href','#' + flag)
+  newPacketTextPath.setAttribute('startOffset', '45%')
+  newPacketTextPath.innerHTML = flag
+
+  const newPacketText = document.createElementNS(NAME_SPACE_URI, 'text')
+  newPacketText.append(newPacketTextPath)
 
   document.querySelector('#tcp_meta_messages').append(newPacket)
+  document.querySelector('#tcp_meta_messages').append(newPacketText)
 } 

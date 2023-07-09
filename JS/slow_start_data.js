@@ -9,23 +9,25 @@ function sendSlowStart() {
 
   if (isPendingAck()){
     receiveAck()
+    displayNewAck()
   } else if (dynamic_server_state.at(-1).cong_win > dynamic_server_state.at(-1).unacked) {
       sendNewSegment()
+      displayNewSegment()
   } else {
       receiveAck()
+      displayNewAck()
   }
-  notify()
+  
 }
 
 
 
 
 function receiveAck() {
-  const newAck = dynamic_pending_acks.pop()
+  const newAck = dynamic_pending_acks.at(-1)
   const cong_win = dynamic_server_state.at(-1).cong_win
   const unacked = dynamic_server_state.at(-1).unacked
   dynamic_clientside_packets.push(newAck)
-  console.log(newAck)
   setClock(newAck.end_ms)
   setServerState({'cong_win': cong_win + 1, 'unacked': unacked - 1})
   return
@@ -57,7 +59,6 @@ function sendNewSegment() {
   const transrate_kbyte_per_second = dynamic_settings.at(-1).transrate_kbyte_per_second
   const delay_ms = (seqsize_byte / transrate_kbyte_per_second) + (rtt_ms/2)
   const unacked = dynamic_server_state.at(-1).unacked
-  const cong_win = dynamic_server_state.at(-1).cong_win
 
   //Create new segment
     const newSegment = {
@@ -66,10 +67,9 @@ function sendNewSegment() {
     sequence_number: seq_num,
   }
 
-  console.log('Server:', newSegment)
   dynamic_serverside_packets.push(newSegment)
   addToClockMs(seqsize_byte /transrate_kbyte_per_second)
-  setServerState({'seq_number': seq_num + seqsize_byte, 'unacked': unacked + 1})
+  setServerState({'seq_num': seq_num + seqsize_byte, 'unacked': unacked + 1})
   //Create the acknowlegement for the new segment
   const newAck = {
     start_ms: newSegment.end_ms,

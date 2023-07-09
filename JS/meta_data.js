@@ -71,7 +71,7 @@ function serverSendSYNACK() {
   const rtt_ms = dynamic_settings.at(-1).rtt_ms
   const new_entry = {
     sender: 'server',
-    flag: "SYN_ACK",
+    flag: "SYN-ACK",
     start_ms: now,
     end_ms: now + rtt_ms/2,
     ack_num: 1,

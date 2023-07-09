@@ -14,6 +14,7 @@ div#canvas div#lines {
 }
 div#canvas div#lines svg#main_svg {
   height: 1000px;
+  overflow: scroll;
 }
 
 /*# sourceMappingURL=canvas.css.map */
