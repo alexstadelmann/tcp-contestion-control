@@ -1,4 +1,4 @@
-'use strict'
+
 
 function updateDataPanel() {
   // using classes for business logic
