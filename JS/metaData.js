@@ -1,7 +1,7 @@
 
 
 document.addEventListener('DOMContentLoaded', () => {
-  document.querySelector('#tcpMessage').addEventListener('click', establishTcp)
+  document.querySelector('#startButton').addEventListener('click', establishTcp)
 })
 
 function establishTcp() {
@@ -32,11 +32,24 @@ function establishTcp() {
           unacked: 0,
           congWin: 1,
         })
+        activateAllButtons()
+        deactivateStartButton()
+        
       }
       break
   }
 
   notify()
+}
+
+const deactivateStartButton = () => {
+  document.querySelector('#startButton').setAttribute('disabled', '')
+}
+
+const activateAllButtons = () => {
+  document.querySelectorAll('#press input').forEach ((button => {
+    button.removeAttribute('disabled')
+  }))
 }
 
 function setServerState(arrayKeyValuePairs) {

@@ -2,6 +2,14 @@
 const SMALL_FACTOR = 10
 const NAME_SPACE_URI = 'http://www.w3.org/2000/svg'
 
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('#press input').forEach( (button) => {
+    console.log(button)
+    button.setAttribute('disabled', '')
+  })
+  document.querySelector('#startButton').removeAttribute('disabled')
+})
+
 function updateSeqDiagramMeta() {
   if (dynamicMetaPackets.length == 0) return
 
