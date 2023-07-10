@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
   function setNewEntrySettings(key, newValue) {
-    const newEntrySettings = { ...dynamicSettings.at(-1) }
+    const newEntrySettings = { ...getLastElem(dynamicSettings) }
     newEntrySettings[key] = newValue
     dynamicSettings.push(newEntrySettings)
   }

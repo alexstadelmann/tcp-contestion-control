@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 function establishTcp() {
-  const currentTcpState = dynamicServerState.at(-1).tcpState
+  const currentTcpState = getLastElem(dynamicServerState).tcpState
 
   switch (currentTcpState) {
     case tcpState.CLOSED:
@@ -19,7 +19,7 @@ function establishTcp() {
       break
 
     case tcpState.SYN_RECEIVED:
-      if (dynamicServerState.at(-1).unacked === 0) {
+      if (getLastElem(dynamicServerState).unacked === 0) {
         serverSendSYNACK()
         setServerState({
           unacked: 1,
@@ -40,7 +40,7 @@ function establishTcp() {
 }
 
 function setServerState(arrayKeyValuePairs) {
-  const newEntry = { ...dynamicServerState.at(-1) }
+  const newEntry = { ...getLastElem(dynamicServerState) }
   for (const [key, newValue] of Object.entries(arrayKeyValuePairs)) {
     newEntry[key] = newValue
   }
@@ -54,8 +54,8 @@ function notify() {
 }
 
 function clientSendSYN() {
-  const now = dynamicServerState.at(-1).clockMS
-  const roundTripTimeMS = dynamicSettings.at(-1).roundTripTimeMS
+  const now = getLastElem(dynamicServerState).clockMS
+  const roundTripTimeMS = getLastElem(dynamicSettings).roundTripTimeMS
 
   const newEntry = {
     sender: agents.CLIENT,
@@ -70,12 +70,12 @@ function clientSendSYN() {
 }
 
 function addToClockMs(timeMS) {
-  dynamicServerState.at(-1).clockMS += timeMS
+  getLastElem(dynamicServerState).clockMS += timeMS
 }
 
 function serverSendSYNACK() {
-  const now = dynamicServerState.at(-1).clockMS
-  const roundTripTimeMS = dynamicSettings.at(-1).roundTripTimeMS
+  const now = getLastElem(dynamicServerState).clockMS
+  const roundTripTimeMS = getLastElem(dynamicSettings).roundTripTimeMS
   const newEntry = {
     sender: agents.SERVER,
     flag: flags.SYN_ACK,
@@ -89,8 +89,8 @@ function serverSendSYNACK() {
 }
 
 function clientSendACK() {
-  const now = dynamicServerState.at(-1).clockMS
-  const roundTripTimeMS = dynamicSettings.at(-1).roundTripTimeMS
+  const now = getLastElem(dynamicServerState).clockMS
+  const roundTripTimeMS = getLastElem(dynamicSettings).roundTripTimeMS
   const newEntry = {
     sender: agents.CLIENT,
     flag: flags.ACK,

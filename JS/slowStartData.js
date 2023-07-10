@@ -8,7 +8,7 @@ function sendSlowStart() {
     receiveAck()
     displayNewAck()
   } else if (
-    dynamicServerState.at(-1).congWin > dynamicServerState.at(-1).unacked
+    getLastElem(dynamicServerState).congWin > getLastElem(dynamicServerState).unacked
   ) {
     sendNewSegment()
     displayNewSegment()
@@ -21,9 +21,9 @@ function sendSlowStart() {
 }
 
 function receiveAck() {
-  const newAck = dynamicPendingAcks.at(-1)
-  const congWin = dynamicServerState.at(-1).congWin
-  const unacked = dynamicServerState.at(-1).unacked
+  const newAck = getLastElem(dynamicPendingAcks)
+  const congWin = getLastElem(dynamicServerState).congWin
+  const unacked = getLastElem(dynamicServerState).unacked
   dynamicClientsidePackets.push(newAck)
   setClock(newAck.endMS)
   setServerState({
@@ -33,25 +33,25 @@ function receiveAck() {
 }
 
 function setClock(time) {
-  const newEntry = { ...dynamicServerState.at(-1) }
+  const newEntry = { ...getLastElem(dynamicServerState) }
   newEntry.clockMS = time
   dynamicServerState.push(newEntry)
 }
 
 function isPendingAck() {
   if (dynamicPendingAcks.length == 0) return false
-  const timeNextAck = dynamicPendingAcks.at(-1).endMS
-  return timeNextAck == dynamicServerState.at(-1).clockMS
+  const timeNextAck = getLastElem(dynamicPendingAcks).endMS
+  return timeNextAck == getLastElem(dynamicServerState).clockMS
 }
 
 function sendNewSegment() {
-  const now = dynamicServerState.at(-1).clockMS
-  const seqSizeByte = dynamicSettings.at(-1).seqSizeByte
-  const seqNum = dynamicServerState.at(-1).seqNum
-  const roundTripTimeMS = dynamicSettings.at(-1).roundTripTimeMS
-  const transrateKBytePerSecond = dynamicSettings.at(-1).transrateKBytePerSecond
+  const now = getLastElem(dynamicServerState).clockMS
+  const seqSizeByte = getLastElem(dynamicSettings).seqSizeByte
+  const seqNum = getLastElem(dynamicServerState).seqNum
+  const roundTripTimeMS = getLastElem(dynamicSettings).roundTripTimeMS
+  const transrateKBytePerSecond = getLastElem(dynamicSettings).transrateKBytePerSecond
   const delayMs = seqSizeByte / transrateKBytePerSecond + roundTripTimeMS / 2
-  const unacked = dynamicServerState.at(-1).unacked
+  const unacked = getLastElem(dynamicServerState).unacked
 
   const newSegment = {
     startMS: now,

@@ -35,3 +35,7 @@ const dynamicServersidePackets = []
 const dynamicClientsidePackets = []
 const dynamicPendingAcks = []
 const dynamicMetaPackets = []
+
+const getLastElem = (array) => {
+  return array.at(-1)
+}

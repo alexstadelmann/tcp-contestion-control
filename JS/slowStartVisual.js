@@ -1,9 +1,9 @@
 function displayNewSegment() {
-  const start = dynamicServersidePackets.at(-1).startMS / SMALL_FACTOR
-  const end = dynamicServersidePackets.at(-1).endMS / SMALL_FACTOR
-  const ratio = dynamicSettings.at(-1).ratio1pxToMS
-  const roundTripTimeMS = dynamicSettings.at(-1).roundTripTimeMS / SMALL_FACTOR
-  const seqNum = dynamicServersidePackets.at(-1).seqNum
+  const start = getLastElem(dynamicServersidePackets).startMS / SMALL_FACTOR
+  const end = getLastElem(dynamicServersidePackets).endMS / SMALL_FACTOR
+  const ratio = getLastElem(dynamicSettings).ratio1pxToMS
+  const roundTripTimeMS = getLastElem(dynamicSettings).roundTripTimeMS / SMALL_FACTOR
+  const seqNum = getLastElem(dynamicServersidePackets).seqNum
   const viewBoxHeight =
     document.querySelector('#mainSvg').viewBox.baseVal.height
 
@@ -51,8 +51,8 @@ function displayNewAck() {
   const newAck = dynamicPendingAcks.pop()
   const start = newAck.startMS / SMALL_FACTOR
   const end = newAck.endMS / SMALL_FACTOR
-  const ratio = dynamicSettings.at(-1).ratio1pxToMS
-  const roundTripTimeMS = dynamicSettings.at(-1).roundTripTimeMS / SMALL_FACTOR
+  const ratio = getLastElem(dynamicSettings).ratio1pxToMS
+  const roundTripTimeMS = getLastElem(dynamicSettings).roundTripTimeMS / SMALL_FACTOR
   const newPacket = document.createElementNS(NAME_SPACE_URI, 'path')
   newPacket.setAttribute('stroke', 'black')
   newPacket.setAttribute('stroke-width', '0.05')
