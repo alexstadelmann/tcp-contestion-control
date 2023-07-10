@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", () => {
 })
 
 function establishTcp() {
-  console.log(dynamicServerState.at(-1))
   const tcpState = dynamicServerState.at(-1).tcpState 
   
   switch (tcpState) {
@@ -66,7 +65,6 @@ function clientSendSYN() {
     ackNum: 0,
   }
 
-  console.log("Client:", newEntry)
   dynamicMetaPackets.push(newEntry)
   addToClockMs(roundTripTimeMS / 2)
 }

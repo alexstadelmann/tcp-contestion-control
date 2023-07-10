@@ -24,5 +24,4 @@ const dynamicServersidePackets = []
 const dynamicClientsidePackets = []
 const dynamicPendingAcks = []
 const dynamicMetaPackets = []
-console.log("client", dynamicClientsidePackets)
-console.log("server", dynamicServersidePackets)
+

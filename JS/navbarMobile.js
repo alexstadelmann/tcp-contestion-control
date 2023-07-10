@@ -9,7 +9,6 @@ document.addEventListener("DOMContentLoaded", () => {
     congTab: "congwinSpace"
   }
   document.querySelectorAll('.tab').forEach((tab) => {
-    console.log(tab)
     tab.addEventListener("click", () => displayTab(spaceByTabId[tab.id]))
   })
 })

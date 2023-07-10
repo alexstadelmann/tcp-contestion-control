@@ -7,7 +7,6 @@ function displayNewSegment() {
   const roundTripTimeMS = dynamicSettings.at(-1).roundTripTimeMS /SMALL_FACTOR
   const seqNum = dynamicServersidePackets.at(-1).seqNum
   const viewBoxHeight = document.querySelector('#mainSvg').viewBox.baseVal.height
-  console.log(viewBoxHeight)
   
   if(end > viewBoxHeight) {
     const mainSvg = document.querySelector('#mainSvg')

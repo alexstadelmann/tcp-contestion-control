@@ -64,7 +64,6 @@ const langDictionary = {
 document.addEventListener("DOMContentLoaded", () => {
 
   document.querySelector("#changeLang").addEventListener("change", (event) => {
-    console.log(event)
     const newValue = event.target.value
     setLang(newValue)
   
@@ -73,7 +72,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function setLang(lang) {
   document.querySelectorAll(".lang").forEach((elem) => {
-    console.log(langDictionary[elem.id][lang])
     elem.innerHTML = langDictionary[elem.id][lang]
   })
 }

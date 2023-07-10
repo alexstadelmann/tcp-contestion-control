@@ -25,7 +25,6 @@ function receiveAck() {
   const congWin = dynamicServerState.at(-1).congWin
   const unacked = dynamicServerState.at(-1).unacked
   dynamicClientsidePackets.push(newAck)
-  console.log(newAck)
   setClock(newAck.endMS)
   setServerState({
     'congWin': congWin + 1,
