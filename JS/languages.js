@@ -2,19 +2,15 @@
 
 // use templates and meaningful variable names instead of ids
 const langDictionary = {
-  text0: {
+  textTcpCongestionControl: {
     en: "TCP-Congestion-Control",
     de: "TCP Staukontrolle",
   },
-  text1: {
-    en: "TCP version:",
-    de: "TCP Version:",
-  },
-  text3: {
+  textRoundTripDelay: {
     en: "Round Trip Delay in ms:",
     de: "Round Trip Delay in ms:",
   },
-  text4: {
+  textTransmissionRate: {
     en: "Transmission Rate in kByte/s:",
     de: "Übertragungsrate in kByte/s:",
   },
@@ -30,27 +26,27 @@ const langDictionary = {
     en: "Congestion Window",
     de: "Staufenster",
   },
-  text8: {
+  textCongestionControlAlg: {
     en: "Congestion Control Algorithm",
     de: "Algorithmus für Staukontrolle",
   },
-  text9: {
+  textSegmentSize: {
     en: "Segment Size in Byte",
     de: "Segmentgröße in Byte",
   },
-  text10: {
+  textInitialThreshold: {
     en: "Initial Threshold",
     de: "Initialer Threshold",
   },
-  text11: {
+  textEnglish: {
     en: "English",
     de: "Englisch",
   },
-  text12: {
+  textGerman: {
     en: "German",
     de: "Deutsch",
   },
-  text13: {
+  textLanguage: {
     en: "Language",
     de: "Sprache",
   },
