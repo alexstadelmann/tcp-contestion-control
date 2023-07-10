@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
 })
 
 function switchDropdownDesktop() {
-  const dropdownElement = document.getElementById("dropdownSpace")
+  const dropdownElement = document.querySelector("#dropdownSpace")
   dropdownElement.style.display = dropdownElement.style.display == "block"
     ? "none"
     : "block"

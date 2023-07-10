@@ -6,14 +6,14 @@ function displayNewSegment() {
   const ratio = dynamicSettings.at(-1).ratio1pxToMS
   const roundTripTimeMS = dynamicSettings.at(-1).roundTripTimeMS /SMALL_FACTOR
   const seqNum = dynamicServersidePackets.at(-1).seqNum
-  const viewBoxHeight = document.getElementById('mainSvg').viewBox.baseVal.height
+  const viewBoxHeight = document.querySelector('#mainSvg').viewBox.baseVal.height
   console.log(viewBoxHeight)
   
   if(end > viewBoxHeight) {
-    const mainSvg = document.getElementById('mainSvg')
+    const mainSvg = document.querySelector('#mainSvg')
     mainSvg.style.height = (viewBoxHeight + roundTripTimeMS) + '%'
     mainSvg.viewBox.baseVal.height = viewBoxHeight + roundTripTimeMS
-    document.getElementById('lines').scrollTop = document.getElementById('lines').scrollHeight
+    document.querySelector('#lines').scrollTop = document.querySelector('#lines').scrollHeight
 
   }
 
