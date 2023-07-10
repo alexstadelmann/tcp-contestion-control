@@ -62,20 +62,19 @@ const langDictionary = {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll("form.string").forEach((form) => {
-    form.addEventListener("change", () => {
-      const newValue = form.elements.option.value
-      setLang(newValue)
-    })
+
+  document.querySelector("#changeLang").addEventListener("change", (event) => {
+    console.log(event)
+    const newValue = event.target.value
+    setLang(newValue)
+  
   })
 })
 
 function setLang(lang) {
-  document.getElementsByClassName("lang").forEach((elem) => {
+  document.querySelectorAll(".lang").forEach((elem) => {
+    console.log(langDictionary[elem.id][lang])
     elem.innerHTML = langDictionary[elem.id][lang]
   })
 }
 
-// instead of having comments that explain implementation details, use functions with meaningful names
-// obj.innerHTML = dict[obj.id]['de'];
-// // Change language to german
