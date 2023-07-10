@@ -1,30 +1,41 @@
-const initial_session_state ={
-  timer: 0,
+const algorithms = {
+  SLOW_START: 'SLOW-START',
 }
 
-const initial_server_state = {
-  tcp_state: 'CLOSED',
-  cc_state: 'SLOW_START',
-  seq_num: 0,
+const flags = {
+  SYN: 'SYN',
+  ACK: 'ACK',
+  SYN_ACK: 'SYN-ACK'
+}
+
+const agents = {
+  CLIENT: 'CLIENT',
+  SERVER: 'SERVER',
+}
+
+const tcpState = {
+  CLOSED: 'CLOSED',
+  LISTEN: 'LISTEN',
+  SYN_RECEIVED: 'SYN-RECEIVED',
+  ESTABLISHED: 'ESTABLISHED',
+}
+
+const initialServerState = {
+  tcpState: tcpState.CLOSED,
+  ccState: algorithms.SLOW_START,
+  seqNum: 0,
   unacked: 0,
-  threshold: 5, 
+  threshold: 5,
+  congWin: 0,
+  clockMS: 0,
 }
 
-const initial_client_state ={
-  tcp_state: 'CLOSED',
-  send_ack: 0,
+const dynamicServerState = [initialServerState]
+const dynamicServersidePackets = []
+const dynamicClientsidePackets = []
+const dynamicPendingAcks = []
+const dynamicMetaPackets = []
 
+const getLastElem = (array) => {
+  return array.at(-1)
 }
-
-
-
-const dynamic_server_state = [{...initial_server_state}]
-const dynamic_client_state = [{...initial_client_state}]
-const dynamic_session_state =[{...initial_session_state}]
-const dynamic_serverside_packets =[]
-const dynamic_clientside_packets =[]
-console.log('client',dynamic_clientside_packets)
-console.log('server',dynamic_serverside_packets)
-document.addEventListener('DOMContentLoaded', () => {
-
-})

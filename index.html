@@ -1,149 +1,143 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
   <head>
     <title>TCP-Congestion-Control</title>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="./Style/CSS/mobile.css" />
-    <link rel="stylesheet" href="./Style/CSS/desktop.css" />
+    <meta charset='utf-8'/>
+    <link rel='stylesheet' href='./Style/CSS/mobile.css' />
+    <link rel='stylesheet' href='./Style/CSS/desktop.css' />
     <link rel='stylesheet' href='./Style/CSS/canvas.css' />
-    <script src='JS/navbar_mobile.js'></script>
-    <script src='JS/dropdown_mobile.js'></script>
-    <script src='JS/dropdown_desktop.js'></script>
+    <script src='JS/navbarMobile.js'></script>
+    <script src='JS/dropdownMobile.js'></script>
+    <script src='JS/dropdownDesktop.js'></script>
     <script src='JS/settings.js'></script>
     <script src='JS/languages.js'></script>
     <script src='JS/session.js'></script>
-    <script src='JS/data_panel.js'></script>
-    <script src='JS/tcp_meta.js'></script>
+    <script src='JS/dataPanel.js'></script>
+    <script src='JS/metaData.js'></script>
+    <script src='JS/slowStartData.js'></script>
+    <script src='JS/slowStartVisual.js'></script>
+    <script src='JS/metaVisual.js'></script>
   </head>
   <body>
     <header>
-      <h1 id='text0' class='lang'>TCP Congestion Control</h1>
-      <menu id='dropdown_menu'>
-        <span id='mobile_menu'>&#8801</span>
-        <span id='desktop_menu' class='lang'>Configuration</span>
+      <h1 id='textTcpCongestionControl' class='lang'>TCP Congestion Control</h1>
+      <form>
+        <span>Clock in ms:</span>
+        <input type='number' id='clockMS' value='0' class='data'>
+      </form>
+      <menu id='dropdownMenu'>
+        <span id='mobileMenu'>&#8801</span>
+        <span id='desktopMenu' class='lang'>Configuration</span>
       </menu>
     </header>
-    
     <main>
-      <section id='dropdown_space' class='visual'>
-        <div id='dropdown_content'>
+      <section id='dropdownSpace' class='visual'>
+        <div id='dropdownContent'>
           <form id='version' class='string'>
             <fieldset>
-              <legend class='lang' id='text8'>Congestion Control Algorithm</legend>
-              <input type="radio" id="tahoe" name="option" value='Tahoe' checked>
+              <legend class='lang' id='textCongestionControlAlg'>Congestion Control Algorithm</legend>
+              <input type='radio' id='tahoe' name='option' value='Tahoe' checked>
               <label for='tahoe'>Tahoe</label><br>
-            
-              <input type="radio" id="reno" name="option" value="Reno">
+              <input type='radio' id='reno' name='option' value='Reno'>
               <label for='reno'>Reno</label><br>
-              
             </fieldset>
           </form>
-          <form id='rtt_ms' class='numeric'>
+          <form id='roundTripTimeMS' class='numeric'>
             <fieldset>
-              <legend class='lang' id='text3'>Round Trip Delay in ms</legend>
+              <legend class='lang' id='textRoundTripDelay'>Round Trip Delay in ms</legend>
               <input type='number' value='200'>
-              
             </fieldset>
           </form>
-          <form id='segsize_byte' class='numeric'>
+          <form id='seqSizeByte' class='numeric'>
             <fieldset>
-              <legend class='lang' id='text9'>Segment Size in Byte</legend>
+              <legend class='lang' id='textSegmentSize'>Segment Size in Byte</legend>
               <input type='number' value='500'>
             </fieldset>
           </form>
-          <form id='initial_threshold' class='numeric'>
+          <form id='initialThreshold' class='numeric'>
             <fieldset>
-              <legend class='lang' id='text10'>Initial Threshhold</legend>
+              <legend class='lang' id='textInitialThreshold'>Initial Threshhold</legend>
               <input type='number' value='10'>
             </fieldset>
           </form>
-          <form id='transrate_kbyte_per_second' class='numeric'>
+          <form id='transrateKBytePerSecond' class='numeric'>
             <fieldset>
-              <legend class='lang' id='text4'>Transmission Rate in kByte/s</legend>
+              <legend class='lang' id='textTransmissionRate'>Transmission Rate in kByte/s</legend>
               <input type='number' value='20'>
             </fieldset>
           </form>
-          <form id='lang' class='string'>
+          <form id='changeLang' >
             <fieldset>
-              <legend class='lang' id='text13'>Language</legend>
+              <legend class='lang' id='textLanguage'>Language</legend>
               <input type='radio' id='english' name='option' value='en' checked>
-              <label for='english' class='lang' id='text11'>English</label><br>
+              <label for='english' class='lang' id='textEnglish'>English</label><br>
               <input type='radio' id='german' name='option' value='de'>
-              <label for='german' class='lang' id='text12'>German</label><br>
+              <label for='german' class='lang' id='textGerman'>German</label><br>
             </fieldset>
-            
           </form>
-         
         </div>
       </section>
-      <section id="data_space" class='visual'>
-        <div id='data_content'>
-          <form id='tcp_state_form'>
-            
-              <span>TCP State: </span>
-              <input type='text' value='CLOSED' id='tcp_state' class='data'>
-            
+      <section id='dataSpace' class='visual'>
+        <div id='dataContent'>
+          <form id='tcpStateForm'>
+            <span>TCP State: </span>
+            <input type='text' value='CLOSED' id='tcpState' class='data'>
           </form>
-          <form id='cc_state'>
-              <span>CC State</span>
-              <input type='text' value='SLOW_START' id='cc_state' class='data'>
+          <form id='ccState'>
+            <span>CC State</span>
+            <input type='text' value='SLOW-START' id='ccState' class='data'>
           </form>
           <form id='thresh'>
-              <span>Threshold</span>
-              <input type='number' value='5' id='threshold' class='data'>
+            <span>Congestion Window</span>
+            <input type='number' value='0' id='congWin' class='data'>
           </form>
           <form id='unack'>
-              <span>Unacknowleged</span>
-              <input type='number' value='0' id='unacked' class='data'>
+            <span>Unacknowleged</span>
+            <input type='number' value='0' id='unacked' class='data'>
           </form> 
           <form id='press'>
-              <input type='button' value='Send' id='send'>
-              <input type='button' value='Loss'>
-              <input type='button' value='Start' id='TCP_message'>
-              <input type='button' value='End' id='TCP_end'>
+            <input type='button' value='Send' id='send'>
+            <input type='button' value='Loss'>
+            <input type='button' value='Start' id='startButton'>
+            <input type='button' value='End' id='tcpEnd'>
           </form>
-          
-          
-          
         </div>
       </section>
-      <section id="seq_space" class='visual'>
-        <div id='seq_content'>
+      <section id='seqSpace' class='visual'>
+        <div id='seqContent'>
           <div id='canvas'>
             <div id='names'>
-              <svg width='100%' viewbox='0 0 250 28' preserveAspectRatio='none' xmlns="http://www.w3.org/2000/svg">
+              <svg width='100%' viewbox='0 0 250 28' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'>
                 <text x='10' y='25' class='users'>Client</text>
                 <text x='200' y='25' class='users'>Server</text>
-      
               </svg>
-              
             </div>
             <div id='lines'>
-              <svg id='main_svg' height='100%' width='100%' viewbox='0 0 100 100' preserveAspectRatio="none">
-                <line x1='10' y1='0' x2='10' y2='100%' stroke='black' stroke-width='0.3'></line>
-                <line x1='90' y1='0' x2='90' y2='100%' stroke='black' stroke-width='0.3'></line>
-      
+              <svg id='mainSvg' width='100%' height='100%' style='height: 100%' viewbox='0 0 100 100' preserveAspectRatio="none">
+                <line x1='10%' y1='0' x2='10%' y2='100%' stroke='black' stroke-width='0.1'></line>
+                <line x1='90%' y1='0' x2='90%' y2='100%' stroke='black' stroke-width='0.1'></line>
+                <g id='tcpMetaMessages'></g>
               </svg>
             </div>     
           </div>
         </div>  
       </section>
-      <section id="congwin_space"  class='visual'>
-        <div id='congwin_content'>
+      <section id='congwinSpace'  class='visual'>
+        <div id='congwinContent'>
           <h2>Congestion Window Diagram</h2>
         </div>
       </section>
-      <section id="auto_space" class='visual'>
-        <div id='congwin_content'>
+      <section id='autoSpace' class='visual'>
+        <div id='congwinContent'>
           <h2>TCP State Automaton</h2> 
         </div>
       </section>
     </main>
     <nav>
       <ul>
-        <li class='tab lang' id='seq_tab' >Sequence</li>
-        <li class='tab lang' id='auto_tab'>Automaton</li>
-        <li class='tab lang' id='cong_tab'>Congestion Window</li>
+        <li class='tab lang' id='seqTab'>Sequence</li>
+        <li class='tab lang' id='autoTab'>Automaton</li>
+        <li class='tab lang' id='congTab'>Congestion Window</li>
       </ul>
     </nav>
   </body>

@@ -1,1 +1,10 @@
-{"version":3,"sourceRoot":"","sources":["../SASS/canvas.sass"],"names":[],"mappings":"AAGE;EACE;EACA;EACA;EACA;;AACA;EACE,WATQ;;AAUV;EACE;EACA;EACA;;AACA;EACE","file":"canvas.css"}
+{
+  "version": 3,
+  "sourceRoot": "",
+  "sources": [
+    "../SASS/canvas.sass"
+  ],
+  "names": [],
+  "mappings": "AAGE;EACE;EACA;EACA;EACA;;AACA;EACE,WATQ;;AAUV;EACE;EACA;EACA;;AACA;EACE;EACA",
+  "file": "canvas.css"
+}

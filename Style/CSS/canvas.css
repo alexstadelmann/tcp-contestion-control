@@ -12,8 +12,9 @@ div#canvas div#lines {
   width: 100%;
   overflow: scroll;
 }
-div#canvas div#lines svg#main_svg {
-  height: 3000px;
+div#canvas div#lines svg#mainSvg {
+  height: 1000px;
+  overflow: scroll;
 }
 
 /*# sourceMappingURL=canvas.css.map */

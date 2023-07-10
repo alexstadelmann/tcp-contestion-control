@@ -1,86 +1,69 @@
-"use strict"
-
-var lang_dictionary = {
-  text0: {
-    en: "TCP-Congestion-Control",
-    de: "TCP Staukontrolle",
+// use templates and meaningful variable names instead of ids
+const langDictionary = {
+  textTcpCongestionControl: {
+    en: 'TCP-Congestion-Control',
+    de: 'TCP Staukontrolle',
   },
-  text1: {
-    en: "TCP version:",
-    de: "TCP Version:",
+  textRoundTripDelay: {
+    en: 'Round Trip Delay in ms:',
+    de: 'Round Trip Delay in ms:',
   },
-  text3: {
-    en: "Round Trip Delay in ms:",
-    de: "Round Trip Delay in ms:",
+  textTransmissionRate: {
+    en: 'Transmission Rate in kByte/s:',
+    de: 'Übertragungsrate in kByte/s:',
   },
-  text4: {
-    en: "Transmission Rate in kByte/s:",
-    de: "Übertragungsrate in kByte/s:",
+  seqTab: {
+    en: 'Sequence',
+    de: 'Sequenz',
   },
-  seq_tab: {
-    en: "Sequence",
-    de: "Sequenz",
+  autoTab: {
+    en: 'Automaton',
+    de: 'Automat',
   },
-  auto_tab: {
-    en: "Automaton",
-    de: "Automat",
+  congTab: {
+    en: 'Congestion Window',
+    de: 'Staufenster',
   },
-  cong_tab: {
-    en: "Congestion Window",
-    de: "Staufenster",
+  textCongestionControlAlg: {
+    en: 'Congestion Control Algorithm',
+    de: 'Algorithmus für Staukontrolle',
   },
-  text8: {
-    en: "Congestion Control Algorithm",
-    de: "Algorithmus für Staukontrolle",
+  textSegmentSize: {
+    en: 'Segment Size in Byte',
+    de: 'Segmentgröße in Byte',
   },
-  text9: {
-    en: "Segment Size in Byte",
-    de: "Segmentgröße in Byte",
+  textInitialThreshold: {
+    en: 'Initial Threshold',
+    de: 'Initialer Threshold',
   },
-  text10: {
-    en: "Initial Threshold",
-    de: "Initialer Threshold",
+  textEnglish: {
+    en: 'English',
+    de: 'Englisch',
   },
-  text11: {
-    en: "English",
-    de: "Englisch",
+  textGerman: {
+    en: 'German',
+    de: 'Deutsch',
   },
-  text12: {
-    en: "German",
-    de: "Deutsch",
-  },
-  text13: {
-    en: "Language",
-    de: "Sprache",
+  textLanguage: {
+    en: 'Language',
+    de: 'Sprache',
   },
 
-  desktop_menu: {
-    en: "Configuration",
-    de: "Einstellungen",
+  desktopMenu: {
+    en: 'Configuration',
+    de: 'Einstellungen',
   },
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll("form.string").forEach((form) => {
-    form.addEventListener("change", () => {
-      const newValue = form.elements.option.value
-
-      if (newValue == "en") {
-        setLang("en")
-      } else if (newValue == "de") {
-        setLang("de")
-      }
-
-      return false
-    })
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelector('#changeLang').addEventListener('change', (event) => {
+    const newValue = event.target.value
+    setLang(newValue)
   })
 })
 
 function setLang(lang) {
-  document.querySelectorAll(".lang").forEach((elem) => {
-    elem.innerHTML = lang_dictionary[elem.id][lang]
+  document.querySelectorAll('.lang').forEach((elem) => {
+    elem.innerHTML = langDictionary[elem.id][lang]
   })
 }
-
-// obj.innerHTML = dict[obj.id]['de'];
-// // Change language to german

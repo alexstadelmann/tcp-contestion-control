@@ -18,6 +18,7 @@
   $spacing-small: 0.5em
 
   // Font-sizes
+  $font-size-0: 0.15rem
   $font-size-1: 0.5em
   $font-size-2: 1em
   $font-size-3: 1.5em
@@ -61,10 +62,10 @@
           justify-content: center
           align-items: center
 
-          span#mobile_menu
+          span#mobileMenu
             display: block
             font-size: $menu-size
-          span#desktop_menu
+          span#desktopMenu
             display: none
 
       main
@@ -76,14 +77,14 @@
           align-items: center
           display: none
           height: 100%
-          &#dropdown_space
-            div#dropdown_content
+          &#dropdownSpace
+            div#dropdownContent
               height: 100%
               display: grid
               background-color: $background-1
               grid-border: 3px
               grid-template-columns: repeat(2, 1fr)
-              grid-template-rows: 1fr 1fr 1fr
+              grid-template-rows: repeat(3, 1fr)
               form
                 display: flex
                 justify-content: center
@@ -97,29 +98,30 @@
                   input[type='number']
                     font-size: $font-size-5
                     width: 60%
-                    
+
                   input[type='radio']
                     height: 35px
                     width: 35px
-                    
-          &#seq_space
+
+          &#seqSpace
             background-color: $background-2
             height: 80%
             display: block
-            div#seq_content
+            div#seqContent
               display: flex
               height: 100%
-          &#data_space
+              font-size: $font-size-0
+          &#dataSpace
             background-color: $background-3
             height: 20%
             display: block
-            div#data_content
+            div#dataContent
               display: grid
-              
+
               height: 100%
               grid-template-columns: repeat(2, 1fr)
-              grid-template-rows: 1fr 1fr 1fr
-              grid-template-areas: "tcp cc" "thresh unack" "press press"
+              grid-template-rows: repeat(3, 1fr)
+              grid-template-areas: 'tcp cc' 'thresh unack' 'press press'
               form
                 border: solid 1px white
                 display: flex
@@ -127,9 +129,9 @@
                 align-items: center
                 font-size: $font-size-3
 
-                &#tcp_state
+                &#tcpState
                   grid-area: tcp
-                &#cc_state
+                &#ccState
                   grid-area: cc
                 &#thresh
                   grid-area: thresh
@@ -151,17 +153,17 @@
                   width: 80%
                   height: 60%
                   font-size: $font-size-3
-                
-          &#congwin_space
+
+          &#congwinSpace
             height: 80%
             background-color: $background-4
-            div#congwin_content
+            div#congwinContent
               display: flex
               height: 100%
-          &#auto_space
+          &#autoSpace
             height: 80%
             background-color: $background-5
-            div#auto_content
+            div#autoContent
               display: flex
               height: 100%
       nav
