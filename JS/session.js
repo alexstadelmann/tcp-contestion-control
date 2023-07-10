@@ -1,10 +1,7 @@
-"use strict"
-// need of use strict
-
 // property naming convension
 const initialServerState = {
-  tcpState: "CLOSED", // reuse of state keywords
-  ccState: "SLOW-START",
+  tcpState: 'CLOSED', // reuse of state keywords
+  ccState: 'SLOW-START',
   seqNum: 0,
   unacked: 0,
   threshold: 5,
@@ -12,8 +9,8 @@ const initialServerState = {
   clockMS: 0,
 }
 
-const initialClientState ={
-  tcpState: "CLOSED",
+const initialClientState = {
+  tcpState: 'CLOSED',
   sendAck: 0,
 }
 
@@ -24,4 +21,3 @@ const dynamicServersidePackets = []
 const dynamicClientsidePackets = []
 const dynamicPendingAcks = []
 const dynamicMetaPackets = []
-

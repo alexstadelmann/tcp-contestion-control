@@ -1,5 +1,3 @@
-
-
 function updateDataPanel() {
   // using classes for business logic
   document.querySelectorAll('.data').forEach((elem) => {

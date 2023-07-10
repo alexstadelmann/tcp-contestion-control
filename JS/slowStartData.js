@@ -1,7 +1,5 @@
-"use strict"
-
-document.addEventListener("DOMContentLoaded", () => {
-  document.querySelector("#send").addEventListener("click", sendSlowStart)
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelector('#send').addEventListener('click', sendSlowStart)
 })
 
 function sendSlowStart() {
@@ -9,7 +7,9 @@ function sendSlowStart() {
   if (isPendingAck()) {
     receiveAck()
     displayNewAck()
-  } else if (dynamicServerState.at(-1).congWin > dynamicServerState.at(-1).unacked) {
+  } else if (
+    dynamicServerState.at(-1).congWin > dynamicServerState.at(-1).unacked
+  ) {
     sendNewSegment()
     displayNewSegment()
   } else {
@@ -27,13 +27,13 @@ function receiveAck() {
   dynamicClientsidePackets.push(newAck)
   setClock(newAck.endMS)
   setServerState({
-    'congWin': congWin + 1,
-    'unacked': unacked - 1
+    congWin: congWin + 1,
+    unacked: unacked - 1,
   })
 }
 
 function setClock(time) {
-  const newEntry = {...dynamicServerState.at(-1)}
+  const newEntry = { ...dynamicServerState.at(-1) }
   newEntry.clockMS = time
   dynamicServerState.push(newEntry)
 }
@@ -50,7 +50,7 @@ function sendNewSegment() {
   const seqNum = dynamicServerState.at(-1).seqNum
   const roundTripTimeMS = dynamicSettings.at(-1).roundTripTimeMS
   const transrateKBytePerSecond = dynamicSettings.at(-1).transrateKBytePerSecond
-  const delayMs = (seqSizeByte / transrateKBytePerSecond) + (roundTripTimeMS/2)
+  const delayMs = seqSizeByte / transrateKBytePerSecond + roundTripTimeMS / 2
   const unacked = dynamicServerState.at(-1).unacked
 
   const newSegment = {
@@ -62,15 +62,15 @@ function sendNewSegment() {
   dynamicServersidePackets.push(newSegment)
   addToClockMs(seqSizeByte / transrateKBytePerSecond)
   setServerState({
-    "seqNum": seqNum + seqSizeByte,
-    "unacked": unacked + 1
+    seqNum: seqNum + seqSizeByte,
+    unacked: unacked + 1,
   })
 
   //Create the acknowlegement for the new segment
   const newAck = {
     startMS: newSegment.endMS,
     endMS: newSegment.endMS + roundTripTimeMS / 2,
-    ackNum: seqNum + seqSizeByte
+    ackNum: seqNum + seqSizeByte,
   }
 
   dynamicPendingAcks.unshift(newAck)
