@@ -3,9 +3,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   if (!window.matchMedia("(min-width: 1000px)").matches) return
 
-  document.querySelector("#dropdownMenu").addEventListener("click", () => {
-    switchDropdownDesktop()
-  })
+  document.querySelector("#dropdownMenu").addEventListener("click", switchDropdownDesktop)
 })
 
 function switchDropdownDesktop() {

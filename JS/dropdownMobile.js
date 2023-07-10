@@ -3,9 +3,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   if (!window.matchMedia("(max-width: 999px)").matches) return
   
-  document.querySelector("#dropdownMenu").addEventListener("click", () => {
-    switchDropdownMobile()
-  })
+  document.querySelector("#dropdownMenu").addEventListener("click", switchDropdownMobile)
 })
 
 function switchDropdownMobile() {
