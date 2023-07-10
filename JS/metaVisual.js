@@ -10,7 +10,7 @@ function updateSeqDiagramMeta() {
   const start = dynamicMetaPackets.at(-1).startMS / SMALL_FACTOR
   const end = dynamicMetaPackets.at(-1).endMS / SMALL_FACTOR
   const flag = dynamicMetaPackets.at(-1).flag
-  if (sender == 'client') {
+  if (sender == agents.CLIENT) {
     tcpMetaSegmentClientToServer(start, end, flag)
   } else {
     tcpMetaSegmentServerToClient(start, end, flag)

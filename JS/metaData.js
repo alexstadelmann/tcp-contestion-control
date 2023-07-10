@@ -1,22 +1,24 @@
+
+
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelector('#tcpMessage').addEventListener('click', establishTcp)
 })
 
 function establishTcp() {
-  const tcpState = dynamicServerState.at(-1).tcpState
+  const currentTcpState = dynamicServerState.at(-1).tcpState
 
-  switch (tcpState) {
-    case 'CLOSED':
-      setServerState({ tcpState: 'LISTEN' })
+  switch (currentTcpState) {
+    case tcpState.CLOSED:
+      setServerState({ tcpState: tcpState.LISTEN })
       break
 
-    case 'LISTEN':
+    case tcpState.LISTEN:
       clientSendSYN()
       //Server receives SYN
-      setServerState({ tcpState: 'SYN-RECEIVED' })
+      setServerState({ tcpState: tcpState.SYN_RECEIVED })
       break
 
-    case 'SYN-RECEIVED':
+    case tcpState.SYN_RECEIVED:
       if (dynamicServerState.at(-1).unacked === 0) {
         serverSendSYNACK()
         setServerState({
@@ -26,7 +28,7 @@ function establishTcp() {
       } else {
         clientSendACK()
         setServerState({
-          tcpState: 'ESTABLISHED',
+          tcpState: tcpState.ESTABLISHED,
           unacked: 0,
           congWin: 1,
         })
@@ -56,8 +58,8 @@ function clientSendSYN() {
   const roundTripTimeMS = dynamicSettings.at(-1).roundTripTimeMS
 
   const newEntry = {
-    sender: 'client',
-    flag: 'SYN',
+    sender: agents.CLIENT,
+    flag: flags.SYN,
     startMS: now,
     endMS: now + roundTripTimeMS / 2,
     ackNum: 0,
@@ -75,8 +77,8 @@ function serverSendSYNACK() {
   const now = dynamicServerState.at(-1).clockMS
   const roundTripTimeMS = dynamicSettings.at(-1).roundTripTimeMS
   const newEntry = {
-    sender: 'server',
-    flag: 'SYN-ACK',
+    sender: agents.SERVER,
+    flag: flags.SYN_ACK,
     startMS: now,
     endMS: now + roundTripTimeMS / 2,
     ackNum: 1,
@@ -90,8 +92,8 @@ function clientSendACK() {
   const now = dynamicServerState.at(-1).clockMS
   const roundTripTimeMS = dynamicSettings.at(-1).roundTripTimeMS
   const newEntry = {
-    sender: 'client',
-    flag: 'ACK',
+    sender: agents.CLIENT,
+    flag: flags.ACK,
     startMS: now,
     endMS: now + roundTripTimeMS / 2,
     ackNum: 1,
