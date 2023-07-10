@@ -38,8 +38,8 @@ function establishTcp() {
       }
       break
   }
-
-  notify()
+  updateSeqDiagramMeta()
+  updateDataPanel()
 }
 
 const deactivateStartButton = () => {
@@ -59,11 +59,6 @@ function setServerState(arrayKeyValuePairs) {
   }
 
   dynamicServerState.push(newEntry)
-}
-
-function notify() {
-  updateDataPanel()
-  updateSeqDiagramMeta()
 }
 
 function clientSendSYN() {

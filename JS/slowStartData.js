@@ -17,7 +17,7 @@ function sendSlowStart() {
     displayNewAck()
   }
 
-  notify()
+  updateDataPanel()
 }
 
 function receiveAck() {

@@ -8,20 +8,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function switchDropdownMobile() {
   if (document.querySelector('#dropdownSpace').style.display == 'block') {
-    document.getElementsByClassName('visual').forEach((elem) => {
+    document.querySelectorAll('.visual').forEach((elem) => {
       elem.style.display =
         elem.id == 'seqSpace' || elem.id == 'dataSpace' ? 'block' : 'none'
     })
 
-    document.getElementsByClassName('tab').forEach((tab) => {
+    document.querySelectorAll('.tab').forEach((tab) => {
       tab.style['pointer-events'] = 'auto'
     })
   } else {
-    document.getElementsByClassName('visual').forEach((elem) => {
+    document.querySelectorAll('.visual').forEach((elem) => {
       elem.style.display = elem.id == 'dropdownSpace' ? 'block' : 'none'
     })
 
-    document.getElementsByClassName('tab').forEach((tab) => {
+    document.querySelectorAll('.tab').forEach((tab) => {
       tab.style['pointer-events'] = 'none'
     })
   }
