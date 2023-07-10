@@ -9,7 +9,7 @@ function sendSlowStart() {
   if (isPendingAck()) {
     receiveAck()
     displayNewAck()
-  } else if (dynamicServerState.at(-1).cong_win > dynamicServerState.at(-1).unacked) {
+  } else if (dynamicServerState.at(-1).congWin > dynamicServerState.at(-1).unacked) {
     sendNewSegment()
     displayNewSegment()
   } else {
@@ -22,56 +22,56 @@ function sendSlowStart() {
 
 function receiveAck() {
   const newAck = dynamicPendingAcks.at(-1)
-  const cong_win = dynamicServerState.at(-1).cong_win
+  const congWin = dynamicServerState.at(-1).congWin
   const unacked = dynamicServerState.at(-1).unacked
   dynamicClientsidePackets.push(newAck)
   console.log(newAck)
-  setClock(newAck.end_ms)
+  setClock(newAck.endMS)
   setServerState({
-    'cong_win': cong_win + 1,
+    'congWin': congWin + 1,
     'unacked': unacked - 1
   })
 }
 
 function setClock(time) {
   const newEntry = {...dynamicServerState.at(-1)}
-  newEntry.clock_ms = time
+  newEntry.clockMS = time
   dynamicServerState.push(newEntry)
 }
 
 function isPendingAck() {
   if (dynamicPendingAcks.length == 0) return false
-  const timeNextAck = dynamicPendingAcks.at(-1).end_ms
-  return timeNextAck == dynamicServerState.at(-1).clock_ms
+  const timeNextAck = dynamicPendingAcks.at(-1).endMS
+  return timeNextAck == dynamicServerState.at(-1).clockMS
 }
 
 function sendNewSegment() {
-  const now = dynamicServerState.at(-1).clock_ms
-  const seqsize_byte = dynamicSettings.at(-1).seqsize_byte
-  const seq_num = dynamicServerState.at(-1).seq_num
-  const rtt_ms = dynamicSettings.at(-1).rtt_ms
-  const transrate_kbyte_per_second = dynamicSettings.at(-1).transrate_kbyte_per_second
-  const delay_ms = (seqsize_byte / transrate_kbyte_per_second) + (rtt_ms/2)
+  const now = dynamicServerState.at(-1).clockMS
+  const seqSizeByte = dynamicSettings.at(-1).seqSizeByte
+  const seqNum = dynamicServerState.at(-1).seqNum
+  const roundTripTimeMS = dynamicSettings.at(-1).roundTripTimeMS
+  const transrateKBytePerSecond = dynamicSettings.at(-1).transrateKBytePerSecond
+  const delayMs = (seqSizeByte / transrateKBytePerSecond) + (roundTripTimeMS/2)
   const unacked = dynamicServerState.at(-1).unacked
 
   const newSegment = {
-    start_ms: now,
-    end_ms: now + delay_ms,
-    sequence_number: seq_num,
+    startMS: now,
+    endMS: now + delayMs,
+    seqNum: seqNum,
   }
 
   dynamicServersidePackets.push(newSegment)
-  addToClockMs(seqsize_byte / transrate_kbyte_per_second)
+  addToClockMs(seqSizeByte / transrateKBytePerSecond)
   setServerState({
-    "seq_num": seq_num + seqsize_byte,
+    "seqNum": seqNum + seqSizeByte,
     "unacked": unacked + 1
   })
 
   //Create the acknowlegement for the new segment
   const newAck = {
-    start_ms: newSegment.end_ms,
-    end_ms: newSegment.end_ms + rtt_ms / 2,
-    ack_num: seq_num + seqsize_byte
+    startMS: newSegment.endMS,
+    endMS: newSegment.endMS + roundTripTimeMS / 2,
+    ackNum: seqNum + seqSizeByte
   }
 
   dynamicPendingAcks.unshift(newAck)

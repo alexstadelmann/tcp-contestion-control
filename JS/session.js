@@ -3,18 +3,18 @@
 
 // property naming convension
 const initialServerState = {
-  tcp_state: "CLOSED", // reuse of state keywords
-  cc_state: "SLOW_START",
-  seq_num: 0,
+  tcpState: "CLOSED", // reuse of state keywords
+  ccState: "SLOW-START",
+  seqNum: 0,
   unacked: 0,
   threshold: 5,
-  cong_win: 0,
-  clock_ms: 0,
+  congWin: 0,
+  clockMS: 0,
 }
 
 const initialClientState ={
-  tcp_state: "CLOSED",
-  send_ack: 0,
+  tcpState: "CLOSED",
+  sendAck: 0,
 }
 
 const dynamicServerState = [initialServerState]

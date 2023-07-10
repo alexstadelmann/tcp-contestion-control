@@ -3,12 +3,12 @@
 // property naming convension
 const basicSettings = {
   version: "tahoe",
-  rtt_ms: 200,
-  seqsize_byte: 500,
-  transrate_kbyte_per_second: 20,
-  initial_threshold: 10,
+  roundTripTimeMS: 200,
+  seqSizeByte: 500,
+  transrateKBytePerSecond: 20,
+  initialThreshold: 10,
   lang: "en",
-  ratio1px_ms: 1,
+  ratio1pxToMS: 1,
 }
 
 const dynamicSettings = [{...basicSettings}]

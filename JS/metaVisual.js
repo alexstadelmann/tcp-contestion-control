@@ -5,23 +5,23 @@
 const SMALL_FACTOR = 10
 const NAME_SPACE_URI = "http://www.w3.org/2000/svg"
 
-function update_seq_diagram_meta() {
+function updateSeqDiagramMeta() {
   if (dynamicMetaPackets.length == 0) return
 
   const sender = dynamicMetaPackets.at(-1).sender
-  const start = dynamicMetaPackets.at(-1).start_ms / SMALL_FACTOR
-  const end= dynamicMetaPackets.at(-1).end_ms / SMALL_FACTOR
+  const start = dynamicMetaPackets.at(-1).startMS / SMALL_FACTOR
+  const end= dynamicMetaPackets.at(-1).endMS / SMALL_FACTOR
   const flag = dynamicMetaPackets.at(-1).flag
   if (sender == "client") {
-    TCPMetaSegmentClientToServer(start, end, flag)
+    tcpMetaSegmentClientToServer(start, end, flag)
   } else {
-    TCPMetaSegmentServerToClient(start, end, flag)
+    tcpMetaSegmentServerToClient(start, end, flag)
   }
 }
 
-function TCPMetaSegmentClientToServer(start, end, flag) {
+function tcpMetaSegmentClientToServer(start, end, flag) {
   if (dynamicMetaPackets.length == 0) {return}
-  const ratio = dynamicSettings.at(-1).ratio1px_ms
+  const ratio = dynamicSettings.at(-1).ratio1pxToMS
   
   const newPacket = document.createElementNS(NAME_SPACE_URI, 'path')
   newPacket.setAttribute('stroke', 'black')
@@ -37,12 +37,12 @@ function TCPMetaSegmentClientToServer(start, end, flag) {
   const newPacketText = document.createElementNS(NAME_SPACE_URI, 'text')
   newPacketText.append(newPacketTextPath)
 
-  document.querySelector('#tcp_meta_messages').append(newPacket)
-  document.querySelector('#tcp_meta_messages').append(newPacketText)
+  document.querySelector('#tcpMetaMessages').append(newPacket)
+  document.querySelector('#tcpMetaMessages').append(newPacketText)
 } 
 
-function TCPMetaSegmentServerToClient(start, end, flag) {
-  const ratio = dynamicSettings.at(-1).ratio1px_ms
+function tcpMetaSegmentServerToClient(start, end, flag) {
+  const ratio = dynamicSettings.at(-1).ratio1pxToMS
   const newPacket = document.createElementNS(NAME_SPACE_URI, 'path')
   newPacket.setAttribute('d', 'M10 ' + end * ratio + 'L90 ' + start * ratio)
   newPacket.setAttribute('stroke', 'black')
@@ -57,6 +57,6 @@ function TCPMetaSegmentServerToClient(start, end, flag) {
   const newPacketText = document.createElementNS(NAME_SPACE_URI, 'text')
   newPacketText.append(newPacketTextPath)
 
-  document.querySelector('#tcp_meta_messages').append(newPacket)
-  document.querySelector('#tcp_meta_messages').append(newPacketText)
+  document.querySelector('#tcpMetaMessages').append(newPacket)
+  document.querySelector('#tcpMetaMessages').append(newPacketText)
 } 

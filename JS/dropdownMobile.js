@@ -3,15 +3,15 @@
 document.addEventListener("DOMContentLoaded", () => {
   if (!window.matchMedia("(max-width: 999px)").matches) return
   
-  document.querySelector("#dropdown_menu").addEventListener("click", () => {
+  document.querySelector("#dropdownMenu").addEventListener("click", () => {
     switchDropdownMobile()
   })
 })
 
 function switchDropdownMobile() {
-  if (document.querySelector("#dropdown_space").style.display == "block") {
+  if (document.querySelector("#dropdownSpace").style.display == "block") {
     document.getElementsByClassName("visual").forEach((elem) => {
-      elem.style.display = elem.id == "seq_space" || elem.id == "data_space"
+      elem.style.display = elem.id == "seqSpace" || elem.id == "dataSpace"
         ? "block"
         : "none"
     })
@@ -21,7 +21,7 @@ function switchDropdownMobile() {
     })
   } else {
     document.getElementsByClassName("visual").forEach((elem) => {
-      elem.style.display = elem.id == "dropdown_space"
+      elem.style.display = elem.id == "dropdownSpace"
         ? "block"
         : "none"
     })

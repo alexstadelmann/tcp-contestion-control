@@ -18,15 +18,15 @@ const langDictionary = {
     en: "Transmission Rate in kByte/s:",
     de: "Übertragungsrate in kByte/s:",
   },
-  seq_tab: {
+  seqTab: {
     en: "Sequence",
     de: "Sequenz",
   },
-  auto_tab: {
+  autoTab: {
     en: "Automaton",
     de: "Automat",
   },
-  cong_tab: {
+  congTab: {
     en: "Congestion Window",
     de: "Staufenster",
   },
@@ -55,7 +55,7 @@ const langDictionary = {
     de: "Sprache",
   },
 
-  desktop_menu: {
+  desktopMenu: {
     en: "Configuration",
     de: "Einstellungen",
   },
