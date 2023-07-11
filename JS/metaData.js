@@ -52,14 +52,7 @@ const activateAllButtons = () => {
   }))
 }
 
-function setServerState(arrayKeyValuePairs) {
-  const newEntry = { ...getLastElem(dynamicServerState) }
-  for (const [key, newValue] of Object.entries(arrayKeyValuePairs)) {
-    newEntry[key] = newValue
-  }
 
-  dynamicServerState.push(newEntry)
-}
 
 function clientSendSYN() {
   const now = getLastElem(dynamicServerState).clockMS

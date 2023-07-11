@@ -4,6 +4,7 @@ function displayNewSegment() {
   const ratio = getLastElem(dynamicSettings).ratio1pxToMS
   const roundTripTimeMS = getLastElem(dynamicSettings).roundTripTimeMS / SMALL_FACTOR
   const seqNum = getLastElem(dynamicServersidePackets).seqNum
+  const isDelivered = getLastElem(dynamicServersidePackets).isDelivered
   const viewBoxHeight =
     document.querySelector('#mainSvg').viewBox.baseVal.height
 
@@ -14,37 +15,70 @@ function displayNewSegment() {
     document.querySelector('#lines').scrollTop =
       document.querySelector('#lines').scrollHeight
   }
+  if (isDelivered) {
+    const newPacket = document.createElementNS(NAME_SPACE_URI, 'path')
+    newPacket.setAttribute('stroke', 'black')
+    newPacket.setAttribute('stroke-width', '0.1')
+    newPacket.setAttribute('fill', 'none')
+    newPacket.setAttribute(
+      'd',
+      'M10 ' +
+        end * ratio +
+        ' ' +
+        'L90 ' +
+        (end - roundTripTimeMS / 2) * ratio +
+        'L90 ' +
+        start * ratio +
+        'L10 ' +
+        (start + roundTripTimeMS / 2) * ratio +
+        ' Z'
+    )
+    newPacket.setAttribute('id', seqNum)
+  
+    const newPacketTextPath = document.createElementNS(NAME_SPACE_URI, 'textPath')
+    newPacketTextPath.setAttribute('href', '#' + seqNum)
+    newPacketTextPath.setAttribute('startOffset', '21%')
+    newPacketTextPath.innerHTML = 'Seq-Nr: ' + seqNum
+  
+    const newPacketText = document.createElementNS(NAME_SPACE_URI, 'text')
+    newPacketText.append(newPacketTextPath)
+  
+    document.querySelector('#tcpSegments').append(newPacket)
+    document.querySelector('#tcpSegments').append(newPacketText)
+    
+  } else {
+    const newPacket = document.createElementNS(NAME_SPACE_URI, 'path')
+    newPacket.setAttribute('stroke', 'black')
+    newPacket.setAttribute('fill', '#d5b7b278')
+    newPacket.setAttribute('stroke-width', '0.1')
+    newPacket.setAttribute(
+      'd',
+      'M50 ' +
+        (end  - roundTripTimeMS / 4)* ratio +
+        ' ' +
+        'L90 ' +
+        (end - roundTripTimeMS / 2) * ratio  +
+        'L90 ' +
+        start * ratio +
+        'L50 ' +
+        (start + roundTripTimeMS / 4) * ratio +
+        ' Z'
+    )
+    newPacket.setAttribute('id', seqNum)
 
-  const newPacket = document.createElementNS(NAME_SPACE_URI, 'path')
-  newPacket.setAttribute('stroke', 'black')
-  newPacket.setAttribute('stroke-width', '0.1')
-  newPacket.setAttribute('fill', 'none')
-  newPacket.setAttribute(
-    'd',
-    'M10 ' +
-      end * ratio +
-      ' ' +
-      'L90 ' +
-      (end - roundTripTimeMS / 2) * ratio +
-      'L90 ' +
-      start * ratio +
-      'L10 ' +
-      (start + roundTripTimeMS / 2) * ratio +
-      ' Z'
-  )
-  newPacket.setAttribute('id', seqNum)
+    const newPacketTextPath = document.createElementNS(NAME_SPACE_URI, 'textPath')
+    newPacketTextPath.setAttribute('href', '#' + seqNum)
+    newPacketTextPath.setAttribute('startOffset', '21%')
+    newPacketTextPath.innerHTML = 'Seq-Nr: ' + seqNum
 
-  const newPacketTextPath = document.createElementNS(NAME_SPACE_URI, 'textPath')
-  newPacketTextPath.setAttribute('href', '#' + seqNum)
-  newPacketTextPath.setAttribute('startOffset', '21%')
-  newPacketTextPath.innerHTML = 'Seq-Nr: ' + seqNum
-
-  const newPacketText = document.createElementNS(NAME_SPACE_URI, 'text')
-  newPacketText.append(newPacketTextPath)
+    const newPacketText = document.createElementNS(NAME_SPACE_URI, 'text')
+    newPacketText.append(newPacketTextPath)
 
   document.querySelector('#tcpSegments').append(newPacket)
   document.querySelector('#tcpSegments').append(newPacketText)
-  return
+  
+  }
+  
 }
 
 function displayNewAck() {
@@ -52,19 +86,28 @@ function displayNewAck() {
   const start = newAck.startMS / SMALL_FACTOR
   const end = newAck.endMS / SMALL_FACTOR
   const ratio = getLastElem(dynamicSettings).ratio1pxToMS
-  const roundTripTimeMS = getLastElem(dynamicSettings).roundTripTimeMS / SMALL_FACTOR
+  const segmentsReceivedInOrder = newAck.ackNum
   const newPacket = document.createElementNS(NAME_SPACE_URI, 'path')
   newPacket.setAttribute('stroke', 'black')
   newPacket.setAttribute('stroke-width', '0.05')
   newPacket.setAttribute('stroke-dasharray', '2 2')
   newPacket.setAttribute('d', 'M10 ' + start * ratio + 'L90 ' + end * ratio)
   document.querySelector('#tcpSegments').append(newPacket)
-  return
+  const newText = document.createElementNS(NAME_SPACE_URI, 'text') 
+    newText.setAttribute('x', '3%')
+    newText.setAttribute('y', start)
+    newText.innerHTML = segmentsReceivedInOrder
+    document.querySelector('#tcpSegments').append(newText)
+  
 }
+
+
 
 function displayTimeoutBar() {
   
-  const start = getLastElem(dynamicServerState).timestampFirstUnacked
+  const firstUnackedSegmentNum = getLastElem(dynamicServerState).firstUnackedSegmentNum
+  console.log('firstUnackedSegmentNum', firstUnackedSegmentNum)
+  const start = dynamicServersidePackets[firstUnackedSegmentNum].sendingCompleteMS
   try {
     document.querySelector('#timeoutBar').remove()
   } catch (error) {}

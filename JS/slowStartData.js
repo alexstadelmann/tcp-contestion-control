@@ -1,35 +1,42 @@
 document.addEventListener('DOMContentLoaded', () => {
-  document.querySelector('#send').addEventListener('click', sendSlowStart)
-  document.querySelector('#loss').addEventListener('click', sendPacketLoss)
+  document.querySelector('#send').addEventListener('click',()=> {
+    sendSlowStart(true)
+  })
+  document.querySelector('#loss').addEventListener('click', ()=> {
+    sendSlowStart(false)
+  })
 })
 
-function sendPacketLoss() {
 
-}
 
-function sendSlowStart() {
+
+function sendSlowStart(isDelivered) {
   if (checkTimeoutNow()) {
     triggerTimeout()
     return
   } 
   if (isPendingAck()) {
-    receiveAck()
+    receiveAck(isDelivered)
     displayNewAck()
   } else if (
     getLastElem(dynamicServerState).congWin > getLastElem(dynamicServerState).unacked
   ) {
-    sendNewSegment()
+    sendNewSegment(isDelivered)
     displayNewSegment()
+    displayTimeoutBar()
   } else {
-    if (checkTimeoutBeforeNextAck()) {
+    if (checkTimeoutLater()) {
       triggerTimeout()
       return
     } 
-    receiveAck()
+    receiveAck(isDelivered)
     displayNewAck()
   }
   updateDataPanel()
-  displayTimeoutBar()
+  
+  console.log('serverState', getLastElem(dynamicServerState))
+  console.log('clientState', getLastElem(dynamicClientState))
+  console.log('serversidePackets', dynamicServersidePackets)
 }
 
 function checkTimeoutNow() {
@@ -39,30 +46,46 @@ function checkTimeoutNow() {
   return now - timestampLastAcked >= timeoutSpan
 }
 
-function checkTimeoutBeforeNextAck() {
-  const timeNextAck = getLastElem(dynamicPendingAcks).endMS 
+function checkTimeoutLater() {
+  if (dynamicPendingAcks.length == 0) return true
+  timeNextAck = getLastElem(dynamicPendingAcks).endMS
+
+  
+  
   const timestampLastAcked = getLastElem(dynamicSettings).timestampLastAcked
   const timeoutSpan = getLastElem(dynamicSettings).timeoutSpan
   return timeNextAck - timestampLastAcked >= timeoutSpan
 }
 
-function receiveAck() {
+function receiveAck(isDelivered) {
+  if(!isDelivered) return
   const newAck = getLastElem(dynamicPendingAcks)
   const congWin = getLastElem(dynamicServerState).congWin
   const unacked = getLastElem(dynamicServerState).unacked
   dynamicClientsidePackets.push(newAck)
+  const ackNum = newAck.ackNum
+  const firstUnackedSegmentNum = getLastElem(dynamicServerState).firstUnackedSegmentNum
+  const seqSizeByte = getLastElem(dynamicSettings).seqSizeByte
+  const timestampLastAcked = dynamicServersidePackets[firstUnackedSegmentNum].sendingCompleteMS
   setClock(newAck.endMS)
   
   setServerState({
     congWin: congWin + 1,
     unacked: unacked - 1,
+    confirmedReceived: ackNum,
+
   })
 
+  if (ackNum == dynamicServersidePackets[firstUnackedSegmentNum].seqNum + seqSizeByte) {
+    setServerState({
+      firstUnackedSegmentNum: firstUnackedSegmentNum + 1,
+      timestampLastAcked: timestampLastAcked,
+    })
+  }
   if (dynamicPendingAcks.length == 1) {
-    console.log(dynamicPendingAcks)
     setTimestampFirstUnacked(-1)
   } else {
-    setTimestampFirstUnacked(dynamicPendingAcks.at(-2).sendingSegmentCompleteMS)
+    setTimestampFirstUnacked(dynamicPendingAcks.at(-2).ackNum)
   }
 }
 
@@ -84,10 +107,11 @@ function setTimestampFirstUnacked(time) {
   const newEntry = { ...getLastElem(dynamicServerState) }
   newEntry.timestampFirstUnacked = time
   dynamicServerState.push(newEntry)
-  console.log('timestampFirstUnacked', newEntry.timestampFirstUnacked)
 }
 
-function sendNewSegment() {
+
+
+function sendNewSegment(isDelivered) {
   const now = getLastElem(dynamicServerState).clockMS
   const seqSizeByte = getLastElem(dynamicSettings).seqSizeByte
   const seqNum = getLastElem(dynamicServerState).seqNum
@@ -102,6 +126,7 @@ function sendNewSegment() {
     endMS: now + delayMS,
     sendingCompleteMS:sendingCompleteMS,
     seqNum: seqNum,
+    isDelivered,
   }
 
   if (getLastElem(dynamicServerState).timestampFirstUnacked == -1) {
@@ -110,18 +135,27 @@ function sendNewSegment() {
 
   dynamicServersidePackets.push(newSegment)
   addToClockMs(seqSizeByte / transrateKBytePerSecond)
+  if (newSegment.isDelivered && getLastElem(dynamicClientState).segmentsReceivedInOrder == seqNum) {
+    setClientState({
+      segmentsReceivedInOrder: seqNum + seqSizeByte
+    })
+  }
   setServerState({
     seqNum: seqNum + seqSizeByte,
     unacked: unacked + 1,
   })
 
+  if (!newSegment.isDelivered) return
+  
   //Create the acknowlegement for the new segment
   const newAck = {
     startMS: newSegment.endMS,
     endMS: newSegment.endMS + roundTripTimeMS / 2,
-    ackNum: seqNum + seqSizeByte,
+    ackNum: getLastElem(dynamicClientState).segmentsReceivedInOrder,
     sendingSegmentCompleteMS: newSegment.sendingCompleteMS
   }
 
   dynamicPendingAcks.unshift(newAck)
+  
+
 }
