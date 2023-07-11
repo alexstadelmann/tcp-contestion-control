@@ -97,7 +97,7 @@
           </form> 
           <form id='press'>
             <input type='button' value='Send' id='send'>
-            <input type='button' value='Loss'>
+            <input type='button' value='Loss' id='loss'>
             <input type='button' value='Start' id='startButton'>
             <input type='button' value='End' id='tcpEnd'>
           </form>
@@ -117,6 +117,8 @@
                 <line x1='10%' y1='0' x2='10%' y2='100%' stroke='black' stroke-width='0.1'></line>
                 <line x1='90%' y1='0' x2='90%' y2='100%' stroke='black' stroke-width='0.1'></line>
                 <g id='tcpMetaMessages'></g>
+                <g id='tcpSegments'></g>
+                <g id='timeoutBarSvg'></g>
               </svg>
             </div>     
           </div>

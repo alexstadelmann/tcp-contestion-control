@@ -28,6 +28,7 @@ const initialServerState = {
   threshold: 5,
   congWin: 0,
   clockMS: 0,
+  timestampFirstUnacked: -1,
 }
 
 const dynamicServerState = [initialServerState]

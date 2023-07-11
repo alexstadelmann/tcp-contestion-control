@@ -42,8 +42,8 @@ function displayNewSegment() {
   const newPacketText = document.createElementNS(NAME_SPACE_URI, 'text')
   newPacketText.append(newPacketTextPath)
 
-  document.querySelector('#tcpMetaMessages').append(newPacket)
-  document.querySelector('#tcpMetaMessages').append(newPacketText)
+  document.querySelector('#tcpSegments').append(newPacket)
+  document.querySelector('#tcpSegments').append(newPacketText)
   return
 }
 
@@ -58,6 +58,26 @@ function displayNewAck() {
   newPacket.setAttribute('stroke-width', '0.05')
   newPacket.setAttribute('stroke-dasharray', '2 2')
   newPacket.setAttribute('d', 'M10 ' + start * ratio + 'L90 ' + end * ratio)
-  document.querySelector('#tcpMetaMessages').append(newPacket)
+  document.querySelector('#tcpSegments').append(newPacket)
   return
+}
+
+function displayTimeoutBar() {
+  
+  const start = getLastElem(dynamicServerState).timestampFirstUnacked
+  try {
+    document.querySelector('#timeoutBar').remove()
+  } catch (error) {}
+  if(start == -1) return
+  const newTimeoutBar = document.createElementNS(NAME_SPACE_URI, 'line') 
+  newTimeoutBar.setAttribute('stroke', 'orange')
+  newTimeoutBar.setAttribute('stroke-width', '1')
+  newTimeoutBar.setAttribute('x1', '91%')
+  newTimeoutBar.setAttribute('y1', (start/SMALL_FACTOR).toString())
+  newTimeoutBar.setAttribute('x2', '99%')
+  newTimeoutBar.setAttribute('y2', (start/SMALL_FACTOR).toString())
+  newTimeoutBar.setAttribute('id', 'timeoutBar')
+  document.querySelector('#timeoutBarSvg').append(newTimeoutBar)
+
+
 }
