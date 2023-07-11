@@ -15,10 +15,12 @@
     <script src='JS/dataPanel.js'></script>
     <script src='JS/metaData.js'></script>
     <script src='JS/slowStartData.js'></script>
-    <script src='JS/slowStartVisual.js'></script>
+    <script src='JS/slowStartVisualSegment.js'></script>
     <script src='JS/metaVisual.js'></script>
     <script src='JS/slowStartDataSegments.js'></script>
     <script src='JS/slowStartDataAcks.js'></script>
+    <script src='JS/slowStartVisualAcks.js'></script>
+    <script src='JS/slowStartVisualOther.js'></script>
   </head>
   <body>
     <header>
@@ -97,8 +99,12 @@
             <span>Unacknowleged</span>
             <input type='number' value='0' id='unacked' class='data'>
           </form> 
+          <form id='event'>
+            <span>Last Event:</span>
+            <input type='text' value='' id='lastEvent' class='data'>
+          </form>
           <form id='press'>
-            <input type='button' value='Send' id='send'>
+            <input type='button' value='Next' id='send'>
             <input type='button' value='Loss' id='loss'>
             <input type='button' value='Start' id='startButton'>
             <input type='button' value='End' id='tcpEnd'>

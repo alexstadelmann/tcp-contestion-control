@@ -21,6 +21,20 @@ const tcpState = {
   ESTABLISHED: 'ESTABLISHED',
 }
 
+const events = {
+  START_SERVER: 'Start Server',
+  SYN: 'Client sends SYN',
+  ACK: 'Client sends ACK',
+  SYN_ACK: 'Server sends SYN-ACK',
+  SEG: 'New Segment',
+  NEW_ACK: 'New Ack',
+  SEG_LOSS: 'Segment lossed',
+  ACK_LOSS: 'Ack lossed',
+  DUP_ACK: 'Duplicate Ack',
+  TIMEOUT: 'Timeout',
+  DUP_3: '3 duplicate Acks',
+}
+
 const initialServerState = {
   tcpState: tcpState.CLOSED,
   ccState: algorithms.SLOW_START,
@@ -31,6 +45,7 @@ const initialServerState = {
   congWin: 0,
   clockMS: 0,
   firstUnackedSegmentNum: 0,
+  lastEvent: undefined,
 
 }
 

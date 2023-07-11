@@ -92,8 +92,8 @@
     display: grid;
     height: 100%;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    grid-template-areas: "tcp cc" "thresh unack" "press press";
+    grid-template-rows: repeat(4, 1fr);
+    grid-template-areas: "tcp cc" "thresh unack" "event event" "press press";
   }
   html body main section#dataSpace div#dataContent form {
     border: solid 1px white;
@@ -116,6 +116,9 @@
   }
   html body main section#dataSpace div#dataContent form#press {
     grid-area: press;
+  }
+  html body main section#dataSpace div#dataContent form#event {
+    grid-area: event;
   }
   html body main section#dataSpace div#dataContent form input[type=number] {
     font-size: 1rem;

@@ -9,13 +9,18 @@ function establishTcp() {
 
   switch (currentTcpState) {
     case tcpState.CLOSED:
-      setServerState({ tcpState: tcpState.LISTEN })
+      setServerState({
+        tcpState: tcpState.LISTEN,
+        lastEvent: events.START_SERVER  })
       break
 
     case tcpState.LISTEN:
       clientSendSYN()
       //Server receives SYN
-      setServerState({ tcpState: tcpState.SYN_RECEIVED })
+      setServerState({
+        tcpState: tcpState.SYN_RECEIVED,
+        lastEvent: events.SYN
+      })
       break
 
     case tcpState.SYN_RECEIVED:
@@ -24,6 +29,7 @@ function establishTcp() {
         setServerState({
           unacked: 1,
           seqNum: 1,
+          lastEvent: events.SYN_ACK
         })
       } else {
         clientSendACK()
@@ -31,6 +37,7 @@ function establishTcp() {
           tcpState: tcpState.ESTABLISHED,
           unacked: 0,
           congWin: 1,
+          lastEvent: events.ACK,
         })
         activateAllButtons()
         deactivateStartButton()

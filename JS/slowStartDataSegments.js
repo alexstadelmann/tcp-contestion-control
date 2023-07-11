@@ -24,7 +24,16 @@ function makeNewSegment(isDelivered) {
     isDelivered,
   }
   dynamicServerSegments.push(newSegment)
-
+  //Update data_panel
+  if (isDelivered) {
+    setServerState({
+      lastEvent: events.SEG
+    })
+  } else {
+    setServerState({
+      lastEvent: events.SEG_LOSS
+    })
+  }
   //If currently all segments are acked, then set the end of sending the new ack to be the timer start
   if (currentServerState.timestampFirstUnacked == NONE) {
     setTimestampFirstUnacked(sendingCompleteMS)
@@ -45,9 +54,8 @@ function makeNewSegment(isDelivered) {
     seqNum: seqNum + seqSizeByte,
     unacked: unacked + 1,
   })
-  //Create an acknowlegement for pending acks array only if segment is not lossed
-  if (!newSegment.isDelivered) return
   
+  if (!isDelivered) return
   //Create the acknowlegement for the new segment
   const newAck = {
     startMS: newSegment.endMS,

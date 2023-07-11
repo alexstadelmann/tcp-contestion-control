@@ -48,8 +48,8 @@ function displayNewSegment() {
     
   } else {
     const newPacket = document.createElementNS(NAME_SPACE_URI, 'path')
-    newPacket.setAttribute('stroke', 'black')
-    newPacket.setAttribute('fill', '#d5b7b278')
+    newPacket.setAttribute('stroke', 'pink')
+    newPacket.setAttribute('fill', 'pink')
     newPacket.setAttribute('stroke-width', '0.1')
     newPacket.setAttribute(
       'd',
@@ -81,46 +81,8 @@ function displayNewSegment() {
   
 }
 
-function displayNewAck() {
-  const newAck = dynamicPendingAcks.pop()
-  const start = newAck.startMS / SMALL_FACTOR
-  const end = newAck.endMS / SMALL_FACTOR
-  const ratio = getLastElem(dynamicSettings).ratio1pxToMS
-  const segmentsReceivedInOrder = newAck.ackNum
-  const newPacket = document.createElementNS(NAME_SPACE_URI, 'path')
-  newPacket.setAttribute('stroke', 'black')
-  newPacket.setAttribute('stroke-width', '0.05')
-  newPacket.setAttribute('stroke-dasharray', '2 2')
-  newPacket.setAttribute('d', 'M10 ' + start * ratio + 'L90 ' + end * ratio)
-  document.querySelector('#tcpSegments').append(newPacket)
-  const newText = document.createElementNS(NAME_SPACE_URI, 'text') 
-    newText.setAttribute('x', '3%')
-    newText.setAttribute('y', start)
-    newText.innerHTML = segmentsReceivedInOrder
-    document.querySelector('#tcpSegments').append(newText)
-  
-}
 
 
 
-function displayTimeoutBar() {
-  
-  const firstUnackedSegmentNum = getLastElem(dynamicServerState).firstUnackedSegmentNum
-  console.log('firstUnackedSegmentNum', firstUnackedSegmentNum)
-  const start = dynamicServerSegments[firstUnackedSegmentNum].sendingCompleteMS
-  try {
-    document.querySelector('#timeoutBar').remove()
-  } catch (error) {}
-  if(start == NONE) return
-  const newTimeoutBar = document.createElementNS(NAME_SPACE_URI, 'line') 
-  newTimeoutBar.setAttribute('stroke', 'orange')
-  newTimeoutBar.setAttribute('stroke-width', '1')
-  newTimeoutBar.setAttribute('x1', '91%')
-  newTimeoutBar.setAttribute('y1', (start/SMALL_FACTOR).toString())
-  newTimeoutBar.setAttribute('x2', '99%')
-  newTimeoutBar.setAttribute('y2', (start/SMALL_FACTOR).toString())
-  newTimeoutBar.setAttribute('id', 'timeoutBar')
-  document.querySelector('#timeoutBarSvg').append(newTimeoutBar)
 
 
-}
