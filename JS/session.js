@@ -1,3 +1,4 @@
+const NONE = -1
 const algorithms = {
   SLOW_START: 'SLOW-START',
 }
@@ -39,8 +40,8 @@ const initialClientState = {
 
 const dynamicServerState = [initialServerState]
 const dynamicClientState = [initialClientState]
-const dynamicServersidePackets = []
-const dynamicClientsidePackets = []
+const dynamicServerSegments = []
+const dynamicClientAcks = []
 const dynamicPendingAcks = []
 const dynamicMetaPackets = []
 
@@ -62,6 +63,11 @@ function setClientState(arrayKeyValuePairs) {
   for (const [key, newValue] of Object.entries(arrayKeyValuePairs)) {
     newEntry[key] = newValue
   }
-
   dynamicClientState.push(newEntry)
+}
+
+function setSettings(key, newValue) {
+  const newEntrySettings = { ...getLastElem(dynamicSettings) }
+  newEntrySettings[key] = newValue
+  dynamicSettings.push(newEntrySettings)
 }

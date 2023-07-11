@@ -21,10 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('change', (e) => {
       //Each form has only one input
       const newValue = parseInt(form.elements[1].value)
-
       if (!newValue > 0) return false
-
-      setNewEntrySettings(form.id, newValue)
+      setSettings(form.id, newValue)
       console.log(dynamicSettings)
       e.preventDefault()
     })
@@ -34,13 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('form.string').forEach((form) => {
     form.addEventListener('change', () => {
       const newValue = form.elements.option.value
-      setNewEntrySettings(form.id, newValue)
+      setSettings(form.id, newValue)
     })
   })
-
-  function setNewEntrySettings(key, newValue) {
-    const newEntrySettings = { ...getLastElem(dynamicSettings) }
-    newEntrySettings[key] = newValue
-    dynamicSettings.push(newEntrySettings)
-  }
 })

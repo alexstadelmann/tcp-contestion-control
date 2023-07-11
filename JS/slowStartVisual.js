@@ -1,10 +1,10 @@
 function displayNewSegment() {
-  const start = getLastElem(dynamicServersidePackets).startMS / SMALL_FACTOR
-  const end = getLastElem(dynamicServersidePackets).endMS / SMALL_FACTOR
+  const start = getLastElem(dynamicServerSegments).startMS / SMALL_FACTOR
+  const end = getLastElem(dynamicServerSegments).endMS / SMALL_FACTOR
   const ratio = getLastElem(dynamicSettings).ratio1pxToMS
   const roundTripTimeMS = getLastElem(dynamicSettings).roundTripTimeMS / SMALL_FACTOR
-  const seqNum = getLastElem(dynamicServersidePackets).seqNum
-  const isDelivered = getLastElem(dynamicServersidePackets).isDelivered
+  const seqNum = getLastElem(dynamicServerSegments).seqNum
+  const isDelivered = getLastElem(dynamicServerSegments).isDelivered
   const viewBoxHeight =
     document.querySelector('#mainSvg').viewBox.baseVal.height
 
@@ -107,11 +107,11 @@ function displayTimeoutBar() {
   
   const firstUnackedSegmentNum = getLastElem(dynamicServerState).firstUnackedSegmentNum
   console.log('firstUnackedSegmentNum', firstUnackedSegmentNum)
-  const start = dynamicServersidePackets[firstUnackedSegmentNum].sendingCompleteMS
+  const start = dynamicServerSegments[firstUnackedSegmentNum].sendingCompleteMS
   try {
     document.querySelector('#timeoutBar').remove()
   } catch (error) {}
-  if(start == -1) return
+  if(start == NONE) return
   const newTimeoutBar = document.createElementNS(NAME_SPACE_URI, 'line') 
   newTimeoutBar.setAttribute('stroke', 'orange')
   newTimeoutBar.setAttribute('stroke-width', '1')
