@@ -64,6 +64,20 @@ function serverReceiveNewAck() {
           triggerThresholdEvent()
           return
         }
+        //If the ack acknowledges the first unacked segment send or even a later segment, then update server state
+        if (ackNum >= dynamicServerSegments[firstUnackedSegmentNum].seqNum + seqSizeByte) {
+          const numberOfSteps = (ackNum - dynamicServerSegments[firstUnackedSegmentNum].seqNum) /seqSizeByte
+          firstUnackedSegmentNum += numberOfSteps
+          const timestampFirstUnacked = (dynamicServerSegments.length <= firstUnackedSegmentNum)
+            ? NONE
+            : dynamicServerSegments[firstUnackedSegmentNum].sendingCompleteMS
+
+          
+          setServerState({
+            firstUnackedSegmentNum,
+            timestampFirstUnacked,
+          })
+        }
 
         
         

@@ -62,6 +62,12 @@ function clientReceiveSegment() {
   })
   updateDataPanel()
 
+  //Check that segmentsReceivedInOrder is not bigger than seqNum.If so reduce the former
+  if (getLastElem(dynamicClientState).segmentsReceivedInOrder > getLastElem(dynamicServerSegments).seqNum) {
+    setClientState({
+      segmentsReceivedInOrder: getLastElem(dynamicServerSegments).seqNum + seqSizeByte
+    })
+  }
   //Update the client state to reflect the arrival of a in order segment
   if (getLastElem(dynamicClientState).segmentsReceivedInOrder == getLastElem(dynamicServerSegments).seqNum) {
     setClientState({

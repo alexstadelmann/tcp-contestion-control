@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
         break
       case algorithms.TIMEOUT:
         resendMissingSegment(false)
+        displayNewSegment()
         break
       case algorithms.CONGESTION_AVOIDANCE:
         nextPacket(false)

@@ -102,6 +102,11 @@ function resetApplication() {
   //Make only start button clickable
   deactivateAllButtons()
   activateStartButton()
+
+  //Make main svg small again
+  document.querySelector('#mainSvg').viewBox.baseVal.height = 100
+  document.querySelector('#mainSvg').style.height = '100%'
+  
 }
 
 
