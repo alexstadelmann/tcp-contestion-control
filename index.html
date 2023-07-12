@@ -21,17 +21,19 @@
     <script src='JS/slowStartDataAcks.js'></script>
     <script src='JS/slowStartVisualAcks.js'></script>
     <script src='JS/slowStartVisualOther.js'></script>
+    <script src='JS/ModuleCoordinator.js'></script>
+    <script src='JS/ModuleCoordinatorEvents.js'></script>
+    <script src='JS/timeoutData.js'></script>
   </head>
   <body>
     <header>
       <h1 id='textTcpCongestionControl' class='lang'>TCP Congestion Control</h1>
-      <form>
-        <span>Clock in ms:</span>
-        <input type='number' id='clockMS' value='0' class='data'>
-      </form>
       <menu id='dropdownMenu'>
         <span id='mobileMenu'>&#8801</span>
         <span id='desktopMenu' class='lang'>Configuration</span>
+      </menu>
+      <menu id='extendedData'>
+        <span id='extendedData'>Extended</span>
       </menu>
     </header>
     <main>
@@ -58,9 +60,15 @@
               <input type='number' value='500'>
             </fieldset>
           </form>
+          <form id='timeout' class='numeric'>
+            <fieldset>
+              <legend class='lang' id='textTimeout'>Timeout Span in RTT</legend>
+              <input type='number' value='2'>
+            </fieldset>
+          </form>
           <form id='initialThreshold' class='numeric'>
             <fieldset>
-              <legend class='lang' id='textInitialThreshold'>Initial Threshhold</legend>
+              <legend class='lang' id='textInitialThreshold'>Initial Threshhold in MSS</legend>
               <input type='number' value='10'>
             </fieldset>
           </form>
@@ -70,6 +78,15 @@
               <input type='number' value='20'>
             </fieldset>
           </form>
+          <form id='clientBuffering'>
+            <fieldset>
+              <legend class='lang' id='textClientBuffering'>Client Buffering </legend>
+              <input type='radio' id='clientBufferingActive' name='clientBf' value='Active'>
+              <label for='clientBufferingActive' class='lang' id='textClientBufferingActive'>Active</label><br>
+              <input type='radio' id='clientBufferingInactive' name='clientBf' value='Inactive' checked>
+              <label for='clientBufferingInactive' class='lang' name='textClientBufferingInactive'>Inactive</label><br>
+            </fieldset>
+          </form>
           <form id='changeLang' >
             <fieldset>
               <legend class='lang' id='textLanguage'>Language</legend>
@@ -77,6 +94,16 @@
               <label for='english' class='lang' id='textEnglish'>English</label><br>
               <input type='radio' id='german' name='option' value='de'>
               <label for='german' class='lang' id='textGerman'>German</label><br>
+            </fieldset>
+          </form>
+        </div>
+      </section>
+      <section id='extendedDataSpace' class='visual'>
+        <div id='extendedDataContent'>
+          <form id='duplicateAcksForm' class='numeric'>
+            <fieldset>
+              <legend class='lang' id='textDuplicateAck'>Duplicate Acknowlegments</legend>
+              <input type='number' id='duplicateAcks' value='0' class='data'>
             </fieldset>
           </form>
         </div>
