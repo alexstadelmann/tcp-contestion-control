@@ -1,7 +1,7 @@
 
 
 
-function nextSlowStart(isDelivered) {
+function nextPacket(isDelivered) {
   if (checkTimeoutNow()) {
     triggerTimeout()
     displayTimeout()

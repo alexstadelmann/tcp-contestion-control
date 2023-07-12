@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let algorithm = getLastElem(dynamicServerAndSessionState).ccState
     switch (algorithm) {
       case algorithms.SLOW_START:
-        nextSlowStart(true)
+        nextPacket(true)
         break
       case algorithms.TIMEOUT:
         resendMissingSegment(true)
@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
         displayNewSegment()
         break
       case algorithms.CONGESTION_AVOIDANCE:
-        nextCongestionAvoidance(true)
+        nextPacket(true)
         break
       case algorithms.FAST_RECOVERY:
         sendFastRecovery(true)
@@ -23,16 +23,16 @@ document.addEventListener('DOMContentLoaded', () => {
     let algorithm = getLastElem(dynamicServerAndSessionState).ccState
     switch (algorithm) {
       case algorithms.SLOW_START:
-        sendSlowStart(false)
+        nextPacket(false)
         break
       case algorithms.TIMEOUT:
         resendMissingSegment(false)
         break
       case algorithms.CONGESTION_AVOIDANCE:
-        sendCongestionAvoidance(false)
+        nextPacket(false)
         break
       case algorithms.FAST_RECOVERY:
-        sendFastRecovery(false)
+        nextFastRecovery(false)
     }
     
   })

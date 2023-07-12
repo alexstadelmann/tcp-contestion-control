@@ -46,7 +46,7 @@ const basicSettings = {
   roundTripTimeMS: 200,
   seqSizeByte: 500,
   transrateKBytePerSecond: 20,
-  initialThreshold: 10,
+  initialThreshold: 4,
   lang: 'en',
   ratio1pxToMS: 1,
   timeoutSpan: 400
