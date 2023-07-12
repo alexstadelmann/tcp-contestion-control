@@ -1,6 +1,6 @@
 function displayFirstUnAckedBar() {
   
-  const firstUnackedSegmentNum = getLastElem(dynamicServerState).firstUnackedSegmentNum
+  const firstUnackedSegmentNum = getLastElem(dynamicServerAndSessionState).firstUnackedSegmentNum
   //Delete previous Bar
   try {
     document.querySelector('#timeoutBar').remove()
@@ -21,7 +21,7 @@ function displayFirstUnAckedBar() {
 }
 
 function displayTimeout() {
-  const firstUnackedSegmentNum = getLastElem(dynamicServerState).firstUnackedSegmentNum
+  const firstUnackedSegmentNum = getLastElem(dynamicServerAndSessionState).firstUnackedSegmentNum
   const start = dynamicServerSegments[firstUnackedSegmentNum].sendingCompleteMS
   const timeoutSpan = getLastElem(dynamicSettings).timeoutSpan
   const end = start + timeoutSpan

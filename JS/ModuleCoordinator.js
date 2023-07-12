@@ -1,9 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
+  updateDataPanel()
   document.querySelector('#send').addEventListener('click',()=> {
-    let algorithm = getLastElem(dynamicServerState).ccState
+    let algorithm = getLastElem(dynamicServerAndSessionState).ccState
     switch (algorithm) {
       case algorithms.SLOW_START:
-        sendSlowStart(true)
+        nextSlowStart(true)
         break
       case algorithms.TIMEOUT:
         resendMissingSegment(true)
@@ -11,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
         displayNewSegment()
         break
       case algorithms.CONGESTION_AVOIDANCE:
-        sendCongestionAvoidance(true)
+        nextCongestionAvoidance(true)
         break
       case algorithms.FAST_RECOVERY:
         sendFastRecovery(true)
@@ -19,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
   })
   document.querySelector('#loss').addEventListener('click', ()=> {
-    let algorithm = getLastElem(dynamicServerState).ccState
+    let algorithm = getLastElem(dynamicServerAndSessionState).ccState
     switch (algorithm) {
       case algorithms.SLOW_START:
         sendSlowStart(false)
@@ -35,5 +36,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
   })
+  document.querySelector('#startButton').addEventListener('click', establishTcp)
+  document.querySelector('#reset').addEventListener('click', resetApplication)
+  
 })
 

@@ -1,16 +1,3 @@
-const basicSettings = {
-  version: 'tahoe',
-  roundTripTimeMS: 200,
-  seqSizeByte: 500,
-  transrateKBytePerSecond: 20,
-  initialThreshold: 10,
-  lang: 'en',
-  ratio1pxToMS: 1,
-  timeoutSpan: 400
-}
-
-const dynamicSettings = [{ ...basicSettings }]
-
 document.addEventListener('DOMContentLoaded', () => {
   
   document.querySelectorAll('form.numeric').forEach((form) => {
@@ -22,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const newValue = parseInt(form.elements[1].value)
       if (!newValue > 0) return false
       setSettings(form.id, newValue)
+      resetApplication()
       e.preventDefault()
     })
   })
@@ -31,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('change', () => {
       const newValue = form.elements.option.value
       setSettings(form.id, newValue)
+      resetApplication()
     })
   })
 })

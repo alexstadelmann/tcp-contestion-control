@@ -1,5 +1,5 @@
 function trigger3DupplicateAcksEvent() {
-  let algorithm = getLastElem(dynamicServerState).ccState
+  let algorithm = getLastElem(dynamicServerAndSessionState).ccState
     switch (algorithm) {
       case algorithms.SLOW_START:
         setServerState({
@@ -19,29 +19,30 @@ function trigger3DupplicateAcksEvent() {
 }
 
 function triggerTimeout() {
-  const currentCongWin = getLastElem(dynamicServerState).congWin
+  const currentCongWin = getLastElem(dynamicServerAndSessionState).congWin
+  console.log
   //Update server parameters
   setServerState({
     ccState: algorithms.TIMEOUT,
     lastEvent: events.TIMEOUT,
-    threshold: Math.min(1, currentCongWin / 2),
+    threshold: Math.max(1, Math.floor(currentCongWin / 2)),
     congWin: 1,
     unacked: 0,
     duplicateAcks: 0,
   })
   //Set time to after timeout
   const timeoutSpan = getLastElem(dynamicSettings).timeoutSpan
-  const firstUnackedSegmentNum = getLastElem(dynamicServerState).firstUnackedSegmentNum
+  const firstUnackedSegmentNum = getLastElem(dynamicServerAndSessionState).firstUnackedSegmentNum
   const timestampFirstUnacked = dynamicServerSegments[firstUnackedSegmentNum].sendingCompleteMS
   const now = timestampFirstUnacked + timeoutSpan
-  setSessionState({
+  setServerState({
     clockMS: now
   })
   updateDataPanel()
 }
 
-function triggerThresholdReachedEvent() {
-  let algorithm = getLastElem(dynamicServerState).ccState
+function triggerThresholdEvent() {
+  let algorithm = getLastElem(dynamicServerAndSessionState).ccState
   switch (algorithm) {
     case algorithms.SLOW_START:
       setServerState({

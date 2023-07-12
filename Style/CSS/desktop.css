@@ -118,7 +118,7 @@
     height: 100%;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(4, 1fr);
-    grid-template-areas: "tcp cc" "thresh unack" "event event" "press press";
+    grid-template-areas: "tcp cc" "congWin unack" "thresh event" "press press";
   }
   html body main section#dataSpace div#dataContent form {
     border: solid 1px white;
@@ -133,11 +133,14 @@
   html body main section#dataSpace div#dataContent form#ccState {
     grid-area: cc;
   }
-  html body main section#dataSpace div#dataContent form#thresh {
-    grid-area: thresh;
+  html body main section#dataSpace div#dataContent form#congWinForm {
+    grid-area: congWin;
   }
   html body main section#dataSpace div#dataContent form#unack {
     grid-area: unack;
+  }
+  html body main section#dataSpace div#dataContent form#threshForm {
+    grind-area: thresh;
   }
   html body main section#dataSpace div#dataContent form#press {
     grid-area: press;

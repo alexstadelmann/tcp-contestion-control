@@ -1,7 +1,7 @@
 
 
 
-function sendSlowStart(isDelivered) {
+function nextSlowStart(isDelivered) {
   if (checkTimeoutNow()) {
     triggerTimeout()
     displayTimeout()
@@ -13,7 +13,7 @@ function sendSlowStart(isDelivered) {
     if(isDelivered) serverReceiveNewAck()
     displayNewAck()
   } else if (
-    getLastElem(dynamicServerState).congWin > getLastElem(dynamicServerState).unacked
+    getLastElem(dynamicServerAndSessionState).congWin > getLastElem(dynamicServerAndSessionState).unacked
   ) {
     serverSendSegment(isDelivered)
     if (isDelivered) clientReceiveSegment()
@@ -36,7 +36,7 @@ function sendSlowStart(isDelivered) {
 }
 
 function checkTimeoutNow() {
-  const currentSessionState = getLastElem(dynamicSessionState)
+  const currentSessionState = getLastElem(dynamicServerAndSessionState)
   const currentSettings = getLastElem(dynamicSettings)
 
   const now = currentSessionState.clockMS
@@ -51,7 +51,7 @@ function checkTimeoutLater() {
 
   timeNextAck = getLastElem(dynamicPendingAcks).endMS
 
-  const currentServerState = getLastElem(dynamicServerState)
+  const currentServerState = getLastElem(dynamicServerAndSessionState)
 
   const timestampFirstUnacked = currentServerState.timestampFirstUnacked
   const timeoutSpan = currentServerState.timeoutSpan
@@ -64,21 +64,21 @@ function checkTimeoutLater() {
 
 
 function setClock(time) {
-  const newEntry = { ...getLastElem(dynamicSessionState) }
+  const newEntry = { ...getLastElem(dynamicServerAndSessionState) }
   newEntry.clockMS = time
-  dynamicSessionState.push(newEntry)
+  dynamicServerAndSessionState.push(newEntry)
 }
 
 function isPendingAck() {
   if (dynamicPendingAcks.length == 0) return false
   const timeNextAck = getLastElem(dynamicPendingAcks).endMS
-  return timeNextAck == getLastElem(dynamicSessionState).clockMS
+  return timeNextAck == getLastElem(dynamicServerAndSessionState).clockMS
 }
 
 function setTimestampFirstUnacked(time) {
-  const newEntry = { ...getLastElem(dynamicServerState) }
+  const newEntry = { ...getLastElem(dynamicServerAndSessionState) }
   newEntry.timestampFirstUnacked = time
-  dynamicServerState.push(newEntry)
+  dynamicServerAndSessionState.push(newEntry)
 }
 
 

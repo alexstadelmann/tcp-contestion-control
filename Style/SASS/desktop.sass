@@ -130,7 +130,7 @@
               height: 100%
               grid-template-columns: repeat(2, 1fr)
               grid-template-rows: repeat(4, 1fr)
-              grid-template-areas: 'tcp cc' 'thresh unack' 'event event' 'press press'
+              grid-template-areas: 'tcp cc' 'congWin unack' 'thresh event' 'press press'
 
               form
                 border: solid 1px white
@@ -142,10 +142,12 @@
                   grid-area: tcp
                 &#ccState
                   grid-area: cc
-                &#thresh
-                  grid-area: thresh
+                &#congWinForm
+                  grid-area: congWin
                 &#unack
                   grid-area: unack
+                &#threshForm
+                  grind-area: thresh
                 &#press
                   grid-area: press
                 &#event

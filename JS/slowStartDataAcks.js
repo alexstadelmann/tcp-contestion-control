@@ -13,7 +13,7 @@ function clientSendNewAck(isDelivered) {
 
   //If the ack gets lost it is this functions responsibility to tell the session
   if(!isDelivered) {
-    setSessionState({
+    setServerState({
       lastEvent: events.ACK_LOSS
     })
   }
@@ -24,7 +24,7 @@ function serverReceiveNewAck() {
   const ackNum = newAck.ackNum
   const timeNow = newAck.endMS
 
-  const currentServerState = getLastElem(dynamicServerState)
+  const currentServerState = getLastElem(dynamicServerAndSessionState)
 
   const congWin = currentServerState.congWin
   const unacked = currentServerState.unacked
@@ -33,7 +33,7 @@ function serverReceiveNewAck() {
 
   const seqSizeByte = getLastElem(dynamicSettings).seqSizeByte
 
-  setSessionState({
+  setServerState({
     lastEvent: events.NEW_ACK,
     clockMS: timeNow
   })
@@ -43,10 +43,10 @@ function serverReceiveNewAck() {
     setServerState({
       duplicateAcks: duplicateAcks + 1,
     })
-    setSessionState({
+    setServerState({
       lastEvent: events.DUP_ACK
     })
-    if(getLastElem(dynamicServerState).duplicateAcks >= 3) {
+    if(getLastElem(dynamicServerAndSessionState).duplicateAcks >= 3) {
       trigger3DupplicateAcksEvent()
       return
     }
@@ -59,8 +59,8 @@ function serverReceiveNewAck() {
     })
 
     //Check if threshold has been reached
-    if (getLastElem(dynamicServerState).congWin >= getLastElem(dynamicSettings).threshold) {
-      triggerThresholdReachedEvent()
+    if (getLastElem(dynamicServerAndSessionState).congWin >= getLastElem(dynamicServerAndSessionState).threshold) {
+      triggerThresholdEvent()
       return
     }
     //If the ack acknowledges the first unacked segment send or even a later segment, then update server state

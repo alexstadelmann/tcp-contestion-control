@@ -25,64 +25,93 @@ const tcpState = {
 }
 
 const events = {
-  START_SERVER: 'Start Server',
-  SYN: 'Client sends SYN',
-  ACK: 'Client sends ACK',
-  SYN_ACK: 'Server sends SYN-ACK',
-  SEG: 'Server sends Segment',
-  NEW_ACK: 'Client sends Ack',
-  SEG_LOSS: 'Segment loss',
-  ACK_LOSS: 'Ack loss',
-  DUP_ACK: 'Duplicate Ack',
-  TIMEOUT: 'Timeout',
-  DUP_3: '3 duplicate Acks',
-  THRESHOLD_REACHED: 'Threshold reached',
-  RETRANSMISSION: 'Retransmission',
-  RETRANSMIT_LOSS: 'Retransmission Segment Loss'
+  START_SERVER: 'start server',
+  SYN: 'SYN',
+  ACK: 'ACK',
+  SYN_ACK: 'SYN ACK',
+  SEG: 'segment send',
+  NEW_ACK: 'ACK',
+  SEG_LOSS: 'segment loss',
+  ACK_LOSS: 'ACK loss',
+  DUP_ACK: 'dupplicate ACK',
+  TIMEOUT: 'timeout',
+  DUP_3: '3 duplicates',
+  THRESHOLD_REACHED: 'threshold',
+  RETRANSMISSION: 'retrans',
+  RETRANSMIT_LOSS: 'retrans loss'
 }
 
-const initialServerState = {
+const basicSettings = {
+  version: 'tahoe',
+  roundTripTimeMS: 200,
+  seqSizeByte: 500,
+  transrateKBytePerSecond: 20,
+  initialThreshold: 10,
+  lang: 'en',
+  ratio1pxToMS: 1,
+  timeoutSpan: 400
+}
+
+const dynamicSettings = [{ ...basicSettings }]
+
+const getLastElem = (array) => {
+  return array.at(-1)
+}
+
+const initialServerAndSessionState = {
   tcpState: tcpState.CLOSED,
   ccState: algorithms.SLOW_START,
   seqNum: 0,
   confirmedReceived: 0,
   unacked: 0,
-  threshold: 5,
+  threshold: getLastElem(dynamicSettings).initialThreshold,
   congWin: 0,
+  congWinFractions: 0,
   firstUnackedSegmentNum: 0,
   duplicateAcks: 0,
-  
-
-
+  lastEvent: '',
+  clockMS: 0,
 }
 
 const initialClientState = {
   segmentsReceivedInOrder: 1,
 }
 
-const initialSessionState = {
-  clockMS: 0,
-  lastEvent: undefined,
-}
-
-let dynamicServerState = [{...initialServerState}]
+let dynamicServerAndSessionState = [{...initialServerAndSessionState}]
 let dynamicClientState = [{...initialClientState}]
-let dynamicSessionState = [{...initialSessionState}]
 let dynamicServerSegments = []
 let dynamicClientAcks = []
 let dynamicPendingAcks = []
 let dynamicMetaPackets = []
 
-const getLastElem = (array) => {
-  return array.at(-1)
+function resetApplication() {
+  dynamicServerAndSessionState = [{...initialServerAndSessionState}]
+  dynamicClientState = [{...initialClientState}]
+  dynamicServerSegments = []
+  dynamicClientAcks = []
+  dynamicPendingAcks = []
+  dynamicMetaPackets = []
+  updateDataPanel()
+
+  //Empty sequence diagram
+  document.querySelectorAll('#mainSvg g').forEach((elem)=>{
+    console.log(elem)
+    elem.innerHTML = ''
+  })
+
+  //Make only start button clickable
+  deactivateAllButtons()
+  activateStartButton()
 }
 
+
+
 function setServerState(arrayKeyValuePairs) {
-  const newEntry = { ...getLastElem(dynamicServerState) }
+  const newEntry = { ...getLastElem(dynamicServerAndSessionState) }
   for (const [key, newValue] of Object.entries(arrayKeyValuePairs)) {
     newEntry[key] = newValue
   }
-  dynamicServerState.push(newEntry)
+  dynamicServerAndSessionState.push(newEntry)
 }
 
 
@@ -92,14 +121,6 @@ function setClientState(arrayKeyValuePairs) {
     newEntry[key] = newValue
   }
   dynamicClientState.push(newEntry)
-}
-
-function setSessionState(arrayKeyValuePairs) {
-  const newEntry = { ...getLastElem(dynamicSessionState) }
-  for (const [key, newValue] of Object.entries(arrayKeyValuePairs)) {
-    newEntry[key] = newValue
-  }
-  dynamicSessionState.push(newEntry)
 }
 
 function setSettings(key, newValue) {

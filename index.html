@@ -35,6 +35,10 @@
       <menu id='extendedData'>
         <span id='extendedData'>Extended</span>
       </menu>
+      
+      <span id='reset'>Reset</span>
+      
+      
     </header>
     <main>
       <section id='dropdownSpace' class='visual'>
@@ -114,18 +118,22 @@
             <span>TCP State: </span>
             <input type='text' value='CLOSED' id='tcpState' class='data'>
           </form>
-          <form id='ccState'>
+          <form id='ccStateForm'>
             <span>CC State</span>
             <input type='text' value='SLOW-START' id='ccState' class='data'>
           </form>
-          <form id='thresh'>
+          <form id='congWinForm'>
             <span>Congestion Window</span>
-            <input type='number' value='0' id='congWin' class='data'>
+            <input type='text' value='0' id='congWin' class='data'>
           </form>
-          <form id='unack'>
+          <form id='unackedForm'>
             <span>Unacknowleged</span>
             <input type='number' value='0' id='unacked' class='data'>
           </form> 
+          <form id='threshForm'>
+            <span>Threshold</span>
+            <input type='number' value='10' id='threshold' class='data'>
+          </form>
           <form id='event'>
             <span>Last Event:</span>
             <input type='text' value='' id='lastEvent' class='data'>

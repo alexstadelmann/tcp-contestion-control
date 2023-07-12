@@ -1,5 +1,5 @@
 function resendMissingSegment(isDelivered) {
-  const firstUnackedSegmentNum = getLastElem(dynamicServerState).firstUnackedSegmentNum
+  const firstUnackedSegmentNum = getLastElem(dynamicServerAndSessionState).firstUnackedSegmentNum
 
   //Delete all remaining elements from dynamic server array
   dynamicServerSegments = dynamicServerSegments.slice(0,firstUnackedSegmentNum + 1)
@@ -19,7 +19,7 @@ function resendMissingSegment(isDelivered) {
   dynamicServerSegments[firstUnackedSegmentNum].sendingCompleteMS = oldSendingCompleteMS + timeoutSpan + transmissionTime
   dynamicServerSegments[firstUnackedSegmentNum].seqNum = seqNum
 
-  const unacked = getLastElem(dynamicServerState).unacked
+  const unacked = getLastElem(dynamicServerAndSessionState).unacked
   setServerState({
     ccState: algorithms.SLOW_START,
     seqNum: seqNum + seqSizeByte,
@@ -37,7 +37,7 @@ function resendMissingSegment(isDelivered) {
 
    //If sending this segment fails, it is the "resposibility" of the server to inform the session
    if (!isDelivered) {
-    setSessionState({
+    setServerState({
       lastEvent: events.RETRANSMIT_LOSS
     })
   }
