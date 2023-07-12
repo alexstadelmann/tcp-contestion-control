@@ -11,6 +11,11 @@ document.addEventListener('DOMContentLoaded', () => {
         clientReceiveSegment()
         displayNewSegment()
         break
+      case algorithms.DUP_3:
+        resendMissingSegment3Dup(true)
+        clientReceiveSegment()
+        displayNewSegment()
+        break
       case algorithms.CONGESTION_AVOIDANCE:
         nextPacket(true)
         break
@@ -27,6 +32,11 @@ document.addEventListener('DOMContentLoaded', () => {
         break
       case algorithms.TIMEOUT:
         resendMissingSegment(false)
+        displayNewSegment()
+        break
+      case algorithms.DUP_3:
+        resendMissingSegment3Dup(true)
+        clientReceiveSegment()
         displayNewSegment()
         break
       case algorithms.CONGESTION_AVOIDANCE:

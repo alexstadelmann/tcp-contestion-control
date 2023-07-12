@@ -1,19 +1,17 @@
 function trigger3DupplicateAcksEvent() {
   let algorithm = getLastElem(dynamicServerAndSessionState).ccState
-    switch (algorithm) {
-      case algorithms.SLOW_START:
-        setServerState({
-          lastEvent: events.DUP_3,
-          ccState: algorithms.FAST_RECOVERY
-        })
-        break
-      case algorithms.CONGESTION_AVOIDANCE:
-        setServerState({
-          lastEvent: events.DUP_3,
-          ccState: algorithms.FAST_RECOVERY
-        })
-        break
-    }
+
+  console.log('threshold:', getLastElem(dynamicServerAndSessionState).congWin / 2)
+    
+    console.log('congWin:', getLastElem(dynamicServerAndSessionState).congWin / 2 + 3,)
+  setServerState({
+    lastEvent: events.DUP_3,
+    ccState: algorithms.DUP_3,
+    threshold: getLastElem(dynamicServerAndSessionState).congWin / 2,
+    congWin: getLastElem(dynamicServerAndSessionState).congWin / 2 + 3,
+    congWinFractions: 0,
+    
+  })
   
   updateDataPanel()
 }

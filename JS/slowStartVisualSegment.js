@@ -7,7 +7,7 @@ function displayNewSegment() {
   const isDelivered = getLastElem(dynamicServerSegments).isDelivered
   const viewBoxHeight =
     document.querySelector('#mainSvg').viewBox.baseVal.height
-  const SCREEN_FACTOR = 0.9
+  const SCREEN_FACTOR = 0.8
   if (end > SCREEN_FACTOR*viewBoxHeight) {
     const mainSvg = document.querySelector('#mainSvg')
     mainSvg.style.height = viewBoxHeight + roundTripTimeMS + '%'
@@ -15,11 +15,13 @@ function displayNewSegment() {
     document.querySelector('#lines').scrollTop =
       document.querySelector('#lines').scrollHeight
   }
+  const colorFill = getLastElem(dynamicServerSegments).retransmitted ? 'pink': 'none'
+  const colorStroke = getLastElem(dynamicServerSegments).retransmitted ? 'pink': 'black'
   if (isDelivered) {
     const newPacket = document.createElementNS(NAME_SPACE_URI, 'path')
-    newPacket.setAttribute('stroke', 'black')
+    newPacket.setAttribute('stroke', colorStroke)
     newPacket.setAttribute('stroke-width', '0.1')
-    newPacket.setAttribute('fill', 'none')
+    newPacket.setAttribute('fill', colorFill)
     newPacket.setAttribute(
       'd',
       'M10 ' +

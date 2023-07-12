@@ -3,7 +3,8 @@ const algorithms = {
   SLOW_START: 'SLOW_START',
   FAST_RECOVERY: 'FAST_RECOVERY',
   CONGESTION_AVOIDANCE: 'CONGESTION_AVOIDANCE',
-  TIMEOUT: 'TIMEOUT',
+  TIMEOUT: 'TIMEOUT_TRANS',
+  DUP_3: 'DUPLICATE_TRANS'
 }
 
 const flags = {
@@ -46,7 +47,7 @@ const basicSettings = {
   roundTripTimeMS: 200,
   seqSizeByte: 500,
   transrateKBytePerSecond: 20,
-  initialThreshold: 4,
+  initialThreshold: 10,
   lang: 'en',
   ratio1pxToMS: 1,
   timeoutSpan: 400
