@@ -16,7 +16,6 @@ function establishTcp() {
 
     case tcpState.LISTEN:
       clientSendSYN()
-      //Server receives SYN
       setServerState({
         tcpState: tcpState.SYN_RECEIVED,
         lastEvent: events.SYN
@@ -62,7 +61,7 @@ const activateAllButtons = () => {
 
 
 function clientSendSYN() {
-  const now = getLastElem(dynamicServerState).clockMS
+  const now = getLastElem(dynamicSessionState).clockMS
   const roundTripTimeMS = getLastElem(dynamicSettings).roundTripTimeMS
 
   const newEntry = {
@@ -78,11 +77,11 @@ function clientSendSYN() {
 }
 
 function addToClockMs(timeMS) {
-  getLastElem(dynamicServerState).clockMS += timeMS
+  getLastElem(dynamicSessionState).clockMS += timeMS
 }
 
 function serverSendSYNACK() {
-  const now = getLastElem(dynamicServerState).clockMS
+  const now = getLastElem(dynamicSessionState).clockMS
   const roundTripTimeMS = getLastElem(dynamicSettings).roundTripTimeMS
   const newEntry = {
     sender: agents.SERVER,
@@ -97,7 +96,7 @@ function serverSendSYNACK() {
 }
 
 function clientSendACK() {
-  const now = getLastElem(dynamicServerState).clockMS
+  const now = getLastElem(dynamicSessionState).clockMS
   const roundTripTimeMS = getLastElem(dynamicSettings).roundTripTimeMS
   const newEntry = {
     sender: agents.CLIENT,

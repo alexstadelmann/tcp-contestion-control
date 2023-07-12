@@ -1,8 +1,9 @@
-function makeNewSegment(isDelivered) {
+function serverSendSegment(isDelivered) {
 
   //Fetch up to date parameters
   const currentServerState = getLastElem(dynamicServerState)
-  const now = currentServerState.clockMS
+  const currentSessionState = getLastElem(dynamicSessionState)
+  const now = currentSessionState.clockMS
   const seqNum = currentServerState.seqNum
   const unacked = currentServerState.unacked
 
@@ -14,6 +15,11 @@ function makeNewSegment(isDelivered) {
   //Compute new parameters
   const sendingCompleteMS = now + seqSizeByte / transrateKBytePerSecond
   const delayMS = seqSizeByte / transrateKBytePerSecond + roundTripTimeMS / 2
+  const transmissionTime = seqSizeByte / transrateKBytePerSecond
+
+
+  //Update clock 
+  addToClockMs(seqSizeByte / transrateKBytePerSecond)
   
   //Make new segment
   const newSegment = {
@@ -22,40 +28,46 @@ function makeNewSegment(isDelivered) {
     sendingCompleteMS,
     seqNum,
     isDelivered,
+    transmissionTime,
   }
   dynamicServerSegments.push(newSegment)
-  //Update data_panel
-  if (isDelivered) {
-    setServerState({
-      lastEvent: events.SEG
-    })
-  } else {
-    setServerState({
-      lastEvent: events.SEG_LOSS
-    })
-  }
-  //If currently all segments are acked, then set the end of sending the new ack to be the timer start
-  if (currentServerState.timestampFirstUnacked == NONE) {
-    setTimestampFirstUnacked(sendingCompleteMS)
-  }
-
-  //Update clock 
-  addToClockMs(seqSizeByte / transrateKBytePerSecond)
-
-  //Update the client state to reflect the arrival of a in order segment
-  if (newSegment.isDelivered && getLastElem(dynamicClientState).segmentsReceivedInOrder == seqNum) {
-    setClientState({
-      segmentsReceivedInOrder: seqNum + seqSizeByte
-    })
-  }
 
   //Update server state to reflect sending a new segment
   setServerState({
     seqNum: seqNum + seqSizeByte,
     unacked: unacked + 1,
   })
-  
-  if (!isDelivered) return
+
+  //If currently all segments are acked, then set the sending end of the new ack to be the timeout timer start
+  if (currentServerState.timestampFirstUnacked == NONE) {
+    setTimestampFirstUnacked(sendingCompleteMS)
+  }
+
+  //If sending this segment fails, it is the "resposibility" of the server to inform the session
+  if (!isDelivered) {
+    setSessionState({
+      lastEvent: events.SEG_LOSS
+    })
+  }
+}
+
+function clientReceiveSegment() {
+  const newSegment = getLastElem(dynamicServerSegments)
+  const seqNum = newSegment.seqNum
+  const seqSizeByte = getLastElem(dynamicSettings).seqSizeByte
+  const roundTripTimeMS = getLastElem(dynamicSettings).roundTripTimeMS
+  //We know that the segment has arrived
+  setServerState({
+    lastEvent: events.SEG
+  })
+  updateDataPanel()
+
+  //Update the client state to reflect the arrival of a in order segment
+  if (getLastElem(dynamicClientState).segmentsReceivedInOrder == getLastElem(dynamicServerSegments).seqNum) {
+    setClientState({
+      segmentsReceivedInOrder: seqNum + seqSizeByte
+    })
+  }
   //Create the acknowlegement for the new segment
   const newAck = {
     startMS: newSegment.endMS,
@@ -65,3 +77,4 @@ function makeNewSegment(isDelivered) {
   }
   dynamicPendingAcks.unshift(newAck)
 }
+

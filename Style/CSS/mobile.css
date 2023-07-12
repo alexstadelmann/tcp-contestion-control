@@ -7,7 +7,6 @@
   html body {
     display: flex;
     flex-direction: column;
-    gap: 3px;
     height: 100%;
     overflow: hidden;
   }
@@ -41,6 +40,9 @@
   html body header menu span#desktopMenu {
     display: none;
   }
+  html body header menu span#extendedData {
+    display: none;
+  }
   html body main {
     height: 80%;
     flex: 0 0 auto;
@@ -51,13 +53,16 @@
     display: none;
     height: 100%;
   }
+  html body main section#extendedDataSpace {
+    display: none;
+  }
   html body main section#dropdownSpace div#dropdownContent {
     height: 100%;
     display: grid;
     background-color: rgba(213, 183, 178, 0.4705882353);
     grid-border: 3px;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
   }
   html body main section#dropdownSpace div#dropdownContent form {
     display: flex;
@@ -97,8 +102,8 @@
     display: grid;
     height: 100%;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    grid-template-areas: "tcp cc" "thresh unack" "press press";
+    grid-template-rows: repeat(4, 1fr);
+    grid-template-areas: "tcp cc" "thresh unack" "event event" "press press";
   }
   html body main section#dataSpace div#dataContent form {
     border: solid 1px white;
@@ -118,6 +123,9 @@
   }
   html body main section#dataSpace div#dataContent form#unack {
     grid-area: unack;
+  }
+  html body main section#dataSpace div#dataContent form#event {
+    grid-area: event;
   }
   html body main section#dataSpace div#dataContent form#press {
     grid-area: press;

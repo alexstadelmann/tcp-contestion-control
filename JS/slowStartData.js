@@ -1,48 +1,49 @@
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelector('#send').addEventListener('click',()=> {
-    sendSlowStart(true)
-  })
-  document.querySelector('#loss').addEventListener('click', ()=> {
-    sendSlowStart(false)
-  })
-})
-
 
 
 
 function sendSlowStart(isDelivered) {
-  if (checkTimeoutNow()) triggerTimeout()
+  if (checkTimeoutNow()) {
+    triggerTimeout()
+    displayTimeout()
+    return
+  }
 
   if (isPendingAck()) {
-    makeNewAck(isDelivered)
+    clientSendNewAck(isDelivered)
+    if(isDelivered) serverReceiveNewAck()
     displayNewAck()
   } else if (
     getLastElem(dynamicServerState).congWin > getLastElem(dynamicServerState).unacked
   ) {
-    makeNewSegment(isDelivered)
+    serverSendSegment(isDelivered)
+    if (isDelivered) clientReceiveSegment()
     displayNewSegment()
-    displayTimeoutBar()
+    
   } else {
 
-    if (checkTimeoutLater()) triggerTimeout()
-    makeNewAck(isDelivered)
+    if (checkTimeoutLater()) {
+      displayTimeout()
+      triggerTimeout()
+      return
+    }
+    clientSendNewAck(isDelivered)
+    if(isDelivered) serverReceiveNewAck()
     displayNewAck()
   }
+  displayFirstUnAckedBar()
   updateDataPanel()
   
-  console.log('serverState', getLastElem(dynamicServerState))
-  console.log('clientState', getLastElem(dynamicClientState))
-  console.log('serversidePackets', dynamicServerSegments)
 }
 
 function checkTimeoutNow() {
+  const currentSessionState = getLastElem(dynamicSessionState)
   const currentSettings = getLastElem(dynamicSettings)
 
-  const now = currentSettings.clockMS
-  const timestampLastAcked = currentSettings.timestampLastAcked
+  const now = currentSessionState.clockMS
+  const timestampFirstUnacked = currentSettings.timestampFirstUnacked
   const timeoutSpan = currentSettings.timeoutSpan
 
-  return now - timestampLastAcked >= timeoutSpan
+  return now - timestampFirstUnacked >= timeoutSpan
 }
 
 function checkTimeoutLater() {
@@ -52,10 +53,10 @@ function checkTimeoutLater() {
 
   const currentServerState = getLastElem(dynamicServerState)
 
-  const timestampLastAcked = currentServerState.timestampLastAcked
+  const timestampFirstUnacked = currentServerState.timestampFirstUnacked
   const timeoutSpan = currentServerState.timeoutSpan
 
-  return timeNextAck - timestampLastAcked >= timeoutSpan
+  return timeNextAck - timestampFirstUnacked >= timeoutSpan
 }
 
 
@@ -63,15 +64,15 @@ function checkTimeoutLater() {
 
 
 function setClock(time) {
-  const newEntry = { ...getLastElem(dynamicServerState) }
+  const newEntry = { ...getLastElem(dynamicSessionState) }
   newEntry.clockMS = time
-  dynamicServerState.push(newEntry)
+  dynamicSessionState.push(newEntry)
 }
 
 function isPendingAck() {
   if (dynamicPendingAcks.length == 0) return false
   const timeNextAck = getLastElem(dynamicPendingAcks).endMS
-  return timeNextAck == getLastElem(dynamicServerState).clockMS
+  return timeNextAck == getLastElem(dynamicSessionState).clockMS
 }
 
 function setTimestampFirstUnacked(time) {

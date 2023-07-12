@@ -7,8 +7,8 @@ function displayNewSegment() {
   const isDelivered = getLastElem(dynamicServerSegments).isDelivered
   const viewBoxHeight =
     document.querySelector('#mainSvg').viewBox.baseVal.height
-
-  if (end > viewBoxHeight) {
+  const SCREEN_FACTOR = 0.9
+  if (end > SCREEN_FACTOR*viewBoxHeight) {
     const mainSvg = document.querySelector('#mainSvg')
     mainSvg.style.height = viewBoxHeight + roundTripTimeMS + '%'
     mainSvg.viewBox.baseVal.height = viewBoxHeight + roundTripTimeMS
@@ -33,10 +33,11 @@ function displayNewSegment() {
         (start + roundTripTimeMS / 2) * ratio +
         ' Z'
     )
-    newPacket.setAttribute('id', seqNum)
+    
+    newPacket.setAttribute('id', start + '!' + seqNum)
   
     const newPacketTextPath = document.createElementNS(NAME_SPACE_URI, 'textPath')
-    newPacketTextPath.setAttribute('href', '#' + seqNum)
+    newPacketTextPath.setAttribute('href', '#' + start + '!' + seqNum)
     newPacketTextPath.setAttribute('startOffset', '21%')
     newPacketTextPath.innerHTML = 'Seq-Nr: ' + seqNum
   
@@ -64,10 +65,10 @@ function displayNewSegment() {
         (start + roundTripTimeMS / 4) * ratio +
         ' Z'
     )
-    newPacket.setAttribute('id', seqNum)
+    newPacket.setAttribute('id', start + '!' + seqNum)
 
     const newPacketTextPath = document.createElementNS(NAME_SPACE_URI, 'textPath')
-    newPacketTextPath.setAttribute('href', '#' + seqNum)
+    newPacketTextPath.setAttribute('href', '#' + start + '!' + seqNum)
     newPacketTextPath.setAttribute('startOffset', '21%')
     newPacketTextPath.innerHTML = 'Seq-Nr: ' + seqNum
 

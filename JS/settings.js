@@ -1,4 +1,3 @@
-// property naming convension
 const basicSettings = {
   version: 'tahoe',
   roundTripTimeMS: 200,
@@ -23,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const newValue = parseInt(form.elements[1].value)
       if (!newValue > 0) return false
       setSettings(form.id, newValue)
-      console.log(dynamicSettings)
       e.preventDefault()
     })
   })
