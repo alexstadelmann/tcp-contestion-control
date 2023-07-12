@@ -19,11 +19,11 @@ function resendMissingSegment(isDelivered) {
   dynamicServerSegments[firstUnackedSegmentNum].seqNum = seqNum
   dynamicServerSegments[firstUnackedSegmentNum].retransmitted = true
 
-  const unacked = getLastElem(dynamicServerAndSessionState).unacked
+  const currentTraffic = getLastElem(dynamicServerAndSessionState).currentTraffic
   setServerState({
     ccState: algorithms.SLOW_START,
     seqNum: seqNum + seqSizeByte,
-    unacked: unacked + 1
+    currentTraffic: currentTraffic + 1
   })
 
   //Update clock 

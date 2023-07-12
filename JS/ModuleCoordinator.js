@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
         nextPacket(true)
         break
       case algorithms.FAST_RECOVERY:
-        sendFastRecovery(true)
+        nextPacket(true)
     }
     
   })
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
         nextPacket(false)
         break
       case algorithms.FAST_RECOVERY:
-        nextFastRecovery(false)
+        nextPacket(false)
     }
     
   })

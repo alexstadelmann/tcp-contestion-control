@@ -64,7 +64,7 @@ const initialServerAndSessionState = {
   ccState: algorithms.SLOW_START,
   seqNum: 0,
   confirmedReceived: 0,
-  unacked: 0,
+  currentTraffic: 0,
   threshold: getLastElem(dynamicSettings).initialThreshold,
   congWin: 0,
   congWinFractions: 0,

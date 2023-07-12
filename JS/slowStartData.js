@@ -13,7 +13,7 @@ function nextPacket(isDelivered) {
     if(isDelivered) serverReceiveNewAck()
     displayNewAck()
   } else if (
-    getLastElem(dynamicServerAndSessionState).congWin > getLastElem(dynamicServerAndSessionState).unacked
+    getLastElem(dynamicServerAndSessionState).congWin > getLastElem(dynamicServerAndSessionState).currentTraffic
   ) {
     serverSendSegment(isDelivered)
     if (isDelivered) clientReceiveSegment()

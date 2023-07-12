@@ -23,10 +23,10 @@ function establishTcp() {
       break
 
     case tcpState.SYN_RECEIVED:
-      if (getLastElem(dynamicServerAndSessionState).unacked === 0) {
+      if (getLastElem(dynamicServerAndSessionState).currentTraffic === 0) {
         serverSendSYNACK()
         setServerState({
-          unacked: 1,
+          currentTraffic: 1,
           seqNum: 1,
           lastEvent: events.SYN_ACK
         })
@@ -34,7 +34,7 @@ function establishTcp() {
         clientSendACK()
         setServerState({
           tcpState: tcpState.ESTABLISHED,
-          unacked: 0,
+          currentTraffic: 0,
           congWin: 1,
           lastEvent: events.ACK,
         })

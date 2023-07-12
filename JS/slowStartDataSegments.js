@@ -5,7 +5,7 @@ function serverSendSegment(isDelivered) {
   const currentSessionState = getLastElem(dynamicServerAndSessionState)
   const now = currentSessionState.clockMS
   const seqNum = currentServerState.seqNum
-  const unacked = currentServerState.unacked
+  const currentTraffic = currentServerState.currentTraffic
 
   const currentSettings = getLastElem(dynamicSettings)
   const seqSizeByte = currentSettings.seqSizeByte
@@ -35,7 +35,7 @@ function serverSendSegment(isDelivered) {
   //Update server state to reflect sending a new segment
   setServerState({
     seqNum: seqNum + seqSizeByte,
-    unacked: unacked + 1,
+    currentTraffic: currentTraffic + 1,
   })
 
   //If currently all segments are acked, then set the sending end of the new ack to be the timeout timer start

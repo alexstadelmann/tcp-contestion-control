@@ -20,11 +20,11 @@ function resendMissingSegment3Dup(isDelivered) {
   dynamicServerSegments[firstUnackedSegmentNum].sendingCompleteMS = timeNow + transmissionTime
   dynamicServerSegments[firstUnackedSegmentNum].retransmitted = true
   console.log('retransmitted Segment', dynamicServerSegments[firstUnackedSegmentNum])
-  const unacked = getLastElem(dynamicServerAndSessionState).unacked
+  const currentTraffic = getLastElem(dynamicServerAndSessionState).currentTraffic
   setServerState({
     ccState: algorithms.FAST_RECOVERY,
     seqNum: dynamicServerSegments[firstUnackedSegmentNum].seqNum + seqSizeByte,
-    unacked: unacked + 1
+    currentTraffic: currentTraffic + 1
   })
 
   //Update clock 

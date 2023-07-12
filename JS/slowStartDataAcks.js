@@ -27,7 +27,7 @@ function serverReceiveNewAck() {
   const currentServerState = getLastElem(dynamicServerAndSessionState)
 
   const congWin = currentServerState.congWin
-  const unacked = currentServerState.unacked
+  const currentTraffic = currentServerState.currentTraffic
   const duplicateAcks = currentServerState.duplicateAcks
   let firstUnackedSegmentNum = currentServerState.firstUnackedSegmentNum
 
@@ -35,28 +35,39 @@ function serverReceiveNewAck() {
 
   setServerState({
     lastEvent: events.NEW_ACK,
-    clockMS: timeNow
+    clockMS: timeNow,
+    currentTraffic: currentTraffic - 1
   })
 
    //Check is ack is a duplicate
    if(ackNum == currentServerState.confirmedReceived) {
     setServerState({
-      duplicateAcks: duplicateAcks + 1,
-    })
-    setServerState({
       lastEvent: events.DUP_ACK
     })
-    if(getLastElem(dynamicServerAndSessionState).duplicateAcks >= 3) {
-      trigger3DupplicateAcksEvent()
-      return
+    console.log('tatae',currentServerState.ccState)
+    if (currentServerState.ccState != algorithms.FAST_RECOVERY) {
+      console.log('I am here')
+      setServerState({
+        duplicateAcks: duplicateAcks + 1,
+      })
+      
+      if(getLastElem(dynamicServerAndSessionState).duplicateAcks >= 3) {
+        trigger3DupplicateAcksEvent()
+        return
+      }
+    } else {
+      const congWin = getLastElem(dynamicServerAndSessionState).congWin
+      setServerState({
+        congWin: congWin + 1
+      })
     }
+    
   } else {
     //Here we know that ack is not duplicate
     switch (currentServerState.ccState) {
       case algorithms.SLOW_START:
         setServerState({
           congWin: congWin + 1,
-          unacked: unacked - 1,
           confirmedReceived: ackNum,
         })
         //Check if threshold has been reached
@@ -64,7 +75,7 @@ function serverReceiveNewAck() {
           triggerThresholdEvent()
           return
         }
-        //If the ack acknowledges the first unacked segment send or even a later segment, then update server state
+        //If the ack acknowledges the first currentTraffic segment send or even a later segment, then update server state
         if (ackNum >= dynamicServerSegments[firstUnackedSegmentNum].seqNum + seqSizeByte) {
           const numberOfSteps = (ackNum - dynamicServerSegments[firstUnackedSegmentNum].seqNum) /seqSizeByte
           firstUnackedSegmentNum += numberOfSteps
@@ -78,15 +89,12 @@ function serverReceiveNewAck() {
             timestampFirstUnacked,
           })
         }
-
-        
-        
         break
       case algorithms.CONGESTION_AVOIDANCE:
         const congWinFractions = getLastElem(dynamicServerAndSessionState).congWinFractions
         setServerState({
           congWinFractions: congWinFractions + 1,
-          unacked: unacked - 1,
+          currentTraffic: currentTraffic - 1,
           confirmedReceived: ackNum,
         })
         if(getLastElem(dynamicServerAndSessionState).congWinFractions == congWin) {
@@ -96,7 +104,7 @@ function serverReceiveNewAck() {
           })
         }
         console.log('congWinFraction', getLastElem(dynamicServerAndSessionState).congWinFractions)
-        //If the ack acknowledges the first unacked segment send or even a later segment, then update server state
+        //If the ack acknowledges the first currentTraffic segment send or even a later segment, then update server state
         if (ackNum >= dynamicServerSegments[firstUnackedSegmentNum].seqNum + seqSizeByte) {
           const numberOfSteps = (ackNum - dynamicServerSegments[firstUnackedSegmentNum].seqNum) /seqSizeByte
           firstUnackedSegmentNum += numberOfSteps
@@ -111,6 +119,13 @@ function serverReceiveNewAck() {
           })
         }
         break
+      case algorithms.FAST_RECOVERY:
+        setServerState({
+          lastEvent: events.NEW_ACK,
+          ccState: algorithms.CONGESTION_AVOIDANCE,
+          congWin: getLastElem(dynamicServerAndSessionState).threshold,
+          duplicateAcks: 0
+        })
 
     }
       

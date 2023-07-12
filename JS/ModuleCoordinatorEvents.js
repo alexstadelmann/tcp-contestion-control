@@ -26,7 +26,7 @@ function triggerTimeout() {
     threshold: Math.max(1, Math.floor(currentCongWin / 2)),
     congWin: 1,
     congWinFractions: 0,
-    unacked: 0,
+    currentTraffic: 0,
     duplicateAcks: 0,
   })
   //Set time to after timeout
