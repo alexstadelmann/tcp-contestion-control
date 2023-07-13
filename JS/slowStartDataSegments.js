@@ -60,23 +60,23 @@ function clientReceiveSegment() {
   })
   updateDataPanel()
 
-  //Check that segmentsReceivedInOrder is not bigger than seqNum.If so reduce the former
-  if (getClientState('segmentsReceivedInOrder') > seqNum) {
+  //Check that BytesReceivedInOrder is not bigger than seqNum.If so reduce the former
+  if (getClientState('BytesReceivedInOrder') > seqNum) {
     setClientState({
-      segmentsReceivedInOrder: seqNum + seqSizeByte
+      BytesReceivedInOrder: seqNum + seqSizeByte
     })
   }
   //Update the client state to reflect the arrival of a in order segment
-  if (getClientState('segmentsReceivedInOrder') == seqNum) {
+  if (getClientState('BytesReceivedInOrder') == seqNum) {
     setClientState({
-      segmentsReceivedInOrder: seqNum + seqSizeByte
+      BytesReceivedInOrder: seqNum + seqSizeByte
     })
   }
   //Create the acknowlegement for the new segment
   const newAck = {
     startMS: getSegmentAttribute('endMS'),
     endMS: getSegmentAttribute('endMS') + roundTripTimeMS / 2,
-    ackNum: getClientState('segmentsReceivedInOrder'),
+    ackNum: getClientState('BytesReceivedInOrder'),
     sendingSegmentCompleteMS: getSegmentAttribute('sendingCompleteMS')
   }
   dynamicPendingAcks.unshift(newAck)

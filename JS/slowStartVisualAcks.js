@@ -2,7 +2,7 @@ function displayNewAck() {
   const newAck = dynamicPendingAcks.pop()
   const start = newAck.startMS / SMALL_FACTOR
   const end = newAck.endMS / SMALL_FACTOR
-  const segmentsReceivedInOrder = newAck.ackNum
+  const BytesReceivedInOrder = newAck.ackNum
   const isDelivered = newAck.isDelivered
   
 
@@ -19,7 +19,7 @@ function displayNewAck() {
     const newText = document.createElementNS(NAME_SPACE_URI, 'text') 
     newText.setAttribute('x', '3%')
     newText.setAttribute('y', start)
-    newText.innerHTML = segmentsReceivedInOrder
+    newText.innerHTML = BytesReceivedInOrder
     document.querySelector('#tcpSegments').append(newText)
     
   } else {
@@ -33,7 +33,7 @@ function displayNewAck() {
     const newText = document.createElementNS(NAME_SPACE_URI, 'text') 
     newText.setAttribute('x', '3%')
     newText.setAttribute('y', start)
-    newText.innerHTML = segmentsReceivedInOrder
+    newText.innerHTML = BytesReceivedInOrder
     document.querySelector('#tcpSegments').append(newText)
   }
   

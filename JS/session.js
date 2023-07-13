@@ -75,7 +75,7 @@ const initialServerState = {
 }
 
 const initialClientState = {
-  segmentsReceivedInOrder: 1,
+  BytesReceivedInOrder: 1,
 }
 
 const initialSessionState = {
@@ -88,6 +88,7 @@ let dynamicClientState = [{...initialClientState}]
 let dynamicSessionState = [{...initialSessionState}]
 let dynamicServerSegments = []
 let dynamicClientAcks = []
+let dynamicClientBuffer = []
 let dynamicPendingAcks = []
 let dynamicMetaPackets = []
 
