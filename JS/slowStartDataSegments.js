@@ -1,11 +1,9 @@
 function serverSendSegment(isDelivered) {
 
   //Fetch up to date parameters
-  const currentServerState = getLastElem(dynamicServerAndSessionState)
-  const currentSessionState = getLastElem(dynamicServerAndSessionState)
-  const now = getLastElem(dynamicSessionState).clockMS
-  const seqNum = currentServerState.seqNum
-  const currentTraffic = currentServerState.currentTraffic
+  const now = getSessionState('clockMS')
+  const seqNum = getServerState('seqNum')
+  const currentTraffic = getServerState('currentTraffic')
 
   const currentSettings = getLastElem(dynamicSettings)
   const seqSizeByte = currentSettings.seqSizeByte
@@ -39,7 +37,7 @@ function serverSendSegment(isDelivered) {
   })
 
   //If currently all segments are acked, then set the sending end of the new ack to be the timeout timer start
-  if (currentServerState.timestampFirstUnacked == NONE) {
+  if (getServerState('timestampFirstUnacked') == NONE) {
     setTimestampFirstUnacked(sendingCompleteMS)
   }
 
@@ -63,13 +61,13 @@ function clientReceiveSegment() {
   updateDataPanel()
 
   //Check that segmentsReceivedInOrder is not bigger than seqNum.If so reduce the former
-  if (getLastElem(dynamicClientState).segmentsReceivedInOrder > getLastElem(dynamicServerSegments).seqNum) {
+  if (getClientState('segmentsReceivedInOrder') > getLastElem(dynamicServerSegments).seqNum) {
     setClientState({
       segmentsReceivedInOrder: getLastElem(dynamicServerSegments).seqNum + seqSizeByte
     })
   }
   //Update the client state to reflect the arrival of a in order segment
-  if (getLastElem(dynamicClientState).segmentsReceivedInOrder == getLastElem(dynamicServerSegments).seqNum) {
+  if (getClientState('segmentsReceivedInOrder') == getLastElem(dynamicServerSegments).seqNum) {
     setClientState({
       segmentsReceivedInOrder: seqNum + seqSizeByte
     })
@@ -78,7 +76,7 @@ function clientReceiveSegment() {
   const newAck = {
     startMS: newSegment.endMS,
     endMS: newSegment.endMS + roundTripTimeMS / 2,
-    ackNum: getLastElem(dynamicClientState).segmentsReceivedInOrder,
+    ackNum: getClientState('segmentsReceivedInOrder'),
     sendingSegmentCompleteMS: newSegment.sendingCompleteMS
   }
   dynamicPendingAcks.unshift(newAck)

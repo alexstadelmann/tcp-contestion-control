@@ -1,5 +1,5 @@
 function resendMissingSegment3Dup(isDelivered) {
-  const firstUnackedSegmentNum = getLastElem(dynamicServerAndSessionState).firstUnackedSegmentNum
+  const firstUnackedSegmentNum = getServerState('firstUnackedSegmentNum')
 
 
   //Delete all remaining elements from dynamic server array
@@ -7,7 +7,7 @@ function resendMissingSegment3Dup(isDelivered) {
 
   const segmentToRetransmit = dynamicServerSegments[firstUnackedSegmentNum]
   const transmissionTime = segmentToRetransmit.transmissionTime
-  const timeNow = getLastElem(dynamicSessionState).clockMS
+  const timeNow = getSessionState('clockMS')
   const seqSizeByte = getLastElem(dynamicSettings).seqSizeByte
   const roundTripTimeMS = getLastElem(dynamicSettings).roundTripTimeMS
 
@@ -19,8 +19,6 @@ function resendMissingSegment3Dup(isDelivered) {
   dynamicServerSegments[firstUnackedSegmentNum].endMS = timeNow + transmissionTime + roundTripTimeMS / 2
   dynamicServerSegments[firstUnackedSegmentNum].sendingCompleteMS = timeNow + transmissionTime
   dynamicServerSegments[firstUnackedSegmentNum].retransmitted = true
-  console.log('retransmitted Segment', dynamicServerSegments[firstUnackedSegmentNum])
-  const currentTraffic = getLastElem(dynamicServerAndSessionState).currentTraffic
   setServerState({
     ccState: algorithms.FAST_RECOVERY,
     seqNum: dynamicServerSegments[firstUnackedSegmentNum].seqNum + seqSizeByte,

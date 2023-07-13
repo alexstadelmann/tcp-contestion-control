@@ -1,13 +1,10 @@
 function trigger3DupplicateAcksEvent() {
-  let algorithm = getLastElem(dynamicServerAndSessionState).ccState
+  let algorithm = getServerState('ccState')
 
-  console.log('threshold:', getLastElem(dynamicServerAndSessionState).congWin / 2)
-    
-    console.log('congWin:', getLastElem(dynamicServerAndSessionState).congWin / 2 + 3,)
   setServerState({
     ccState: algorithms.DUP_3,
-    threshold: getLastElem(dynamicServerAndSessionState).congWin / 2,
-    congWin: getLastElem(dynamicServerAndSessionState).congWin / 2 + 3,
+    threshold: getServerState('congWin') / 2,
+    congWin: getServerState('congWin') / 2 + 3,
     congWinFractions: 0,
   })
   setSessionState({
@@ -18,8 +15,7 @@ function trigger3DupplicateAcksEvent() {
 }
 
 function triggerTimeout() {
-  const currentCongWin = getLastElem(dynamicServerAndSessionState).congWin
-  console.log
+  const currentCongWin = getServerState('congWin')
   //Update server parameters
   setServerState({
     ccState: algorithms.TIMEOUT,
@@ -34,7 +30,7 @@ function triggerTimeout() {
   })
   //Set time to after timeout
   const timeoutSpan = getLastElem(dynamicSettings).timeoutSpan
-  const firstUnackedSegmentNum = getLastElem(dynamicServerAndSessionState).firstUnackedSegmentNum
+  const firstUnackedSegmentNum = getServerState('firstUnackedSegmentNum')
   const timestampFirstUnacked = dynamicServerSegments[firstUnackedSegmentNum].sendingCompleteMS
   const now = timestampFirstUnacked + timeoutSpan
   setSessionState({
@@ -44,7 +40,7 @@ function triggerTimeout() {
 }
 
 function triggerThresholdEvent() {
-  let algorithm = getLastElem(dynamicServerAndSessionState).ccState
+  let algorithm = getServerState('ccState')
   switch (algorithm) {
     case algorithms.SLOW_START:
       setServerState({

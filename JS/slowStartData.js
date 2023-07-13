@@ -13,7 +13,7 @@ function nextPacket(isDelivered) {
     if(isDelivered) serverReceiveNewAck()
     displayNewAck()
   } else if (
-    getLastElem(dynamicServerAndSessionState).congWin > getLastElem(dynamicServerAndSessionState).currentTraffic
+    getServerState('congWin') > getServerState('currentTraffic')
   ) {
     serverSendSegment(isDelivered)
     if (isDelivered) clientReceiveSegment()
@@ -36,12 +36,10 @@ function nextPacket(isDelivered) {
 }
 
 function checkTimeoutNow() {
-  const currentSessionState = getLastElem(dynamicServerAndSessionState)
-  const currentSettings = getLastElem(dynamicSettings)
 
-  const now = getLastElem(dynamicSessionState).clockMS
-  const timestampFirstUnacked = currentSettings.timestampFirstUnacked
-  const timeoutSpan = currentSettings.timeoutSpan
+  const now = getSessionState('clockMS')
+  const timestampFirstUnacked = getServerState('timestampFirstUnacked')
+  const timeoutSpan = getServerState('timeoutSpan')
 
   return now - timestampFirstUnacked >= timeoutSpan
 }
@@ -51,10 +49,9 @@ function checkTimeoutLater() {
 
   timeNextAck = getLastElem(dynamicPendingAcks).endMS
 
-  const currentServerState = getLastElem(dynamicServerAndSessionState)
 
-  const timestampFirstUnacked = currentServerState.timestampFirstUnacked
-  const timeoutSpan = currentServerState.timeoutSpan
+  const timestampFirstUnacked = getServerState('timestampFirstUnacked')
+  const timeoutSpan = getServerState('timeoutSpan')
 
   return timeNextAck - timestampFirstUnacked >= timeoutSpan
 }
@@ -66,19 +63,19 @@ function checkTimeoutLater() {
 function setClock(time) {
   const newEntry = { ...getLastElem(dynamicSessionState) }
   newEntry.clockMS = time
-  dynamicServerAndSessionState.push(newEntry)
+  dynamicServerState.push(newEntry)
 }
 
 function isPendingAck() {
   if (dynamicPendingAcks.length == 0) return false
   const timeNextAck = getLastElem(dynamicPendingAcks).endMS
-  return timeNextAck == getLastElem(dynamicSessionState).clockMS
+  return timeNextAck == getSessionState('clockMS')
 }
 
 function setTimestampFirstUnacked(time) {
-  const newEntry = { ...getLastElem(dynamicServerAndSessionState) }
+  const newEntry = { ...getLastElem(dynamicServerState) }
   newEntry.timestampFirstUnacked = time
-  dynamicServerAndSessionState.push(newEntry)
+  dynamicServerState.push(newEntry)
 }
 
 

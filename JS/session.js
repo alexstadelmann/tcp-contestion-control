@@ -59,7 +59,7 @@ const getLastElem = (array) => {
   return array.at(-1)
 }
 
-const initialServerAndSessionState = {
+const initialServerState = {
   tcpState: tcpState.CLOSED,
   ccState: algorithms.SLOW_START,
   seqNum: 0,
@@ -81,7 +81,7 @@ const initialSessionState = {
   clockMS: 0,
 }
 
-let dynamicServerAndSessionState = [{...initialServerAndSessionState}]
+let dynamicServerState = [{...initialServerState}]
 let dynamicClientState = [{...initialClientState}]
 let dynamicSessionState = [{...initialSessionState}]
 let dynamicServerSegments = []
@@ -90,7 +90,7 @@ let dynamicPendingAcks = []
 let dynamicMetaPackets = []
 
 function resetApplication() {
-  dynamicServerAndSessionState = [{...initialServerAndSessionState}]
+  dynamicServerState = [{...initialServerState}]
   dynamicClientState = [{...initialClientState}]
   dynamicServerSegments = []
   dynamicClientAcks = []
@@ -100,7 +100,6 @@ function resetApplication() {
 
   //Empty sequence diagram
   document.querySelectorAll('#mainSvg g').forEach((elem)=>{
-    console.log(elem)
     elem.innerHTML = ''
   })
 
@@ -117,11 +116,11 @@ function resetApplication() {
 
 
 function setServerState(keyValuePairs) {
-  const newEntry = { ...getLastElem(dynamicServerAndSessionState) }
+  const newEntry = { ...getLastElem(dynamicServerState) }
   for (const [key, newValue] of Object.entries(keyValuePairs)) {
     newEntry[key] = newValue
   }
-  dynamicServerAndSessionState.push(newEntry)
+  dynamicServerState.push(newEntry)
 }
 
 
@@ -145,4 +144,20 @@ function setSettings(key, newValue) {
   const newEntrySettings = { ...getLastElem(dynamicSettings) }
   newEntrySettings[key] = newValue
   dynamicSettings.push(newEntrySettings)
+}
+
+function getServerState(key) {
+  return getLastElem(dynamicServerState)[key]
+}
+
+function getClientState(key) {
+  return getLastElem(dynamicClientState)[key]
+}
+
+function getSessionState(key) {
+  return getLastElem(dynamicSessionState)[key]
+}
+
+function getSegAttribute(key) {
+  return getLastElem(dynamicServerSegments)[key]
 }

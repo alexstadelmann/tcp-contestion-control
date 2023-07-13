@@ -11,7 +11,7 @@ function nextCongestionAvoidance(isDelivered) {
     if(isDelivered) serverReceiveNewAck()
     displayNewAck()
   } else if (
-    getLastElem(dynamicServerAndSessionState).congWin > getLastElem(dynamicServerAndSessionState).currentTraffic
+    getServerState('congWin') > getServerState('currentTraffic')
   ) {
     serverSendSegment(isDelivered)
     if (isDelivered) clientReceiveSegment()

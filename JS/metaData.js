@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 function establishTcp() {
-  const currentTcpState = getLastElem(dynamicServerAndSessionState).tcpState
+  const currentTcpState = getServerState('tcpState')
 
   switch (currentTcpState) {
     case tcpState.CLOSED:
@@ -28,7 +28,7 @@ function establishTcp() {
       break
 
     case tcpState.SYN_RECEIVED:
-      if (getLastElem(dynamicServerAndSessionState).currentTraffic === 0) {
+      if (getServerState('currentTraffic') === 0) {
         serverSendSYNACK()
         setServerState({
           currentTraffic: 1,
@@ -79,7 +79,7 @@ const deactivateAllButtons = () => {
 
 
 function clientSendSYN() {
-  const now = getLastElem(dynamicSessionState).clockMS
+  const now = getSessionState('clockMS')
   const roundTripTimeMS = getLastElem(dynamicSettings).roundTripTimeMS
 
   const newEntry = {
@@ -95,11 +95,13 @@ function clientSendSYN() {
 }
 
 function addToClockMs(timeMS) {
-  getLastElem(dynamicSessionState).clockMS += timeMS
+  setSessionState({
+    clockMS: getSessionState('clockMS') + timeMS
+  })
 }
 
 function serverSendSYNACK() {
-  const now = getLastElem(dynamicSessionState).clockMS
+  const now = getSessionState('clockMS')
   const roundTripTimeMS = getLastElem(dynamicSettings).roundTripTimeMS
   const newEntry = {
     sender: agents.SERVER,
@@ -114,7 +116,7 @@ function serverSendSYNACK() {
 }
 
 function clientSendACK() {
-  const now = getLastElem(dynamicSessionState).clockMS
+  const now = getSessionState('clockMS')
   const roundTripTimeMS = getLastElem(dynamicSettings).roundTripTimeMS
   const newEntry = {
     sender: agents.CLIENT,

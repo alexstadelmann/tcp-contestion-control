@@ -4,15 +4,15 @@ function updateDataPanel() {
     
     if (elem.id == 'congWin') {
       //Special handling of the congestion window to deal with fractions
-      const congWinInteger = getLastElem(dynamicServerAndSessionState).congWin
-      const congWinFractions = getLastElem(dynamicServerAndSessionState).congWinFractions
+      const congWinInteger = getServerState('congWin')
+      const congWinFractions = getServerState('congWinFractions')
       if (!congWinFractions == 0) {
         elem.value = congWinInteger + ' ' + congWinFractions + '/' + congWinInteger
       } else {
         elem.value = congWinInteger
       }
     } else {
-      elem.value = getLastElem(dynamicServerAndSessionState)[elem.id]
+      elem.value = getServerState(elem.id)
     }
     
   })

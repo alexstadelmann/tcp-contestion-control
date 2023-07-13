@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   updateDataPanel()
   document.querySelector('#send').addEventListener('click',()=> {
-    let algorithm = getLastElem(dynamicServerAndSessionState).ccState
+    let algorithm = getServerState('ccState')
     switch (algorithm) {
       case algorithms.SLOW_START:
         nextPacket(true)
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
   })
   document.querySelector('#loss').addEventListener('click', ()=> {
-    let algorithm = getLastElem(dynamicServerAndSessionState).ccState
+    let algorithm = getServerState('ccState')
     switch (algorithm) {
       case algorithms.SLOW_START:
         nextPacket(false)

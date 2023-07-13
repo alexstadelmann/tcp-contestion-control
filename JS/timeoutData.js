@@ -1,5 +1,5 @@
 function resendMissingSegment(isDelivered) {
-  const firstUnackedSegmentNum = getLastElem(dynamicServerAndSessionState).firstUnackedSegmentNum
+  const firstUnackedSegmentNum = getServerState('firstUnackedSegmentNum')
 
   //Delete all remaining elements from dynamic server array
   dynamicServerSegments = dynamicServerSegments.slice(0,firstUnackedSegmentNum + 1)
@@ -19,7 +19,7 @@ function resendMissingSegment(isDelivered) {
   dynamicServerSegments[firstUnackedSegmentNum].seqNum = seqNum
   dynamicServerSegments[firstUnackedSegmentNum].retransmitted = true
 
-  const currentTraffic = getLastElem(dynamicServerAndSessionState).currentTraffic
+  const currentTraffic = getServerState('currentTraffic')
   setServerState({
     ccState: algorithms.SLOW_START,
     seqNum: seqNum + seqSizeByte,
