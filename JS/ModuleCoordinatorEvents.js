@@ -5,12 +5,13 @@ function trigger3DupplicateAcksEvent() {
     
     console.log('congWin:', getLastElem(dynamicServerAndSessionState).congWin / 2 + 3,)
   setServerState({
-    lastEvent: events.DUP_3,
     ccState: algorithms.DUP_3,
     threshold: getLastElem(dynamicServerAndSessionState).congWin / 2,
     congWin: getLastElem(dynamicServerAndSessionState).congWin / 2 + 3,
     congWinFractions: 0,
-    
+  })
+  setSessionState({
+    lastEvent: events.DUP_3,
   })
   
   updateDataPanel()
@@ -22,19 +23,21 @@ function triggerTimeout() {
   //Update server parameters
   setServerState({
     ccState: algorithms.TIMEOUT,
-    lastEvent: events.TIMEOUT,
     threshold: Math.max(1, Math.floor(currentCongWin / 2)),
     congWin: 1,
     congWinFractions: 0,
     currentTraffic: 0,
     duplicateAcks: 0,
   })
+  setSessionState({
+    lastEvent: events.TIMEOUT,
+  })
   //Set time to after timeout
   const timeoutSpan = getLastElem(dynamicSettings).timeoutSpan
   const firstUnackedSegmentNum = getLastElem(dynamicServerAndSessionState).firstUnackedSegmentNum
   const timestampFirstUnacked = dynamicServerSegments[firstUnackedSegmentNum].sendingCompleteMS
   const now = timestampFirstUnacked + timeoutSpan
-  setServerState({
+  setSessionState({
     clockMS: now
   })
   updateDataPanel()
@@ -45,14 +48,18 @@ function triggerThresholdEvent() {
   switch (algorithm) {
     case algorithms.SLOW_START:
       setServerState({
-        lastEvent: events.THRESHOLD_REACHED,
         ccState: algorithms.CONGESTION_AVOIDANCE
+      })
+      setSessionState({
+        lastEvent: events.THRESHOLD_REACHED,
       })
       break     
     case algorithms.FAST_RECOVERY:
       setServerState({
-        lastEvent: events.TIMEOUT,
         ccState: algorithms.SLOW_START
+      })
+      setSessionState({
+        lastEvent: events.TIMEOUT,
       })
       break
   }

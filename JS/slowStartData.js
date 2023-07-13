@@ -39,7 +39,7 @@ function checkTimeoutNow() {
   const currentSessionState = getLastElem(dynamicServerAndSessionState)
   const currentSettings = getLastElem(dynamicSettings)
 
-  const now = currentSessionState.clockMS
+  const now = getLastElem(dynamicSessionState).clockMS
   const timestampFirstUnacked = currentSettings.timestampFirstUnacked
   const timeoutSpan = currentSettings.timeoutSpan
 
@@ -64,7 +64,7 @@ function checkTimeoutLater() {
 
 
 function setClock(time) {
-  const newEntry = { ...getLastElem(dynamicServerAndSessionState) }
+  const newEntry = { ...getLastElem(dynamicSessionState) }
   newEntry.clockMS = time
   dynamicServerAndSessionState.push(newEntry)
 }
@@ -72,7 +72,7 @@ function setClock(time) {
 function isPendingAck() {
   if (dynamicPendingAcks.length == 0) return false
   const timeNextAck = getLastElem(dynamicPendingAcks).endMS
-  return timeNextAck == getLastElem(dynamicServerAndSessionState).clockMS
+  return timeNextAck == getLastElem(dynamicSessionState).clockMS
 }
 
 function setTimestampFirstUnacked(time) {

@@ -7,7 +7,7 @@ function resendMissingSegment3Dup(isDelivered) {
 
   const segmentToRetransmit = dynamicServerSegments[firstUnackedSegmentNum]
   const transmissionTime = segmentToRetransmit.transmissionTime
-  const timeNow = getLastElem(dynamicServerAndSessionState).clockMS
+  const timeNow = getLastElem(dynamicSessionState).clockMS
   const seqSizeByte = getLastElem(dynamicSettings).seqSizeByte
   const roundTripTimeMS = getLastElem(dynamicSettings).roundTripTimeMS
 
@@ -36,7 +36,7 @@ function resendMissingSegment3Dup(isDelivered) {
 
    //If sending this segment fails, it is the "resposibility" of the server to inform the session
    if (!isDelivered) {
-    setServerState({
+    setSessionState({
       lastEvent: events.RETRANSMIT_LOSS
     })
   }

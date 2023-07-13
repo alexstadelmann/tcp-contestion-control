@@ -11,13 +11,18 @@ function establishTcp() {
     case tcpState.CLOSED:
       setServerState({
         tcpState: tcpState.LISTEN,
-        lastEvent: events.START_SERVER  })
+        })
+      setSessionState({
+        lastEvent: events.START_SERVER  
+      })
       break
 
     case tcpState.LISTEN:
       clientSendSYN()
       setServerState({
         tcpState: tcpState.SYN_RECEIVED,
+      })
+      setSessionState({
         lastEvent: events.SYN
       })
       break
@@ -28,6 +33,8 @@ function establishTcp() {
         setServerState({
           currentTraffic: 1,
           seqNum: 1,
+        })
+        setSessionState({
           lastEvent: events.SYN_ACK
         })
       } else {
@@ -36,6 +43,8 @@ function establishTcp() {
           tcpState: tcpState.ESTABLISHED,
           currentTraffic: 0,
           congWin: 1,
+        })
+        setSessionState({
           lastEvent: events.ACK,
         })
         activateAllButtons()
@@ -70,7 +79,7 @@ const deactivateAllButtons = () => {
 
 
 function clientSendSYN() {
-  const now = getLastElem(dynamicServerAndSessionState).clockMS
+  const now = getLastElem(dynamicSessionState).clockMS
   const roundTripTimeMS = getLastElem(dynamicSettings).roundTripTimeMS
 
   const newEntry = {
@@ -86,11 +95,11 @@ function clientSendSYN() {
 }
 
 function addToClockMs(timeMS) {
-  getLastElem(dynamicServerAndSessionState).clockMS += timeMS
+  getLastElem(dynamicSessionState).clockMS += timeMS
 }
 
 function serverSendSYNACK() {
-  const now = getLastElem(dynamicServerAndSessionState).clockMS
+  const now = getLastElem(dynamicSessionState).clockMS
   const roundTripTimeMS = getLastElem(dynamicSettings).roundTripTimeMS
   const newEntry = {
     sender: agents.SERVER,
@@ -105,7 +114,7 @@ function serverSendSYNACK() {
 }
 
 function clientSendACK() {
-  const now = getLastElem(dynamicServerAndSessionState).clockMS
+  const now = getLastElem(dynamicSessionState).clockMS
   const roundTripTimeMS = getLastElem(dynamicSettings).roundTripTimeMS
   const newEntry = {
     sender: agents.CLIENT,

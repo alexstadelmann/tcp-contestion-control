@@ -36,7 +36,7 @@ function resendMissingSegment(isDelivered) {
 
    //If sending this segment fails, it is the "resposibility" of the server to inform the session
    if (!isDelivered) {
-    setServerState({
+    setSessionState({
       lastEvent: events.RETRANSMIT_LOSS
     })
   }

@@ -3,7 +3,7 @@ function serverSendSegment(isDelivered) {
   //Fetch up to date parameters
   const currentServerState = getLastElem(dynamicServerAndSessionState)
   const currentSessionState = getLastElem(dynamicServerAndSessionState)
-  const now = currentSessionState.clockMS
+  const now = getLastElem(dynamicSessionState).clockMS
   const seqNum = currentServerState.seqNum
   const currentTraffic = currentServerState.currentTraffic
 
@@ -45,7 +45,7 @@ function serverSendSegment(isDelivered) {
 
   //If sending this segment fails, it is the "resposibility" of the server to inform the session
   if (!isDelivered) {
-    setServerState({
+    setSessionState({
       lastEvent: events.SEG_LOSS
     })
   }
@@ -57,7 +57,7 @@ function clientReceiveSegment() {
   const seqSizeByte = getLastElem(dynamicSettings).seqSizeByte
   const roundTripTimeMS = getLastElem(dynamicSettings).roundTripTimeMS
   //We know that the segment has arrived
-  setServerState({
+  setSessionState({
     lastEvent: events.SEG
   })
   updateDataPanel()

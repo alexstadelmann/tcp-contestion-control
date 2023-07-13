@@ -70,16 +70,20 @@ const initialServerAndSessionState = {
   congWinFractions: 0,
   firstUnackedSegmentNum: 0,
   duplicateAcks: 0,
-  lastEvent: '',
-  clockMS: 0,
 }
 
 const initialClientState = {
   segmentsReceivedInOrder: 1,
 }
 
+const initialSessionState = {
+  lastEvent: '',
+  clockMS: 0,
+}
+
 let dynamicServerAndSessionState = [{...initialServerAndSessionState}]
 let dynamicClientState = [{...initialClientState}]
+let dynamicSessionState = [{...initialSessionState}]
 let dynamicServerSegments = []
 let dynamicClientAcks = []
 let dynamicPendingAcks = []
@@ -112,21 +116,29 @@ function resetApplication() {
 
 
 
-function setServerState(arrayKeyValuePairs) {
+function setServerState(keyValuePairs) {
   const newEntry = { ...getLastElem(dynamicServerAndSessionState) }
-  for (const [key, newValue] of Object.entries(arrayKeyValuePairs)) {
+  for (const [key, newValue] of Object.entries(keyValuePairs)) {
     newEntry[key] = newValue
   }
   dynamicServerAndSessionState.push(newEntry)
 }
 
 
-function setClientState(arrayKeyValuePairs) {
+function setClientState(keyValuePairs) {
   const newEntry = { ...getLastElem(dynamicClientState) }
-  for (const [key, newValue] of Object.entries(arrayKeyValuePairs)) {
+  for (const [key, newValue] of Object.entries(keyValuePairs)) {
     newEntry[key] = newValue
   }
   dynamicClientState.push(newEntry)
+}
+
+function setSessionState(keyValuePairs) {
+  const newEntry = { ...getLastElem(dynamicSessionState) }
+  for (const [key, newValue] of Object.entries(keyValuePairs)) {
+    newEntry[key] = newValue
+  }
+  dynamicSessionState.push(newEntry)
 }
 
 function setSettings(key, newValue) {

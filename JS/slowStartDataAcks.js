@@ -13,7 +13,7 @@ function clientSendNewAck(isDelivered) {
 
   //If the ack gets lost it is this functions responsibility to tell the session
   if(!isDelivered) {
-    setServerState({
+    setSessionState({
       lastEvent: events.ACK_LOSS
     })
   }
@@ -34,14 +34,16 @@ function serverReceiveNewAck() {
   const seqSizeByte = getLastElem(dynamicSettings).seqSizeByte
 
   setServerState({
+    currentTraffic: currentTraffic - 1
+  })
+  setSessionState({
     lastEvent: events.NEW_ACK,
     clockMS: timeNow,
-    currentTraffic: currentTraffic - 1
   })
 
    //Check is ack is a duplicate
    if(ackNum == currentServerState.confirmedReceived) {
-    setServerState({
+    setSessionState({
       lastEvent: events.DUP_ACK
     })
     console.log('tatae',currentServerState.ccState)
@@ -121,10 +123,12 @@ function serverReceiveNewAck() {
         break
       case algorithms.FAST_RECOVERY:
         setServerState({
-          lastEvent: events.NEW_ACK,
           ccState: algorithms.CONGESTION_AVOIDANCE,
           congWin: getLastElem(dynamicServerAndSessionState).threshold,
           duplicateAcks: 0
+        })
+        setSessionState({
+          lastEvent: events.NEW_ACK,
         })
 
     }

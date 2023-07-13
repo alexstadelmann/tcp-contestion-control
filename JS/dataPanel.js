@@ -16,4 +16,7 @@ function updateDataPanel() {
     }
     
   })
+  document.querySelectorAll('.sessionData').forEach((elem) => {
+    elem.value = getLastElem(dynamicSessionState)[elem.id]
+  })
 }
