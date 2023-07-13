@@ -20,9 +20,13 @@ function resendMissingSegment3Dup(isDelivered) {
   }
   dynamicServerSegments.push(retransmissionSegment)
   setServerState({
+    
+    })
+  setServerState({
     ccState: algorithms.FAST_RECOVERY,
-    seqNum: getSegAttribute('seqNum') + seqSizeByte,
-    currentTraffic: getServerState('currentTraffic') + 1
+    seqNum: getSegmentAttribute('seqNum') + seqSizeByte,
+    currentTraffic: getServerState('currentTraffic') + 1,
+    firstUnackedSegmentNum: dynamicServerSegments.length - 1
   })
 
   
@@ -32,7 +36,7 @@ function resendMissingSegment3Dup(isDelivered) {
   })
 
   //If currently all segments are acked, then set the sending end of the new ack to be the timeout timer start
-  setTimestampFirstUnacked(getSegAttribute('sendingCompleteMS'))
+  setTimestampFirstUnacked(getSegmentAttribute('sendingCompleteMS'))
 
    //If sending this segment fails, it is the "resposibility" of the server to inform the session
    if (!isDelivered) {

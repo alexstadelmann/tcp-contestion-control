@@ -1,10 +1,10 @@
 function displayNewSegment() {
-  const start = getLastElem(dynamicServerSegments).startMS / SMALL_FACTOR
-  const end = getLastElem(dynamicServerSegments).endMS / SMALL_FACTOR
+  const start = getSegmentAttribute('startMS') / SMALL_FACTOR
+  const end = getSegmentAttribute('endMS') / SMALL_FACTOR
   const ratio = getLastElem(dynamicSettings).ratio1pxToMS
   const roundTripTimeMS = getLastElem(dynamicSettings).roundTripTimeMS / SMALL_FACTOR
-  const seqNum = getLastElem(dynamicServerSegments).seqNum
-  const isDelivered = getLastElem(dynamicServerSegments).isDelivered
+  const seqNum = getSegmentAttribute('seqNum')
+  const isDelivered = getSegmentAttribute('isDelivered')
   const viewBoxHeight =
     document.querySelector('#mainSvg').viewBox.baseVal.height
   const SCREEN_FACTOR = 0.8
@@ -15,8 +15,8 @@ function displayNewSegment() {
     document.querySelector('#lines').scrollTop =
       document.querySelector('#lines').scrollHeight
   }
-  const colorFill = getLastElem(dynamicServerSegments).retransmitted ? 'pink': 'none'
-  const colorStroke = getLastElem(dynamicServerSegments).retransmitted ? 'pink': 'black'
+  const colorFill = getSegmentAttribute('retransmitted') ? 'pink': 'none'
+  const colorStroke = getSegmentAttribute('retransmitted') ? 'pink': 'black'
   if (isDelivered) {
     const newPacket = document.createElementNS(NAME_SPACE_URI, 'path')
     newPacket.setAttribute('stroke', colorStroke)

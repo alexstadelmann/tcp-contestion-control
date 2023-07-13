@@ -50,7 +50,8 @@ const basicSettings = {
   initialThreshold: 10,
   lang: 'en',
   ratio1pxToMS: 1,
-  timeoutSpan: 400
+  timeoutSpan: 400,
+  
 }
 
 const dynamicSettings = [{ ...basicSettings }]
@@ -70,6 +71,7 @@ const initialServerState = {
   congWinFractions: 0,
   firstUnackedSegmentNum: 0,
   duplicateAcks: 0,
+  timestampFirstUnacked: 0,
 }
 
 const initialClientState = {
@@ -168,7 +170,7 @@ function getSessionState(key) {
   return getLastElem(dynamicSessionState)[key]
 }
 
-function getSegAttribute(key) {
+function getSegmentAttribute(key) {
   return getLastElem(dynamicServerSegments)[key]
 }
 

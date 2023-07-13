@@ -27,6 +27,7 @@ function serverSendSegment(isDelivered) {
     seqNum,
     isDelivered,
     transmissionTime,
+    retransmitted: false,
   }
   dynamicServerSegments.push(newSegment)
 
@@ -50,8 +51,7 @@ function serverSendSegment(isDelivered) {
 }
 
 function clientReceiveSegment() {
-  const newSegment = getLastElem(dynamicServerSegments)
-  const seqNum = newSegment.seqNum
+  const seqNum = getSegmentAttribute('seqNum')
   const seqSizeByte = getLastElem(dynamicSettings).seqSizeByte
   const roundTripTimeMS = getLastElem(dynamicSettings).roundTripTimeMS
   //We know that the segment has arrived
@@ -61,23 +61,23 @@ function clientReceiveSegment() {
   updateDataPanel()
 
   //Check that segmentsReceivedInOrder is not bigger than seqNum.If so reduce the former
-  if (getClientState('segmentsReceivedInOrder') > getLastElem(dynamicServerSegments).seqNum) {
+  if (getClientState('segmentsReceivedInOrder') > seqNum) {
     setClientState({
-      segmentsReceivedInOrder: getLastElem(dynamicServerSegments).seqNum + seqSizeByte
+      segmentsReceivedInOrder: seqNum + seqSizeByte
     })
   }
   //Update the client state to reflect the arrival of a in order segment
-  if (getClientState('segmentsReceivedInOrder') == getLastElem(dynamicServerSegments).seqNum) {
+  if (getClientState('segmentsReceivedInOrder') == seqNum) {
     setClientState({
       segmentsReceivedInOrder: seqNum + seqSizeByte
     })
   }
   //Create the acknowlegement for the new segment
   const newAck = {
-    startMS: newSegment.endMS,
-    endMS: newSegment.endMS + roundTripTimeMS / 2,
+    startMS: getSegmentAttribute('endMS'),
+    endMS: getSegmentAttribute('endMS') + roundTripTimeMS / 2,
     ackNum: getClientState('segmentsReceivedInOrder'),
-    sendingSegmentCompleteMS: newSegment.sendingCompleteMS
+    sendingSegmentCompleteMS: getSegmentAttribute('sendingCompleteMS')
   }
   dynamicPendingAcks.unshift(newAck)
 }
