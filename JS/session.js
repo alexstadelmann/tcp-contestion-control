@@ -88,7 +88,7 @@ let dynamicClientState = [{...initialClientState}]
 let dynamicSessionState = [{...initialSessionState}]
 let dynamicServerSegments = []
 let dynamicClientAcks = []
-let dynamicClientBuffer = []
+let dynamicClientBuffer = new Set()
 let dynamicPendingAcks = []
 let dynamicMetaPackets = []
 
