@@ -140,11 +140,21 @@ function setSessionState(keyValuePairs) {
   dynamicSessionState.push(newEntry)
 }
 
+function addSegment(keyValuePairs) {
+  const newEntry = { ...getLastElem(dynamicSessionState) }
+  for (const [key, newValue] of Object.entries(keyValuePairs)) {
+    newEntry[key] = newValue
+  }
+  dynamicSessionState.push(newEntry)
+}
+
+
 function setSettings(key, newValue) {
   const newEntrySettings = { ...getLastElem(dynamicSettings) }
   newEntrySettings[key] = newValue
   dynamicSettings.push(newEntrySettings)
 }
+
 
 function getServerState(key) {
   return getLastElem(dynamicServerState)[key]
@@ -160,4 +170,9 @@ function getSessionState(key) {
 
 function getSegAttribute(key) {
   return getLastElem(dynamicServerSegments)[key]
+}
+
+function setSegAttribute(key, value) {
+  console.log('key', key,'value: ',value)
+  dynamicServerSegments.at(-1)[key] = value
 }

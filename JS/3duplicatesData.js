@@ -1,28 +1,27 @@
 function resendMissingSegment3Dup(isDelivered) {
   const firstUnackedSegmentNum = getServerState('firstUnackedSegmentNum')
 
+  const lostSegment = dynamicServerSegments[firstUnackedSegmentNum]
 
-  //Delete all remaining elements from dynamic server array
-  dynamicServerSegments = dynamicServerSegments.slice(0,firstUnackedSegmentNum + 1)
-
-  const segmentToRetransmit = dynamicServerSegments[firstUnackedSegmentNum]
-  const transmissionTime = segmentToRetransmit.transmissionTime
-  const timeNow = getSessionState('clockMS')
+  const transmissionTime = lostSegment.transmissionTime
+  const seqNum = lostSegment.seqNum
+  const startMS = getSessionState('clockMS')
   const seqSizeByte = getLastElem(dynamicSettings).seqSizeByte
   const roundTripTimeMS = getLastElem(dynamicSettings).roundTripTimeMS
 
- 
-
-  //Adapt segment that is already in array
-  dynamicServerSegments[firstUnackedSegmentNum].isDelivered = isDelivered
-  dynamicServerSegments[firstUnackedSegmentNum].startMS = timeNow
-  dynamicServerSegments[firstUnackedSegmentNum].endMS = timeNow + transmissionTime + roundTripTimeMS / 2
-  dynamicServerSegments[firstUnackedSegmentNum].sendingCompleteMS = timeNow + transmissionTime
-  dynamicServerSegments[firstUnackedSegmentNum].retransmitted = true
+  const retransmissionSegment = {
+    isDelivered,
+    startMS,
+    seqNum,
+    endMS: startMS + transmissionTime + roundTripTimeMS/2,
+    sendingCompleteMS: startMS + transmissionTime,
+    retransmitted: true,
+  }
+  dynamicServerSegments.push(retransmissionSegment)
   setServerState({
     ccState: algorithms.FAST_RECOVERY,
-    seqNum: dynamicServerSegments[firstUnackedSegmentNum].seqNum + seqSizeByte,
-    currentTraffic: currentTraffic + 1
+    seqNum: getSegAttribute('seqNum') + seqSizeByte,
+    currentTraffic: getServerState('currentTraffic') + 1
   })
 
   //Update clock 
