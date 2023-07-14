@@ -1,5 +1,5 @@
 function displayNewAck() {
-  const newAck = dynamicPendingAcks.pop()
+  const newAck = pendingAcks.pop()
   const start = newAck.startMS / SMALL_FACTOR
   const end = newAck.endMS / SMALL_FACTOR
   const BytesReceivedInOrder = newAck.ackNum

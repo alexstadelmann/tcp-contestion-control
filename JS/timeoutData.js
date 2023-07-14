@@ -2,7 +2,7 @@ function resendMissingSegment(isDelivered) {
   const firstUnackedSegmentNum = getServerState('firstUnackedSegmentNum')
 
 
-  const lostSegment = dynamicServerSegments[firstUnackedSegmentNum]
+  const lostSegment = serverSegments[firstUnackedSegmentNum]
   
 
   const retransmissionSegment = {
@@ -19,7 +19,7 @@ function resendMissingSegment(isDelivered) {
     retransmitted: true,
     transmissionTime: lostSegment.transmissionTime
   }
-  dynamicServerSegments.push(retransmissionSegment)
+  serverSegments.push(retransmissionSegment)
 
   setServerState({
     ccState: algorithms.SLOW_START,

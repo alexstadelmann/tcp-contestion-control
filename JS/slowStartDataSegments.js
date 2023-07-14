@@ -28,7 +28,7 @@ function serverSendSegment(isDelivered) {
     transmissionTime,
     retransmitted: false,
   }
-  dynamicServerSegments.push(newSegment)
+  serverSegments.push(newSegment)
 
   //Update server state to reflect sending a new segment
   setServerState({
@@ -58,12 +58,12 @@ function clientReceiveSegment() {
   updateDataPanel()
 
   //Add new segment to client buffer
-  dynamicClientBuffer.add(getSegmentAttribute('seqNum'))
+  clientBuffer.add(getSegmentAttribute('seqNum'))
   
 
   //Check if there is a or many segments already in buffer that fit after the received segment
   while (true) {
-    if(dynamicClientBuffer.has(getClientState('BytesReceivedInOrder'))) {
+    if(clientBuffer.has(getClientState('BytesReceivedInOrder'))) {
       setClientState({
         BytesReceivedInOrder: getClientState('BytesReceivedInOrder')
         + getConfigState('seqSizeByte')
@@ -81,6 +81,6 @@ function clientReceiveSegment() {
     ackNum: getClientState('BytesReceivedInOrder'),
     sendingSegmentCompleteMS: getSegmentAttribute('sendingCompleteMS')
   }
-  dynamicPendingAcks.unshift(newAck)
+  pendingAcks.unshift(newAck)
 }
 

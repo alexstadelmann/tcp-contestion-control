@@ -2,14 +2,14 @@ function clientSendNewAck(isDelivered) {
 
   
   //Fetch ack from pending array and also parameters
-  const newAck = getLastElem(dynamicPendingAcks)
+  const newAck = getLastElem(pendingAcks)
 
 
   //Set property delivered to true or false
   newAck.isDelivered = isDelivered
 
   //Send new ack by pushing it onto the (realality-emulating) client array
-  dynamicClientAcks.push(newAck)
+  clientAcks.push(newAck)
 
   //If the ack gets lost it is this functions responsibility to tell the session
   if(!isDelivered) {
@@ -20,7 +20,7 @@ function clientSendNewAck(isDelivered) {
 }
 
 function serverReceiveNewAck() {
-  const newAck = getLastElem(dynamicPendingAcks)
+  const newAck = getLastElem(pendingAcks)
   const ackNum = newAck.ackNum
   const timeNow = newAck.endMS
 
@@ -75,12 +75,12 @@ function serverReceiveNewAck() {
           return
         }
         //If the ack acknowledges the first currentTraffic segment send or even a later segment, then update server state
-        if (ackNum >= dynamicServerSegments[firstUnackedSegmentNum].seqNum + seqSizeByte) {
-          const numberOfSteps = (ackNum - dynamicServerSegments[firstUnackedSegmentNum].seqNum) /seqSizeByte
+        if (ackNum >= serverSegments[firstUnackedSegmentNum].seqNum + seqSizeByte) {
+          const numberOfSteps = (ackNum - serverSegments[firstUnackedSegmentNum].seqNum) /seqSizeByte
           firstUnackedSegmentNum += numberOfSteps
-          const timestampFirstUnacked = (dynamicServerSegments.length <= firstUnackedSegmentNum)
+          const timestampFirstUnacked = (serverSegments.length <= firstUnackedSegmentNum)
             ? NONE
-            : dynamicServerSegments[firstUnackedSegmentNum].sendingCompleteMS
+            : serverSegments[firstUnackedSegmentNum].sendingCompleteMS
 
           
           setServerState({
@@ -103,12 +103,12 @@ function serverReceiveNewAck() {
           })
         }
         //If the ack acknowledges the first currentTraffic segment send or even a later segment, then update server state
-        if (ackNum >= dynamicServerSegments[firstUnackedSegmentNum].seqNum + seqSizeByte) {
-          const numberOfSteps = (ackNum - dynamicServerSegments[firstUnackedSegmentNum].seqNum) /seqSizeByte
+        if (ackNum >= serverSegments[firstUnackedSegmentNum].seqNum + seqSizeByte) {
+          const numberOfSteps = (ackNum - serverSegments[firstUnackedSegmentNum].seqNum) /seqSizeByte
           firstUnackedSegmentNum += numberOfSteps
-          const timestampFirstUnacked = (dynamicServerSegments.length <= firstUnackedSegmentNum)
+          const timestampFirstUnacked = (serverSegments.length <= firstUnackedSegmentNum)
             ? NONE
-            : dynamicServerSegments[firstUnackedSegmentNum].sendingCompleteMS
+            : serverSegments[firstUnackedSegmentNum].sendingCompleteMS
 
           
           setServerState({

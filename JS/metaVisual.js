@@ -10,12 +10,12 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 function updateSeqDiagramMeta() {
-  if (dynamicMetaPackets.length == 0) return
+  if (metaPackets.length == 0) return
 
-  const sender = getLastElem(dynamicMetaPackets).sender
-  const start = getLastElem(dynamicMetaPackets).startMS / SMALL_FACTOR
-  const end = getLastElem(dynamicMetaPackets).endMS / SMALL_FACTOR
-  const flag = getLastElem(dynamicMetaPackets).flag
+  const sender = getLastElem(metaPackets).sender
+  const start = getLastElem(metaPackets).startMS / SMALL_FACTOR
+  const end = getLastElem(metaPackets).endMS / SMALL_FACTOR
+  const flag = getLastElem(metaPackets).flag
   if (sender == agents.CLIENT) {
     tcpMetaSegmentClientToServer(start, end, flag)
   } else {
@@ -24,7 +24,7 @@ function updateSeqDiagramMeta() {
 }
 
 function tcpMetaSegmentClientToServer(start, end, flag) {
-  if (dynamicMetaPackets.length == 0) {
+  if (metaPackets.length == 0) {
     return
   }
   const ratio = getConfigState('ratio1pxToMS')

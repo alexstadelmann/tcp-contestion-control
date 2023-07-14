@@ -54,7 +54,7 @@ const basicSettings = {
   
 }
 
-const dynamicSettings = [{ ...basicSettings }]
+const settings = [{ ...basicSettings }]
 
 const getLastElem = (array) => {
   return array.at(-1)
@@ -66,7 +66,7 @@ const initialServerState = {
   seqNum: 0,
   confirmedReceived: 0,
   currentTraffic: 0,
-  threshold: getLastElem(dynamicSettings).initialThreshold,
+  threshold: getLastElem(settings).initialThreshold,
   congWin: 0,
   congWinFractions: 0,
   firstUnackedSegmentNum: 0,
@@ -83,22 +83,22 @@ const initialSessionState = {
   clockMS: 0,
 }
 
-let dynamicServerState = [{...initialServerState}]
-let dynamicClientState = [{...initialClientState}]
-let dynamicSessionState = [{...initialSessionState}]
-let dynamicServerSegments = []
-let dynamicClientAcks = []
-let dynamicClientBuffer = new Set()
-let dynamicPendingAcks = []
-let dynamicMetaPackets = []
+let serverState = [{...initialServerState}]
+let clientState = [{...initialClientState}]
+let sessionState = [{...initialSessionState}]
+let serverSegments = []
+let clientAcks = []
+let clientBuffer = new Set()
+let pendingAcks = []
+let metaPackets = []
 
 function resetApplication() {
-  dynamicServerState = [{...initialServerState}]
-  dynamicClientState = [{...initialClientState}]
-  dynamicServerSegments = []
-  dynamicClientAcks = []
-  dynamicPendingAcks = []
-  dynamicMetaPackets = []
+  serverState = [{...initialServerState}]
+  clientState = [{...initialClientState}]
+  serverSegments = []
+  clientAcks = []
+  pendingAcks = []
+  metaPackets = []
   updateDataPanel()
 
   //Empty sequence diagram
@@ -119,75 +119,75 @@ function resetApplication() {
 
 
 function setServerState(keyValuePairs) {
-  const newEntry = { ...getLastElem(dynamicServerState) }
+  const newEntry = { ...getLastElem(serverState) }
   for (const [key, newValue] of Object.entries(keyValuePairs)) {
     newEntry[key] = newValue
   }
-  dynamicServerState.push(newEntry)
+  serverState.push(newEntry)
 }
 
 
 function setClientState(keyValuePairs) {
-  const newEntry = { ...getLastElem(dynamicClientState) }
+  const newEntry = { ...getLastElem(clientState) }
   for (const [key, newValue] of Object.entries(keyValuePairs)) {
     newEntry[key] = newValue
   }
-  dynamicClientState.push(newEntry)
+  clientState.push(newEntry)
 }
 
 function setSessionState(keyValuePairs) {
-  const newEntry = { ...getLastElem(dynamicSessionState) }
+  const newEntry = { ...getLastElem(sessionState) }
   for (const [key, newValue] of Object.entries(keyValuePairs)) {
     newEntry[key] = newValue
   }
-  dynamicSessionState.push(newEntry)
+  sessionState.push(newEntry)
 }
 
 function setConfigState(keyValuePairs) {
-  const newEntry = { ...getLastElem(dynamicSettings) }
+  const newEntry = { ...getLastElem(settings) }
   for (const [key, newValue] of Object.entries(keyValuePairs)) {
     newEntry[key] = newValue
   }
-  dynamicSettings.push(newEntry)
+  settings.push(newEntry)
 }
 
 function getConfigState(key) {
-  return getLastElem(dynamicSettings)[key]
+  return getLastElem(settings)[key]
 }
 
 function addSegment(keyValuePairs) {
-  const newEntry = { ...getLastElem(dynamicSessionState) }
+  const newEntry = { ...getLastElem(sessionState) }
   for (const [key, newValue] of Object.entries(keyValuePairs)) {
     newEntry[key] = newValue
   }
-  dynamicSessionState.push(newEntry)
+  sessionState.push(newEntry)
 }
 
 
 function setSettings(key, newValue) {
-  const newEntrySettings = { ...getLastElem(dynamicSettings) }
+  const newEntrySettings = { ...getLastElem(settings) }
   newEntrySettings[key] = newValue
-  dynamicSettings.push(newEntrySettings)
+  settings.push(newEntrySettings)
 }
 
 
 function getServerState(key) {
-  return getLastElem(dynamicServerState)[key]
+  return getLastElem(serverState)[key]
 }
 
 function getClientState(key) {
-  return getLastElem(dynamicClientState)[key]
+  return getLastElem(clientState)[key]
 }
 
 function getSessionState(key) {
-  return getLastElem(dynamicSessionState)[key]
+  return getLastElem(sessionState)[key]
 }
 
 function getSegmentAttribute(key) {
-  return getLastElem(dynamicServerSegments)[key]
+  return getLastElem(serverSegments)[key]
 }
 
 function setSegAttribute(key, value) {
   console.log('key', key,'value: ',value)
-  dynamicServerSegments.at(-1)[key] = value
+  serverSegments.at(-1)[key] = value
 }

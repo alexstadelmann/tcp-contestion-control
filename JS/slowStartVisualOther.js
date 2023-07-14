@@ -5,9 +5,9 @@ function displayFirstUnAckedBar() {
   try {
     document.querySelector('#timeoutBar').remove()
   } catch (error) {}
-  if(dynamicServerSegments.length <= firstUnackedSegmentNum) return
+  if(serverSegments.length <= firstUnackedSegmentNum) return
   
-  const start = dynamicServerSegments[firstUnackedSegmentNum].sendingCompleteMS
+  const start = serverSegments[firstUnackedSegmentNum].sendingCompleteMS
   if(start == NONE) return
   const newTimeoutBar = document.createElementNS(NAME_SPACE_URI, 'line') 
   newTimeoutBar.setAttribute('stroke', 'pink')
@@ -22,7 +22,7 @@ function displayFirstUnAckedBar() {
 
 function displayTimeout() {
   const firstUnackedSegmentNum = getServerState('firstUnackedSegmentNum')
-  const start = dynamicServerSegments[firstUnackedSegmentNum].sendingCompleteMS
+  const start = serverSegments[firstUnackedSegmentNum].sendingCompleteMS
   const timeoutSpan = getConfigState('timeoutSpan')
   const end = start + timeoutSpan
 

@@ -1,7 +1,7 @@
 function resendMissingSegment3Dup(isDelivered) {
   const firstUnackedSegmentNum = getServerState('firstUnackedSegmentNum')
 
-  const lostSegment = dynamicServerSegments[firstUnackedSegmentNum]
+  const lostSegment = serverSegments[firstUnackedSegmentNum]
 
   const transmissionTime = lostSegment.transmissionTime
   const seqNum = lostSegment.seqNum
@@ -17,7 +17,7 @@ function resendMissingSegment3Dup(isDelivered) {
     sendingCompleteMS: startMS + transmissionTime,
     retransmitted: true,
   }
-  dynamicServerSegments.push(retransmissionSegment)
+  serverSegments.push(retransmissionSegment)
   setServerState({
     
     })

@@ -45,9 +45,9 @@ function checkTimeoutNow() {
 }
 
 function checkTimeoutLater() {
-  if (dynamicPendingAcks.length == 0) return true
+  if (pendingAcks.length == 0) return true
 
-  timeNextAck = getLastElem(dynamicPendingAcks).endMS
+  timeNextAck = getLastElem(pendingAcks).endMS
 
 
   const timestampFirstUnacked = getServerState('timestampFirstUnacked')
@@ -61,21 +61,21 @@ function checkTimeoutLater() {
 
 
 function setClock(time) {
-  const newEntry = { ...getLastElem(dynamicSessionState) }
+  const newEntry = { ...getLastElem(sessionState) }
   newEntry.clockMS = time
-  dynamicServerState.push(newEntry)
+  serverState.push(newEntry)
 }
 
 function isPendingAck() {
-  if (dynamicPendingAcks.length == 0) return false
-  const timeNextAck = getLastElem(dynamicPendingAcks).endMS
+  if (pendingAcks.length == 0) return false
+  const timeNextAck = getLastElem(pendingAcks).endMS
   return timeNextAck == getSessionState('clockMS')
 }
 
 function setTimestampFirstUnacked(time) {
-  const newEntry = { ...getLastElem(dynamicServerState) }
+  const newEntry = { ...getLastElem(serverState) }
   newEntry.timestampFirstUnacked = time
-  dynamicServerState.push(newEntry)
+  serverState.push(newEntry)
 }
 
 

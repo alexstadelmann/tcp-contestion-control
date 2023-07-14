@@ -90,7 +90,7 @@ function clientSendSYN() {
     ackNum: 0,
   }
 
-  dynamicMetaPackets.push(newEntry)
+  metaPackets.push(newEntry)
   addToClockMs(roundTripTimeMS / 2)
 }
 
@@ -111,7 +111,7 @@ function serverSendSYNACK() {
     ackNum: 1,
   }
 
-  dynamicMetaPackets.push(newEntry)
+  metaPackets.push(newEntry)
   addToClockMs(roundTripTimeMS / 2)
 }
 
@@ -127,5 +127,5 @@ function clientSendACK() {
   }
 
   addToClockMs(roundTripTimeMS / 2)
-  dynamicMetaPackets.push(newEntry)
+  metaPackets.push(newEntry)
 }
