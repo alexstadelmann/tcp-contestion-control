@@ -6,7 +6,7 @@ function resendMissingSegment3Dup(isDelivered) {
   const transmissionTime = lostSegment.transmissionTime
   const seqNum = lostSegment.seqNum
   const startMS = getSessionState('clockMS')
-  const roundTripTimeMS = getLastElem(dynamicSettings).roundTripTimeMS
+  const roundTripTimeMS = getConfigState('roundTripTimeMS')
 
   const retransmissionSegment = {
     isDelivered,

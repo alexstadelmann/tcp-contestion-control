@@ -6,8 +6,8 @@ function displayNewAck() {
   const isDelivered = newAck.isDelivered
   
 
-  const ratio = getLastElem(dynamicSettings).ratio1pxToMS
-  const roundTripTimeMS = getLastElem(dynamicSettings).roundTripTimeMS /SMALL_FACTOR
+  const ratio = getConfigState('ratio1pxToMS')
+  const roundTripTimeMS = getConfigState('roundTripTimeMS') /SMALL_FACTOR
   if (isDelivered) {
     
     const newPacket = document.createElementNS(NAME_SPACE_URI, 'path')

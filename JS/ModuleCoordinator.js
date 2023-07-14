@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', () => {
   updateDataPanel()
   
   document.querySelector('#send').addEventListener('click',()=> {
-    console.log(getLastElem(dynamicClientState))
     let algorithm = getServerState('ccState')
     switch (algorithm) {
       case algorithms.SLOW_START:

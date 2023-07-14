@@ -1,8 +1,8 @@
 function displayNewSegment() {
   const start = getSegmentAttribute('startMS') / SMALL_FACTOR
   const end = getSegmentAttribute('endMS') / SMALL_FACTOR
-  const ratio = getLastElem(dynamicSettings).ratio1pxToMS
-  const roundTripTimeMS = getLastElem(dynamicSettings).roundTripTimeMS / SMALL_FACTOR
+  const ratio = getConfigState('ratio1pxToMS')
+  const roundTripTimeMS = getConfigState('roundTripTimeMS') / SMALL_FACTOR
   const seqNum = getSegmentAttribute('seqNum')
   const isDelivered = getSegmentAttribute('isDelivered')
   const viewBoxHeight =

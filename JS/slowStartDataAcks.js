@@ -30,7 +30,7 @@ function serverReceiveNewAck() {
   const duplicateAcks = getServerState('duplicateAcks')
   let firstUnackedSegmentNum = getServerState('firstUnackedSegmentNum')
 
-  const seqSizeByte = getLastElem(dynamicSettings).seqSizeByte
+  const seqSizeByte = getConfigState('seqSizeByte')
 
   setServerState({
     currentTraffic: currentTraffic - 1

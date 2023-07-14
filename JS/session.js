@@ -143,6 +143,18 @@ function setSessionState(keyValuePairs) {
   dynamicSessionState.push(newEntry)
 }
 
+function setConfigState(keyValuePairs) {
+  const newEntry = { ...getLastElem(dynamicSettings) }
+  for (const [key, newValue] of Object.entries(keyValuePairs)) {
+    newEntry[key] = newValue
+  }
+  dynamicSettings.push(newEntry)
+}
+
+function getConfigState(key) {
+  return getLastElem(dynamicSettings)[key]
+}
+
 function addSegment(keyValuePairs) {
   const newEntry = { ...getLastElem(dynamicSessionState) }
   for (const [key, newValue] of Object.entries(keyValuePairs)) {

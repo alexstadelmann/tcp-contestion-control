@@ -23,7 +23,7 @@ function displayFirstUnAckedBar() {
 function displayTimeout() {
   const firstUnackedSegmentNum = getServerState('firstUnackedSegmentNum')
   const start = dynamicServerSegments[firstUnackedSegmentNum].sendingCompleteMS
-  const timeoutSpan = getLastElem(dynamicSettings).timeoutSpan
+  const timeoutSpan = getConfigState('timeoutSpan')
   const end = start + timeoutSpan
 
   const newTimeoutBar = document.createElementNS(NAME_SPACE_URI, 'path')

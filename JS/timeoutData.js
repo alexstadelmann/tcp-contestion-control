@@ -8,12 +8,12 @@ function resendMissingSegment(isDelivered) {
   const retransmissionSegment = {
     isDelivered,
     startMS: lostSegment.sendingCompleteMS
-      + getLastElem(dynamicSettings).timeoutSpan,
+      + getConfigState('timeoutSpan'),
     endMS: lostSegment.endMS
-      + getLastElem(dynamicSettings).timeoutSpan
+      + getConfigState('timeoutSpan')
       + lostSegment.transmissionTime,
     sendingCompleteMS: lostSegment.sendingCompleteMS
-      + getLastElem(dynamicSettings).timeoutSpan
+      + getConfigState('timeoutSpan')
       + lostSegment.transmissionTime,
     seqNum: lostSegment.seqNum,
     retransmitted: true,

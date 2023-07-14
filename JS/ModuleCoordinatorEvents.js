@@ -29,7 +29,7 @@ function triggerTimeout() {
     lastEvent: events.TIMEOUT,
   })
   //Set time to after timeout
-  const timeoutSpan = getLastElem(dynamicSettings).timeoutSpan
+  const timeoutSpan = getConfigState('timeoutSpan')
   const firstUnackedSegmentNum = getServerState('firstUnackedSegmentNum')
   const timestampFirstUnacked = dynamicServerSegments[firstUnackedSegmentNum].sendingCompleteMS
   const now = timestampFirstUnacked + timeoutSpan

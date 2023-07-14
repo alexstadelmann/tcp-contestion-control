@@ -27,7 +27,7 @@ function tcpMetaSegmentClientToServer(start, end, flag) {
   if (dynamicMetaPackets.length == 0) {
     return
   }
-  const ratio = getLastElem(dynamicSettings).ratio1pxToMS
+  const ratio = getConfigState('ratio1pxToMS')
 
   const newPacket = document.createElementNS(NAME_SPACE_URI, 'path')
   newPacket.setAttribute('stroke', 'black')
@@ -51,7 +51,7 @@ function tcpMetaSegmentClientToServer(start, end, flag) {
 }
 
 function tcpMetaSegmentServerToClient(start, end, flag) {
-  const ratio = getLastElem(dynamicSettings).ratio1pxToMS
+  const ratio = getConfigState('ratio1pxToMS')
   const newPacket = document.createElementNS(NAME_SPACE_URI, 'path')
   newPacket.setAttribute('d', 'M10 ' + end * ratio + 'L90 ' + start * ratio)
   newPacket.setAttribute('stroke', 'black')

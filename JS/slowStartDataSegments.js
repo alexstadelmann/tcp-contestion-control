@@ -5,10 +5,9 @@ function serverSendSegment(isDelivered) {
   const seqNum = getServerState('seqNum')
   const currentTraffic = getServerState('currentTraffic')
 
-  const currentSettings = getLastElem(dynamicSettings)
-  const seqSizeByte = currentSettings.seqSizeByte
-  const roundTripTimeMS = currentSettings.roundTripTimeMS
-  const transrateKBytePerSecond = currentSettings.transrateKBytePerSecond
+  const seqSizeByte = getConfigState('seqSizeByte')
+  const roundTripTimeMS = getConfigState('roundTripTimeMS')
+  const transrateKBytePerSecond = getConfigState('transrateKBytePerSecond')
 
   //Compute new parameters
   const sendingCompleteMS = now + seqSizeByte / transrateKBytePerSecond
@@ -51,7 +50,7 @@ function serverSendSegment(isDelivered) {
 }
 
 function clientReceiveSegment() {
-  const roundTripTimeMS = getLastElem(dynamicSettings).roundTripTimeMS
+  const roundTripTimeMS = getConfigState('roundTripTimeMS')
   //We know that the segment has arrived
   setSessionState({
     lastEvent: events.SEG
@@ -67,7 +66,7 @@ function clientReceiveSegment() {
     if(dynamicClientBuffer.has(getClientState('BytesReceivedInOrder'))) {
       setClientState({
         BytesReceivedInOrder: getClientState('BytesReceivedInOrder')
-        + getLastElem(dynamicSettings).seqSizeByte
+        + getConfigState('seqSizeByte')
       })
     } else {
       break

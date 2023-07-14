@@ -80,7 +80,7 @@ const deactivateAllButtons = () => {
 
 function clientSendSYN() {
   const now = getSessionState('clockMS')
-  const roundTripTimeMS = getLastElem(dynamicSettings).roundTripTimeMS
+  const roundTripTimeMS = getConfigState('roundTripTimeMS')
 
   const newEntry = {
     sender: agents.CLIENT,
@@ -102,7 +102,7 @@ function addToClockMs(timeMS) {
 
 function serverSendSYNACK() {
   const now = getSessionState('clockMS')
-  const roundTripTimeMS = getLastElem(dynamicSettings).roundTripTimeMS
+  const roundTripTimeMS = getConfigState('roundTripTimeMS')
   const newEntry = {
     sender: agents.SERVER,
     flag: flags.SYN_ACK,
@@ -117,7 +117,7 @@ function serverSendSYNACK() {
 
 function clientSendACK() {
   const now = getSessionState('clockMS')
-  const roundTripTimeMS = getLastElem(dynamicSettings).roundTripTimeMS
+  const roundTripTimeMS = getConfigState('roundTripTimeMS')
   const newEntry = {
     sender: agents.CLIENT,
     flag: flags.ACK,
