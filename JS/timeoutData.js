@@ -1,23 +1,9 @@
 function resendMissingSegment(isDelivered) {
   const firstUnackedSegmentNum = getServerState('firstUnackedSegmentNum')
 
-  // //Delete all remaining elements from dynamic server array
-  // dynamicServerSegments = dynamicServerSegments.slice(0,firstUnackedSegmentNum + 1)
 
   const lostSegment = dynamicServerSegments[firstUnackedSegmentNum]
-  // const oldEndMS = lostSegment.endMS
-  // const oldSendingCompleteMS = lostSegment.sendingCompleteMS
-  // const timeoutSpan = getLastElem(dynamicSettings).timeoutSpan
-  // const seqSizeByte = getLastElem(dynamicSettings).seqSizeByte
-  // const transmissionTime = lostSegment.transmissionTime
-  // const seqNum = lostSegment.seqNum
-
-  // dynamicServerSegments[firstUnackedSegmentNum].isDelivered = isDelivered
-  // dynamicServerSegments[firstUnackedSegmentNum].startMS = oldSendingCompleteMS + timeoutSpan
-  // dynamicServerSegments[firstUnackedSegmentNum].endMS = oldEndMS + timeoutSpan + transmissionTime
-  // dynamicServerSegments[firstUnackedSegmentNum].sendingCompleteMS = oldSendingCompleteMS + timeoutSpan + transmissionTime
-  // dynamicServerSegments[firstUnackedSegmentNum].seqNum = seqNum
-  // dynamicServerSegments[firstUnackedSegmentNum].retransmitted = true
+  
 
   const retransmissionSegment = {
     isDelivered,
@@ -37,9 +23,8 @@ function resendMissingSegment(isDelivered) {
 
   setServerState({
     ccState: algorithms.SLOW_START,
-    seqNum: lostSegment.seqNum + getLastElem(dynamicSettings).seqSizeByte,
     currentTraffic: getServerState('currentTraffic') + 1,
-    firstUnackedSegmentNum: dynamicServerSegments.length - 1,
+    firstUnackedSegmentNum: firstUnackedSegmentNum + 1
   })
 
   //Update clock 

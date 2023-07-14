@@ -6,7 +6,6 @@ function resendMissingSegment3Dup(isDelivered) {
   const transmissionTime = lostSegment.transmissionTime
   const seqNum = lostSegment.seqNum
   const startMS = getSessionState('clockMS')
-  const seqSizeByte = getLastElem(dynamicSettings).seqSizeByte
   const roundTripTimeMS = getLastElem(dynamicSettings).roundTripTimeMS
 
   const retransmissionSegment = {
@@ -24,9 +23,8 @@ function resendMissingSegment3Dup(isDelivered) {
     })
   setServerState({
     ccState: algorithms.FAST_RECOVERY,
-    seqNum: getSegmentAttribute('seqNum') + seqSizeByte,
     currentTraffic: getServerState('currentTraffic') + 1,
-    firstUnackedSegmentNum: dynamicServerSegments.length - 1
+    firstUnackedSegmentNum: firstUnackedSegmentNum + 1
   })
 
   
