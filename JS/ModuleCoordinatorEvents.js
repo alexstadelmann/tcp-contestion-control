@@ -1,12 +1,12 @@
-function trigger3DupplicateAcksEvent() {
+function trigger3duplicateAcksEvent() {
   let algorithm = getServerState('ccState')
-
   setServerState({
     ccState: algorithms.DUP_3,
-    threshold: getServerState('congWin') / 2,
-    congWin: getServerState('congWin') / 2 + 3,
+    threshold: Math.max(2, Math.floor(getServerState('congWin') / 2)),
+    congWin: Math.floor(getServerState('congWin') / 2) + 3,
     congWinFractions: 0,
   })
+  console.log(serverState)
   setSessionState({
     lastEvent: events.DUP_3,
   })
@@ -19,7 +19,7 @@ function triggerTimeout() {
   //Update server parameters
   setServerState({
     ccState: algorithms.TIMEOUT,
-    threshold: Math.max(1, Math.floor(currentCongWin / 2)),
+    threshold: Math.max(2, Math.floor(getServerState('congWin') / 2)),
     congWin: 1,
     congWinFractions: 0,
     currentTraffic: 0,
@@ -29,7 +29,7 @@ function triggerTimeout() {
     lastEvent: events.TIMEOUT,
   })
   //Set time to after timeout
-  const timeoutSpan = getConfigState('timeoutSpan')
+  const timeoutSpan = getConfigState('timeoutSpan') * getConfigState('roundTripTimeMS')
   const firstUnackedSegmentNum = getServerState('firstUnackedSegmentNum')
   const timestampFirstUnacked = serverSegments[firstUnackedSegmentNum].sendingCompleteMS
   const now = timestampFirstUnacked + timeoutSpan

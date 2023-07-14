@@ -51,13 +51,12 @@ function serverReceiveNewAck() {
       })
       
       if(getServerState('duplicateAcks') >= 3) {
-        trigger3DupplicateAcksEvent()
+        trigger3duplicateAcksEvent()
         return
       }
     } else {
-      const congWin = getServerState('congWin')
       setServerState({
-        congWin: congWin + 1
+        congWin: getServerState('congWin') + 1
       })
     }
     
@@ -66,7 +65,7 @@ function serverReceiveNewAck() {
     switch (getServerState('ccState')) {
       case algorithms.SLOW_START:
         setServerState({
-          congWin: congWin + 1,
+          congWin: getServerState('congWin') + 1,
           confirmedReceived: ackNum,
         })
         //Check if threshold has been reached

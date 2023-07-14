@@ -50,7 +50,7 @@ const basicSettings = {
   initialThreshold: 10,
   lang: 'en',
   ratio1pxToMS: 1,
-  timeoutSpan: 400,
+  timeoutSpan: 3,
   
 }
 

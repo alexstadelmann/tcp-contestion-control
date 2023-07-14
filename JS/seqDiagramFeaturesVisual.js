@@ -10,7 +10,7 @@ function displayFirstUnAckedBar() {
   const start = serverSegments[firstUnackedSegmentNum].sendingCompleteMS
   if(start == NONE) return
   const newTimeoutBar = document.createElementNS(NAME_SPACE_URI, 'line') 
-  newTimeoutBar.setAttribute('stroke', 'pink')
+  newTimeoutBar.setAttribute('stroke', '#C1E1C1')
   newTimeoutBar.setAttribute('stroke-width', '1')
   newTimeoutBar.setAttribute('x1', '91%')
   newTimeoutBar.setAttribute('y1', (start/SMALL_FACTOR).toString())
@@ -23,7 +23,7 @@ function displayFirstUnAckedBar() {
 function displayTimeout() {
   const firstUnackedSegmentNum = getServerState('firstUnackedSegmentNum')
   const start = serverSegments[firstUnackedSegmentNum].sendingCompleteMS
-  const timeoutSpan = getConfigState('timeoutSpan')
+  const timeoutSpan = getConfigState('timeoutSpan') * getConfigState('roundTripTimeMS')
   const end = start + timeoutSpan
 
   const newTimeoutBar = document.createElementNS(NAME_SPACE_URI, 'path')

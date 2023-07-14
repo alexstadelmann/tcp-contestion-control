@@ -39,7 +39,7 @@ function checkTimeoutNow() {
 
   const now = getSessionState('clockMS')
   const timestampFirstUnacked = getServerState('timestampFirstUnacked')
-  const timeoutSpan = getServerState('timeoutSpan')
+  const timeoutSpan = getServerState('timeoutSpan') * getConfigState('roundTripTimeMS')
 
   return now - timestampFirstUnacked >= timeoutSpan
 }
@@ -51,7 +51,7 @@ function checkTimeoutLater() {
 
 
   const timestampFirstUnacked = getServerState('timestampFirstUnacked')
-  const timeoutSpan = getServerState('timeoutSpan')
+  const timeoutSpan = getServerState('timeoutSpan') * getConfigState('roundTripTimeMS')
 
   return timeNextAck - timestampFirstUnacked >= timeoutSpan
 }
