@@ -1,4 +1,4 @@
-@media screen and (min-width: 1000px)
+@media screen and (min-width: 400px)
 
   // Colors
   $background-1: #d5b7b278
@@ -10,21 +10,21 @@
   $border-1: #6e8a79
 
   // Spacing
-  $spacing-xxl: 10rem
-  $spacing-llarge: 4rem
-  $spacing-large: 2rem
-  $spacing-med: 1rem
-  $spacing-small: 0.5rem
+  $spacing-xxl: 10em
+  $spacing-llarge: 4em
+  $spacing-large: 2em
+  $spacing-med: 1em
+  $spacing-small: 0.5em
 
   // Font-sizes
-  $font-size-0: 0.15rem
-  $font-size-1: 1rem
-  $font-size-2: 1.5rem
-  $font-size-3: 2rem
-  $font-size-4: 2.5rem
-  $font-size-5: 3rem
-  $font-size-6: 3.5rem
-  $font-size-7: 4rem
+  $font-size-0: 0.15em
+  $font-size-1: 1em
+  $font-size-2: 1.5em
+  $font-size-3: 2em
+  $font-size-4: 2.5em
+  $font-size-5: 3em
+  $font-size-6: 3.5em
+  $font-size-7: 4em
 
   html
     height: 100%
@@ -138,12 +138,13 @@
                 justify-content: space-evenly
                 align-items: center
                 font-size: $font-size-1
-                &#tcpState
+                &#tcpStateForm
                   grid-area: tcp
-                &#ccState
+                &#ccStateForm
                   grid-area: cc
                 &#congWinForm
                   grid-area: congWin
+                  justify-content: center
                 &#unack
                   grid-area: unack
                 &#threshForm

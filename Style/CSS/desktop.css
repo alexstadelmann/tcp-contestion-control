@@ -1,4 +1,4 @@
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 400px) {
   html {
     height: 100%;
     box-sizing: border-box;
@@ -15,14 +15,14 @@
     min-height: 8vh;
     justify-content: space-between;
     align-items: center;
-    padding: 0 4rem;
+    padding: 0 4em;
   }
   html body header h1 {
     display: flex;
     height: 100%;
     justify-content: center;
     align-items: center;
-    font-size: 2.5rem;
+    font-size: 2.5em;
   }
   html body header menu {
     display: flex;
@@ -38,7 +38,7 @@
     justify-content: center;
     padding: 0vh 0.5vh;
     align-items: center;
-    font-size: 1.5rem;
+    font-size: 1.5em;
     border: solid 2px black;
   }
   html body main {
@@ -61,7 +61,7 @@
     height: 30vh;
   }
   html body main section#extendedDataSpace div#extendedDataContent form {
-    font-size: 1rem;
+    font-size: 1em;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -73,7 +73,7 @@
     width: 80%;
   }
   html body main section#extendedDataSpace div#extendedDataContent form fieldset input {
-    font-size: 1rem;
+    font-size: 1em;
   }
   html body main section#dropdownSpace {
     display: none;
@@ -87,7 +87,7 @@
     height: 30vh;
   }
   html body main section#dropdownSpace div#dropdownContent form {
-    font-size: 1rem;
+    font-size: 1em;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -98,7 +98,7 @@
     width: 80%;
   }
   html body main section#dropdownSpace div#dropdownContent form fieldset input {
-    font-size: 1rem;
+    font-size: 1em;
   }
   html body main section#seqSpace {
     grid-area: seq;
@@ -107,7 +107,7 @@
   html body main section#seqSpace div#seqContent {
     display: flex;
     height: 100%;
-    font-size: 0.15rem;
+    font-size: 0.15em;
   }
   html body main section#dataSpace {
     grid-area: data;
@@ -125,16 +125,17 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    font-size: 1rem;
+    font-size: 1em;
   }
-  html body main section#dataSpace div#dataContent form#tcpState {
+  html body main section#dataSpace div#dataContent form#tcpStateForm {
     grid-area: tcp;
   }
-  html body main section#dataSpace div#dataContent form#ccState {
+  html body main section#dataSpace div#dataContent form#ccStateForm {
     grid-area: cc;
   }
   html body main section#dataSpace div#dataContent form#congWinForm {
     grid-area: congWin;
+    justify-content: center;
   }
   html body main section#dataSpace div#dataContent form#unack {
     grid-area: unack;
@@ -149,14 +150,14 @@
     grid-area: event;
   }
   html body main section#dataSpace div#dataContent form input[type=number] {
-    font-size: 1rem;
+    font-size: 1em;
     width: 40%;
     justify-content: center;
     padding: 2% 5%;
     pointer-events: none;
   }
   html body main section#dataSpace div#dataContent form input[type=text] {
-    font-size: 1rem;
+    font-size: 1em;
     width: 60%;
     padding: 2% 5%;
     pointer-events: none;
@@ -164,7 +165,7 @@
   html body main section#dataSpace div#dataContent form input[type=button] {
     width: 80%;
     height: 60%;
-    font-size: 1rem;
+    font-size: 1em;
   }
   html body main section#congwinSpace {
     grid-area: cong-win;
