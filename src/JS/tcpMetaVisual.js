@@ -1,22 +1,23 @@
-// SVG works better when the viebox has units from 0-100 than units from 0-1000.
-const SMALL_FACTOR = 10
-const NAME_SPACE_URI = 'http://www.w3.org/2000/svg'
+import { agents, metaPackets, getLastElem, getConfigState } from './session'
 
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('#press input').forEach( (button) => {
-    console.log(button)
+// SVG works better when the viebox has units from 0-100 than units from 0-1000.
+export const SMALL_FACTOR = 10
+export const NAME_SPACE_URI = 'http://www.w3.org/2000/svg'
+
+export function setActiveButtons() {
+  document.querySelectorAll('#press input').forEach((button) => {
     button.setAttribute('disabled', '')
   })
   document.querySelector('#startButton').removeAttribute('disabled')
-})
+}
 
-function updateSeqDiagramMeta() {
-  if (dynamicMetaPackets.length == 0) return
+export function updateSeqDiagramMeta() {
+  if (metaPackets.length == 0) return
 
-  const sender = getLastElem(dynamicMetaPackets).sender
-  const start = getLastElem(dynamicMetaPackets).startMS / SMALL_FACTOR
-  const end = getLastElem(dynamicMetaPackets).endMS / SMALL_FACTOR
-  const flag = getLastElem(dynamicMetaPackets).flag
+  const sender = getLastElem(metaPackets).sender
+  const start = getLastElem(metaPackets).startMS / SMALL_FACTOR
+  const end = getLastElem(metaPackets).endMS / SMALL_FACTOR
+  const flag = getLastElem(metaPackets).flag
   if (sender == agents.CLIENT) {
     tcpMetaSegmentClientToServer(start, end, flag)
   } else {
@@ -25,17 +26,17 @@ function updateSeqDiagramMeta() {
 }
 
 function tcpMetaSegmentClientToServer(start, end, flag) {
-  if (dynamicMetaPackets.length == 0) {
+  if (metaPackets.length == 0) {
     return
   }
-  const ratio = getLastElem(dynamicSettings).ratio1pxToMS
+  const ratio = getConfigState('ratio1pxToMS')
 
   const newPacket = document.createElementNS(NAME_SPACE_URI, 'path')
   newPacket.setAttribute('stroke', 'black')
   newPacket.setAttribute('stroke-width', '0.1')
   newPacket.setAttribute(
     'd',
-    'M10 ' + start * ratio + ' ' + 'L90 ' + end * ratio
+    'M10 ' + start * ratio + ' ' + 'L90 ' + end * ratio,
   )
   newPacket.setAttribute('id', flag)
 
@@ -52,7 +53,7 @@ function tcpMetaSegmentClientToServer(start, end, flag) {
 }
 
 function tcpMetaSegmentServerToClient(start, end, flag) {
-  const ratio = getLastElem(dynamicSettings).ratio1pxToMS
+  const ratio = getConfigState('ratio1pxToMS')
   const newPacket = document.createElementNS(NAME_SPACE_URI, 'path')
   newPacket.setAttribute('d', 'M10 ' + end * ratio + 'L90 ' + start * ratio)
   newPacket.setAttribute('stroke', 'black')

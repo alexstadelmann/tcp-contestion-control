@@ -5,19 +5,3 @@ div#canvas {
   width: 500px;
   height: 700px;
 }
-
-div#lines {
-  overflow: scroll;
-}
-
-#main_svg {
-  height: 1000px;
-}
-
-.users {
-  font-family: "Helvetica", sans-serif;
-  font-weight: lighter;
-  font-size: 1rem;
-}
-
-/*# sourceMappingURL=canvas.css.map */

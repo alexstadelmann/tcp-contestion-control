@@ -1,5 +1,5 @@
 // CSS only for mobile
-@media screen and (max-width: 999px)
+@media screen and (max-width: 399px)
 
   // Colors
   $background-1: #d5b7b278
@@ -36,7 +36,6 @@
     body
       display: flex
       flex-direction: column
-      gap: 3px
       height: 100%
       overflow: hidden
       header
@@ -67,6 +66,8 @@
             font-size: $menu-size
           span#desktopMenu
             display: none
+          span#extendedData
+            display: none
 
       main
         height: 80%
@@ -77,6 +78,10 @@
           align-items: center
           display: none
           height: 100%
+
+          &#extendedDataSpace
+            display: none
+
           &#dropdownSpace
             div#dropdownContent
               height: 100%
@@ -84,7 +89,7 @@
               background-color: $background-1
               grid-border: 3px
               grid-template-columns: repeat(2, 1fr)
-              grid-template-rows: repeat(3, 1fr)
+              grid-template-rows: repeat(4, 1fr)
               form
                 display: flex
                 justify-content: center
@@ -120,8 +125,8 @@
 
               height: 100%
               grid-template-columns: repeat(2, 1fr)
-              grid-template-rows: repeat(3, 1fr)
-              grid-template-areas: 'tcp cc' 'thresh unack' 'press press'
+              grid-template-rows: repeat(4, 1fr)
+              grid-template-areas: 'tcp cc' 'thresh unack' 'event event' 'press press'
               form
                 border: solid 1px white
                 display: flex
@@ -137,6 +142,8 @@
                   grid-area: thresh
                 &#unack
                   grid-area: unack
+                &#event
+                  grid-area: event
                 &#press
                   grid-area: press
                 input[type='number']
