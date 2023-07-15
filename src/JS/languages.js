@@ -55,12 +55,12 @@ const langDictionary = {
   },
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+export default function regsiterChangeLanguageEvent() {
   document.querySelector('#changeLang').addEventListener('change', (event) => {
     const newValue = event.target.value
     setLang(newValue)
   })
-})
+}
 
 function setLang(lang) {
   document.querySelectorAll('.lang').forEach((elem) => {

@@ -1,6 +1,6 @@
 import { NAME_SPACE_URI } from './tcpMetaVisual'
 
-document.addEventListener('DOMContentLoaded', () => {
+export default function renderCongestionDiagram() {
   //Add x axis numbers
   let number = 1
   const viewBoxWidth =
@@ -36,4 +36,4 @@ document.addEventListener('DOMContentLoaded', () => {
     number += 1
     viewBoxUnitIterator -= 5
   }
-})
+}

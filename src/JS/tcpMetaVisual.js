@@ -4,12 +4,12 @@ import { agents, metaPackets, getLastElem, getConfigState } from './session'
 export const SMALL_FACTOR = 10
 export const NAME_SPACE_URI = 'http://www.w3.org/2000/svg'
 
-document.addEventListener('DOMContentLoaded', () => {
+export function setActiveButtons() {
   document.querySelectorAll('#press input').forEach((button) => {
     button.setAttribute('disabled', '')
   })
   document.querySelector('#startButton').removeAttribute('disabled')
-})
+}
 
 export function updateSeqDiagramMeta() {
   if (metaPackets.length == 0) return

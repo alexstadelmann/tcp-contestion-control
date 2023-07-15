@@ -1,6 +1,6 @@
 import { setSettings, resetApplication } from './session'
 
-document.addEventListener('DOMContentLoaded', () => {
+export default function registerSettingsEvents() {
   document.querySelectorAll('form.numeric').forEach((form) => {
     form.addEventListener('submit', (e) => {
       e.preventDefault()
@@ -22,4 +22,4 @@ document.addEventListener('DOMContentLoaded', () => {
       resetApplication()
     })
   })
-})
+}

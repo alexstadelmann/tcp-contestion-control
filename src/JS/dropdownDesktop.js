@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+export default function registerDropdownDesktopEvents() {
   if (!window.matchMedia('(min-width: 1000px)').matches) return
 
   document
@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document
     .querySelector('#extendedData')
     .addEventListener('click', switchExtendedData)
-})
+}
 
 function switchDropdownDesktop() {
   const dropdownElement = document.querySelector('#dropdownSpace')

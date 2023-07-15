@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+export default function registerNavbarMobileEvents() {
   if (!window.matchMedia('(max-width: 999px)').matches) return
 
   const spaceByTabId = {
@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.tab').forEach((tab) => {
     tab.addEventListener('click', () => displayTab(spaceByTabId[tab.id]))
   })
-})
+}
 
 function displayTab(tab) {
   document.querySelectorAll('.visual').forEach((vis) => {

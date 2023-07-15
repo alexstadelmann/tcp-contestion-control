@@ -13,10 +13,6 @@ import {
   getSessionState,
 } from './session'
 
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelector('#startButton').addEventListener('click', establishTcp)
-})
-
 export function establishTcp() {
   const currentTcpState = getServerState('tcpState')
 

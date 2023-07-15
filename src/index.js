@@ -4,13 +4,27 @@ import './style/desktop.sass'
 import updateDataPanel from './JS/parameterDisplay'
 import displayNewSegment from './JS/nextSegmentVisual'
 import resendMissingSegment from './JS/resendSegmentAfterTimeout'
+import registerSettingsEvents from './JS/settings'
+import renderCongestionDiagram from './JS/congestionDiagram'
 import resendMissingSegment3Dup from './JS/resendSegmentAfter3Dup'
+import registerNavbarMobileEvents from './JS/navbarMobile'
+import regsiterChangeLanguageEvent from './JS/languages'
+import registerDropdownMobileEvents from './JS/dropdownMobile'
+import registerDropdownDesktopEvents from './JS/dropdownDesktop'
 import { nextPacket } from './JS/nextPacketCoordinator'
 import { establishTcp } from './JS/tcpMetaLogic'
+import { setActiveButtons } from './JS/tcpMetaVisual'
 import { clientReceiveSegment } from './JS/nextSegmentLogic'
 import { getServerState, algorithms, resetApplication } from './JS/session'
 
 document.addEventListener('DOMContentLoaded', () => {
+  setActiveButtons()
+  registerSettingsEvents()
+  registerNavbarMobileEvents()
+  regsiterChangeLanguageEvent()
+  registerDropdownMobileEvents()
+  registerDropdownDesktopEvents()
+  renderCongestionDiagram()
   updateDataPanel()
 
   document.querySelector('#send').addEventListener('click', () => {
