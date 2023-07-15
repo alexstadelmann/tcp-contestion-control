@@ -46,7 +46,7 @@
     display: grid;
     gap: 3px;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: auto auto repeat(3, 1fr);
+    grid-template-rows: auto auto repeat(3, minmax(0, 1fr));
     grid-template-areas: "extend extend" "drop drop" "seq data" "seq cong-win" "automaton automaton";
   }
   html body main section#extendedDataSpace {
@@ -170,6 +170,13 @@
   html body main section#congwinSpace {
     grid-area: cong-win;
     background-color: rgba(236, 228, 219, 0.5215686275);
+  }
+  html body main section#congwinSpace div#congwinContent {
+    display: block;
+    height: 100%;
+  }
+  html body main section#congwinSpace div#congwinContent #diagramSvg {
+    font-size: 3px;
   }
   html body main section#autoSpace {
     grid-area: automaton;

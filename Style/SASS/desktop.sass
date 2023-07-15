@@ -68,7 +68,7 @@
         display: grid
         gap: 3px
         grid-template-columns: repeat(2, 1fr)
-        grid-template-rows: auto auto repeat(3, 1fr)
+        grid-template-rows: auto auto repeat(3, minmax(0, 1fr))
         grid-template-areas: 'extend extend' 'drop drop' 'seq data' 'seq cong-win' 'automaton automaton'
 
         section
@@ -172,6 +172,11 @@
           &#congwinSpace
             grid-area: cong-win
             background-color: $background-4
+            div#congwinContent
+              display: block
+              height: 100%
+              #diagramSvg
+                font-size: 3px
           &#autoSpace
             grid-area: automaton
             background-color: $background-5

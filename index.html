@@ -30,6 +30,7 @@
     <script src='JS/dropdownMobile.js'></script>
     <script src='JS/dropdownDesktop.js'></script>
     <script src='JS/parameterDisplay.js'></script>
+    <script src='JS/congestionDiagram.js'></script>
     
     
   </head>
@@ -177,11 +178,15 @@
       </section>
       <section id='congwinSpace'  class='visual'>
         <div id='congwinContent'>
-          <h2>Congestion Window Diagram</h2>
+          <svg id='diagramSvg' width='100%' height='100%' style='height: 100%' viewbox='0 0 100 100' preserveAspectRatio="none">
+            <line x1='5%' y1='90%' x2='100%' y2='90%' stroke='black' stroke-width='0.1'></line>
+            <line x1='5%' y1='90%' x2='5%' y2='0%' stroke='black' stroke-width='0.1'></line>
+            <g id='axisNumbers'></g>
+          </svg>
         </div>
       </section>
       <section id='autoSpace' class='visual'>
-        <div id='congwinContent'>
+        <div id='autoContent'>
           <h2>TCP State Automaton</h2> 
         </div>
       </section>
