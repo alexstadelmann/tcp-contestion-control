@@ -10,7 +10,7 @@ function trigger3duplicateAcksEvent() {
   setSessionState({
     lastEvent: events.DUP_3,
   })
-  
+
   updateDataPanel()
 }
 
@@ -29,12 +29,14 @@ function triggerTimeout() {
     lastEvent: events.TIMEOUT,
   })
   //Set time to after timeout
-  const timeoutSpan = getConfigState('timeoutSpan') * getConfigState('roundTripTimeMS')
+  const timeoutSpan =
+    getConfigState('timeoutSpan') * getConfigState('roundTripTimeMS')
   const firstUnackedSegmentNum = getServerState('firstUnackedSegmentNum')
-  const timestampFirstUnacked = serverSegments[firstUnackedSegmentNum].sendingCompleteMS
+  const timestampFirstUnacked =
+    serverSegments[firstUnackedSegmentNum].sendingCompleteMS
   const now = timestampFirstUnacked + timeoutSpan
   setSessionState({
-    clockMS: now
+    clockMS: now,
   })
   updateDataPanel()
 }
@@ -44,15 +46,15 @@ function triggerThresholdEvent() {
   switch (algorithm) {
     case algorithms.SLOW_START:
       setServerState({
-        ccState: algorithms.CONGESTION_AVOIDANCE
+        ccState: algorithms.CONGESTION_AVOIDANCE,
       })
       setSessionState({
         lastEvent: events.THRESHOLD_REACHED,
       })
-      break     
+      break
     case algorithms.FAST_RECOVERY:
       setServerState({
-        ccState: algorithms.SLOW_START
+        ccState: algorithms.SLOW_START,
       })
       setSessionState({
         lastEvent: events.TIMEOUT,
@@ -60,4 +62,3 @@ function triggerThresholdEvent() {
       break
   }
 }
-

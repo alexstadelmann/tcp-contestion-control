@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-  
   document.querySelectorAll('form.numeric').forEach((form) => {
-    form.addEventListener('submit', (e)=> {
+    form.addEventListener('submit', (e) => {
       e.preventDefault()
     })
     form.addEventListener('change', (e) => {
@@ -13,7 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
       e.preventDefault()
     })
   })
-  
 
   document.querySelectorAll('form.string').forEach((form) => {
     form.addEventListener('change', () => {

@@ -1,12 +1,11 @@
 div#diagram {
   width: 800px;
   height: 300px;
-  border: solid 1px black
+  border: solid 1px black;
 }
 
 * {
   font-family: 'Helvetica', sans-serif;
   font-weight: lighter;
-  font-size: 2px
+  font-size: 2px;
 }
- 

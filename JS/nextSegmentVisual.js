@@ -8,15 +8,15 @@ function displayNewSegment() {
   const viewBoxHeight =
     document.querySelector('#mainSvg').viewBox.baseVal.height
   const SCREEN_FACTOR = 0.8
-  if (end > SCREEN_FACTOR*viewBoxHeight) {
+  if (end > SCREEN_FACTOR * viewBoxHeight) {
     const mainSvg = document.querySelector('#mainSvg')
     mainSvg.style.height = viewBoxHeight + roundTripTimeMS + '%'
     mainSvg.viewBox.baseVal.height = viewBoxHeight + roundTripTimeMS
     document.querySelector('#lines').scrollTop =
       document.querySelector('#lines').scrollHeight
   }
-  const colorFill = getSegmentAttribute('retransmitted') ? 'pink': 'none'
-  const colorStroke = getSegmentAttribute('retransmitted') ? 'pink': 'black'
+  const colorFill = getSegmentAttribute('retransmitted') ? 'pink' : 'none'
+  const colorStroke = getSegmentAttribute('retransmitted') ? 'pink' : 'black'
   if (isDelivered) {
     const newPacket = document.createElementNS(NAME_SPACE_URI, 'path')
     newPacket.setAttribute('stroke', colorStroke)
@@ -33,22 +33,24 @@ function displayNewSegment() {
         start * ratio +
         'L10 ' +
         (start + roundTripTimeMS / 2) * ratio +
-        ' Z'
+        ' Z',
     )
-    
+
     newPacket.setAttribute('id', start + '!' + seqNum)
-  
-    const newPacketTextPath = document.createElementNS(NAME_SPACE_URI, 'textPath')
+
+    const newPacketTextPath = document.createElementNS(
+      NAME_SPACE_URI,
+      'textPath',
+    )
     newPacketTextPath.setAttribute('href', '#' + start + '!' + seqNum)
     newPacketTextPath.setAttribute('startOffset', '21%')
     newPacketTextPath.innerHTML = 'Seq-Nr: ' + seqNum
-  
+
     const newPacketText = document.createElementNS(NAME_SPACE_URI, 'text')
     newPacketText.append(newPacketTextPath)
-  
+
     document.querySelector('#tcpSegments').append(newPacket)
     document.querySelector('#tcpSegments').append(newPacketText)
-    
   } else {
     const newPacket = document.createElementNS(NAME_SPACE_URI, 'path')
     newPacket.setAttribute('stroke', 'pink')
@@ -57,19 +59,22 @@ function displayNewSegment() {
     newPacket.setAttribute(
       'd',
       'M50 ' +
-        (end  - roundTripTimeMS / 4)* ratio +
+        (end - roundTripTimeMS / 4) * ratio +
         ' ' +
         'L90 ' +
-        (end - roundTripTimeMS / 2) * ratio  +
+        (end - roundTripTimeMS / 2) * ratio +
         'L90 ' +
         start * ratio +
         'L50 ' +
         (start + roundTripTimeMS / 4) * ratio +
-        ' Z'
+        ' Z',
     )
     newPacket.setAttribute('id', start + '!' + seqNum)
 
-    const newPacketTextPath = document.createElementNS(NAME_SPACE_URI, 'textPath')
+    const newPacketTextPath = document.createElementNS(
+      NAME_SPACE_URI,
+      'textPath',
+    )
     newPacketTextPath.setAttribute('href', '#' + start + '!' + seqNum)
     newPacketTextPath.setAttribute('startOffset', '21%')
     newPacketTextPath.innerHTML = 'Seq-Nr: ' + seqNum
@@ -77,15 +82,7 @@ function displayNewSegment() {
     const newPacketText = document.createElementNS(NAME_SPACE_URI, 'text')
     newPacketText.append(newPacketTextPath)
 
-  document.querySelector('#tcpSegments').append(newPacket)
-  document.querySelector('#tcpSegments').append(newPacketText)
-  
+    document.querySelector('#tcpSegments').append(newPacket)
+    document.querySelector('#tcpSegments').append(newPacketText)
   }
-  
 }
-
-
-
-
-
-

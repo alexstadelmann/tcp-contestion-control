@@ -1,6 +1,3 @@
-
-
-
 function nextPacket(isDelivered) {
   if (checkTimeoutNow()) {
     triggerTimeout()
@@ -10,36 +7,31 @@ function nextPacket(isDelivered) {
 
   if (isPendingAck()) {
     clientSendNewAck(isDelivered)
-    if(isDelivered) serverReceiveNewAck()
+    if (isDelivered) serverReceiveNewAck()
     displayNewAck()
-  } else if (
-    getServerState('congWin') > getServerState('currentTraffic')
-  ) {
+  } else if (getServerState('congWin') > getServerState('currentTraffic')) {
     serverSendSegment(isDelivered)
     if (isDelivered) clientReceiveSegment()
     displayNewSegment()
-    
   } else {
-
     if (checkTimeoutLater()) {
       displayTimeout()
       triggerTimeout()
       return
     }
     clientSendNewAck(isDelivered)
-    if(isDelivered) serverReceiveNewAck()
+    if (isDelivered) serverReceiveNewAck()
     displayNewAck()
   }
   displayFirstUnAckedBar()
   updateDataPanel()
-  
 }
 
 function checkTimeoutNow() {
-
   const now = getSessionState('clockMS')
   const timestampFirstUnacked = getServerState('timestampFirstUnacked')
-  const timeoutSpan = getServerState('timeoutSpan') * getConfigState('roundTripTimeMS')
+  const timeoutSpan =
+    getServerState('timeoutSpan') * getConfigState('roundTripTimeMS')
 
   return now - timestampFirstUnacked >= timeoutSpan
 }
@@ -49,16 +41,12 @@ function checkTimeoutLater() {
 
   timeNextAck = getLastElem(pendingAcks).endMS
 
-
   const timestampFirstUnacked = getServerState('timestampFirstUnacked')
-  const timeoutSpan = getServerState('timeoutSpan') * getConfigState('roundTripTimeMS')
+  const timeoutSpan =
+    getServerState('timeoutSpan') * getConfigState('roundTripTimeMS')
 
   return timeNextAck - timestampFirstUnacked >= timeoutSpan
 }
-
-
-
-
 
 function setClock(time) {
   const newEntry = { ...getLastElem(sessionState) }
@@ -77,7 +65,3 @@ function setTimestampFirstUnacked(time) {
   newEntry.timestampFirstUnacked = time
   serverState.push(newEntry)
 }
-
-
-
-

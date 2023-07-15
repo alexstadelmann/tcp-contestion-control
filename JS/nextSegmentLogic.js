@@ -1,5 +1,4 @@
 function serverSendSegment(isDelivered) {
-
   //Fetch up to date parameters
   const now = getSessionState('clockMS')
   const seqNum = getServerState('seqNum')
@@ -14,10 +13,9 @@ function serverSendSegment(isDelivered) {
   const delayMS = seqSizeByte / transrateKBytePerSecond + roundTripTimeMS / 2
   const transmissionTime = seqSizeByte / transrateKBytePerSecond
 
-
-  //Update clock 
+  //Update clock
   addToClockMs(seqSizeByte / transrateKBytePerSecond)
-  
+
   //Make new segment
   const newSegment = {
     startMS: now,
@@ -44,7 +42,7 @@ function serverSendSegment(isDelivered) {
   //If sending this segment fails, it is the "resposibility" of the server to inform the session
   if (!isDelivered) {
     setSessionState({
-      lastEvent: events.SEG_LOSS
+      lastEvent: events.SEG_LOSS,
     })
   }
 }
@@ -53,34 +51,32 @@ function clientReceiveSegment() {
   const roundTripTimeMS = getConfigState('roundTripTimeMS')
   //We know that the segment has arrived
   setSessionState({
-    lastEvent: events.SEG
+    lastEvent: events.SEG,
   })
   updateDataPanel()
 
   //Add new segment to client buffer
   clientBuffer.add(getSegmentAttribute('seqNum'))
-  
 
   //Check if there is a or many segments already in buffer that fit after the received segment
   while (true) {
-    if(clientBuffer.has(getClientState('BytesReceivedInOrder'))) {
+    if (clientBuffer.has(getClientState('BytesReceivedInOrder'))) {
       setClientState({
-        BytesReceivedInOrder: getClientState('BytesReceivedInOrder')
-        + getConfigState('seqSizeByte')
+        BytesReceivedInOrder:
+          getClientState('BytesReceivedInOrder') +
+          getConfigState('seqSizeByte'),
       })
     } else {
       break
     }
   }
-  
-  
+
   //Create the acknowlegement for the new segment
   const newAck = {
     startMS: getSegmentAttribute('endMS'),
     endMS: getSegmentAttribute('endMS') + roundTripTimeMS / 2,
     ackNum: getClientState('BytesReceivedInOrder'),
-    sendingSegmentCompleteMS: getSegmentAttribute('sendingCompleteMS')
+    sendingSegmentCompleteMS: getSegmentAttribute('sendingCompleteMS'),
   }
   pendingAcks.unshift(newAck)
 }
-

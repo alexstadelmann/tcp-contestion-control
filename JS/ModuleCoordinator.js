@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   updateDataPanel()
-  
-  document.querySelector('#send').addEventListener('click',()=> {
+
+  document.querySelector('#send').addEventListener('click', () => {
     let algorithm = getServerState('ccState')
     switch (algorithm) {
       case algorithms.SLOW_START:
@@ -23,9 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
       case algorithms.FAST_RECOVERY:
         nextPacket(true)
     }
-    
   })
-  document.querySelector('#loss').addEventListener('click', ()=> {
+  document.querySelector('#loss').addEventListener('click', () => {
     let algorithm = getServerState('ccState')
     switch (algorithm) {
       case algorithms.SLOW_START:
@@ -46,10 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
       case algorithms.FAST_RECOVERY:
         nextPacket(false)
     }
-    
   })
   document.querySelector('#startButton').addEventListener('click', establishTcp)
   document.querySelector('#reset').addEventListener('click', resetApplication)
-  
 })
-

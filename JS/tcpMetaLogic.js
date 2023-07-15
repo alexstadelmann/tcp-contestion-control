@@ -1,5 +1,3 @@
-
-
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelector('#startButton').addEventListener('click', establishTcp)
 })
@@ -11,9 +9,9 @@ function establishTcp() {
     case tcpState.CLOSED:
       setServerState({
         tcpState: tcpState.LISTEN,
-        })
+      })
       setSessionState({
-        lastEvent: events.START_SERVER  
+        lastEvent: events.START_SERVER,
       })
       break
 
@@ -23,7 +21,7 @@ function establishTcp() {
         tcpState: tcpState.SYN_RECEIVED,
       })
       setSessionState({
-        lastEvent: events.SYN
+        lastEvent: events.SYN,
       })
       break
 
@@ -35,7 +33,7 @@ function establishTcp() {
           seqNum: 1,
         })
         setSessionState({
-          lastEvent: events.SYN_ACK
+          lastEvent: events.SYN_ACK,
         })
       } else {
         clientSendACK()
@@ -49,7 +47,6 @@ function establishTcp() {
         })
         activateAllButtons()
         deactivateStartButton()
-        
       }
       break
   }
@@ -66,17 +63,15 @@ const activateStartButton = () => {
 }
 
 const activateAllButtons = () => {
-  document.querySelectorAll('#press input').forEach ((button => {
+  document.querySelectorAll('#press input').forEach((button) => {
     button.removeAttribute('disabled')
-  }))
+  })
 }
 const deactivateAllButtons = () => {
-  document.querySelectorAll('#press input').forEach ((button => {
+  document.querySelectorAll('#press input').forEach((button) => {
     button.setAttribute('disabled', '')
-  }))
+  })
 }
-
-
 
 function clientSendSYN() {
   const now = getSessionState('clockMS')
@@ -96,7 +91,7 @@ function clientSendSYN() {
 
 function addToClockMs(timeMS) {
   setSessionState({
-    clockMS: getSessionState('clockMS') + timeMS
+    clockMS: getSessionState('clockMS') + timeMS,
   })
 }
 

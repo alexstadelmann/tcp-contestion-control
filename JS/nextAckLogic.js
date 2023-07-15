@@ -1,9 +1,6 @@
 function clientSendNewAck(isDelivered) {
-
-  
   //Fetch ack from pending array and also parameters
   const newAck = getLastElem(pendingAcks)
-
 
   //Set property delivered to true or false
   newAck.isDelivered = isDelivered
@@ -12,9 +9,9 @@ function clientSendNewAck(isDelivered) {
   clientAcks.push(newAck)
 
   //If the ack gets lost it is this functions responsibility to tell the session
-  if(!isDelivered) {
+  if (!isDelivered) {
     setSessionState({
-      lastEvent: events.ACK_LOSS
+      lastEvent: events.ACK_LOSS,
     })
   }
 }
@@ -24,7 +21,6 @@ function serverReceiveNewAck() {
   const ackNum = newAck.ackNum
   const timeNow = newAck.endMS
 
-
   const congWin = getServerState('congWin')
   const currentTraffic = getServerState('currentTraffic')
   const duplicateAcks = getServerState('duplicateAcks')
@@ -33,33 +29,32 @@ function serverReceiveNewAck() {
   const seqSizeByte = getConfigState('seqSizeByte')
 
   setServerState({
-    currentTraffic: currentTraffic - 1
+    currentTraffic: currentTraffic - 1,
   })
   setSessionState({
     lastEvent: events.NEW_ACK,
     clockMS: timeNow,
   })
 
-   //Check is ack is a duplicate
-   if(ackNum == getServerState('confirmedReceived')) {
+  //Check is ack is a duplicate
+  if (ackNum == getServerState('confirmedReceived')) {
     setSessionState({
-      lastEvent: events.DUP_ACK
+      lastEvent: events.DUP_ACK,
     })
     if (getServerState('ccState') != algorithms.FAST_RECOVERY) {
       setServerState({
         duplicateAcks: duplicateAcks + 1,
       })
-      
-      if(getServerState('duplicateAcks') >= 3) {
+
+      if (getServerState('duplicateAcks') >= 3) {
         trigger3duplicateAcksEvent()
         return
       }
     } else {
       setServerState({
-        congWin: getServerState('congWin') + 1
+        congWin: getServerState('congWin') + 1,
       })
     }
-    
   } else {
     //Here we know that ack is not duplicate
     switch (getServerState('ccState')) {
@@ -74,14 +69,19 @@ function serverReceiveNewAck() {
           return
         }
         //If the ack acknowledges the first currentTraffic segment send or even a later segment, then update server state
-        if (ackNum >= serverSegments[firstUnackedSegmentNum].seqNum + seqSizeByte) {
-          const numberOfSteps = (ackNum - serverSegments[firstUnackedSegmentNum].seqNum) /seqSizeByte
+        if (
+          ackNum >=
+          serverSegments[firstUnackedSegmentNum].seqNum + seqSizeByte
+        ) {
+          const numberOfSteps =
+            (ackNum - serverSegments[firstUnackedSegmentNum].seqNum) /
+            seqSizeByte
           firstUnackedSegmentNum += numberOfSteps
-          const timestampFirstUnacked = (serverSegments.length <= firstUnackedSegmentNum)
-            ? NONE
-            : serverSegments[firstUnackedSegmentNum].sendingCompleteMS
+          const timestampFirstUnacked =
+            serverSegments.length <= firstUnackedSegmentNum
+              ? NONE
+              : serverSegments[firstUnackedSegmentNum].sendingCompleteMS
 
-          
           setServerState({
             firstUnackedSegmentNum,
             timestampFirstUnacked,
@@ -95,21 +95,26 @@ function serverReceiveNewAck() {
           currentTraffic: currentTraffic - 1,
           confirmedReceived: ackNum,
         })
-        if(getServerState('congWinFractions') == congWin) {
+        if (getServerState('congWinFractions') == congWin) {
           setServerState({
             congWin: congWin + 1,
-            congWinFractions: 0
+            congWinFractions: 0,
           })
         }
         //If the ack acknowledges the first currentTraffic segment send or even a later segment, then update server state
-        if (ackNum >= serverSegments[firstUnackedSegmentNum].seqNum + seqSizeByte) {
-          const numberOfSteps = (ackNum - serverSegments[firstUnackedSegmentNum].seqNum) /seqSizeByte
+        if (
+          ackNum >=
+          serverSegments[firstUnackedSegmentNum].seqNum + seqSizeByte
+        ) {
+          const numberOfSteps =
+            (ackNum - serverSegments[firstUnackedSegmentNum].seqNum) /
+            seqSizeByte
           firstUnackedSegmentNum += numberOfSteps
-          const timestampFirstUnacked = (serverSegments.length <= firstUnackedSegmentNum)
-            ? NONE
-            : serverSegments[firstUnackedSegmentNum].sendingCompleteMS
+          const timestampFirstUnacked =
+            serverSegments.length <= firstUnackedSegmentNum
+              ? NONE
+              : serverSegments[firstUnackedSegmentNum].sendingCompleteMS
 
-          
           setServerState({
             firstUnackedSegmentNum,
             timestampFirstUnacked,
@@ -120,13 +125,11 @@ function serverReceiveNewAck() {
         setServerState({
           ccState: algorithms.CONGESTION_AVOIDANCE,
           congWin: getServerState('threshold'),
-          duplicateAcks: 0
+          duplicateAcks: 0,
         })
         setSessionState({
           lastEvent: events.NEW_ACK,
         })
-
     }
-      
   }
 }

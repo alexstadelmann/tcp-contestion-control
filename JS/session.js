@@ -4,13 +4,13 @@ const algorithms = {
   FAST_RECOVERY: 'FAST_RECOVERY',
   CONGESTION_AVOIDANCE: 'CONGESTION_AVOIDANCE',
   TIMEOUT: 'TIMEOUT_TRANS',
-  DUP_3: 'DUPLICATE_TRANS'
+  DUP_3: 'DUPLICATE_TRANS',
 }
 
 const flags = {
   SYN: 'SYN',
   ACK: 'ACK',
-  SYN_ACK: 'SYN-ACK'
+  SYN_ACK: 'SYN-ACK',
 }
 
 const agents = {
@@ -39,7 +39,7 @@ const events = {
   DUP_3: '3 duplicates',
   THRESHOLD_REACHED: 'threshold',
   RETRANSMISSION: 'retrans',
-  RETRANSMIT_LOSS: 'retrans loss'
+  RETRANSMIT_LOSS: 'retrans loss',
 }
 
 const basicSettings = {
@@ -51,7 +51,6 @@ const basicSettings = {
   lang: 'en',
   ratio1pxToMS: 1,
   timeoutSpan: 3,
-  
 }
 
 const settings = [{ ...basicSettings }]
@@ -83,9 +82,9 @@ const initialSessionState = {
   clockMS: 0,
 }
 
-let serverState = [{...initialServerState}]
-let clientState = [{...initialClientState}]
-let sessionState = [{...initialSessionState}]
+let serverState = [{ ...initialServerState }]
+let clientState = [{ ...initialClientState }]
+let sessionState = [{ ...initialSessionState }]
 let serverSegments = []
 let clientAcks = []
 let clientBuffer = new Set()
@@ -93,8 +92,8 @@ let pendingAcks = []
 let metaPackets = []
 
 function resetApplication() {
-  serverState = [{...initialServerState}]
-  clientState = [{...initialClientState}]
+  serverState = [{ ...initialServerState }]
+  clientState = [{ ...initialClientState }]
   serverSegments = []
   clientAcks = []
   pendingAcks = []
@@ -102,7 +101,7 @@ function resetApplication() {
   updateDataPanel()
 
   //Empty sequence diagram
-  document.querySelectorAll('#mainSvg g').forEach((elem)=>{
+  document.querySelectorAll('#mainSvg g').forEach((elem) => {
     elem.innerHTML = ''
   })
 
@@ -113,10 +112,7 @@ function resetApplication() {
   //Make main svg small again
   document.querySelector('#mainSvg').viewBox.baseVal.height = 100
   document.querySelector('#mainSvg').style.height = '100%'
-  
 }
-
-
 
 function setServerState(keyValuePairs) {
   const newEntry = { ...getLastElem(serverState) }
@@ -125,7 +121,6 @@ function setServerState(keyValuePairs) {
   }
   serverState.push(newEntry)
 }
-
 
 function setClientState(keyValuePairs) {
   const newEntry = { ...getLastElem(clientState) }
@@ -163,13 +158,11 @@ function addSegment(keyValuePairs) {
   sessionState.push(newEntry)
 }
 
-
 function setSettings(key, newValue) {
   const newEntrySettings = { ...getLastElem(settings) }
   newEntrySettings[key] = newValue
   settings.push(newEntrySettings)
 }
-
 
 function getServerState(key) {
   return getLastElem(serverState)[key]
@@ -188,6 +181,6 @@ function getSegmentAttribute(key) {
 }
 
 function setSegAttribute(key, value) {
-  console.log('key', key,'value: ',value)
+  console.log('key', key, 'value: ', value)
   serverSegments.at(-1)[key] = value
 }

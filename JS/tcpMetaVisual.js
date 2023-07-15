@@ -3,7 +3,7 @@ const SMALL_FACTOR = 10
 const NAME_SPACE_URI = 'http://www.w3.org/2000/svg'
 
 document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('#press input').forEach( (button) => {
+  document.querySelectorAll('#press input').forEach((button) => {
     button.setAttribute('disabled', '')
   })
   document.querySelector('#startButton').removeAttribute('disabled')
@@ -34,7 +34,7 @@ function tcpMetaSegmentClientToServer(start, end, flag) {
   newPacket.setAttribute('stroke-width', '0.1')
   newPacket.setAttribute(
     'd',
-    'M10 ' + start * ratio + ' ' + 'L90 ' + end * ratio
+    'M10 ' + start * ratio + ' ' + 'L90 ' + end * ratio,
   )
   newPacket.setAttribute('id', flag)
 
