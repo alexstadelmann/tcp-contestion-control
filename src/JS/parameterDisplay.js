@@ -1,4 +1,6 @@
-function updateDataPanel() {
+
+
+export function updateDataPanel() {
   document.querySelectorAll('.data').forEach((elem) => {
     if (elem.id == 'congWin') {
       //Special handling of the congestion window to deal with fractions

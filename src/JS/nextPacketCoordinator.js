@@ -1,4 +1,4 @@
-function nextPacket(isDelivered) {
+export function nextPacket(isDelivered) {
   if (checkTimeoutNow()) {
     triggerTimeout()
     displayTimeout()

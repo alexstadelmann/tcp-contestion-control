@@ -1,5 +1,7 @@
+
+
 const NONE = -1
-const algorithms = {
+export const algorithms = {
   SLOW_START: 'SLOW_START',
   FAST_RECOVERY: 'FAST_RECOVERY',
   CONGESTION_AVOIDANCE: 'CONGESTION_AVOIDANCE',
@@ -164,7 +166,7 @@ function setSettings(key, newValue) {
   settings.push(newEntrySettings)
 }
 
-function getServerState(key) {
+export function getServerState(key) {
   return getLastElem(serverState)[key]
 }
 
