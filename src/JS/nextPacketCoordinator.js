@@ -1,3 +1,50 @@
+import displayNewAck from './nextAckVisual'
+import updateDataPanel from './parameterDisplay'
+import displayNewSegment from './nextSegmentVisual'
+import { displayTimeout } from './seqDiagramFeaturesVisual'
+import { displayFirstUnAckedBar } from './seqDiagramFeaturesVisual'
+import { clientSendNewAck, serverReceiveNewAck } from './nextAckLogic'
+import { serverSendSegment, clientReceiveSegment } from './nextSegmentLogic'
+import {
+  events,
+  algorithms,
+  pendingAcks,
+  getLastElem,
+  serverState,
+  getServerState,
+  serverSegments,
+  getConfigState,
+  setServerState,
+  setSessionState,
+  getSessionState,
+} from './session'
+
+function triggerTimeout() {
+  //Update server parameters
+  setServerState({
+    ccState: algorithms.TIMEOUT,
+    threshold: Math.max(2, Math.floor(getServerState('congWin') / 2)),
+    congWin: 1,
+    congWinFractions: 0,
+    currentTraffic: 0,
+    duplicateAcks: 0,
+  })
+  setSessionState({
+    lastEvent: events.TIMEOUT,
+  })
+  //Set time to after timeout
+  const timeoutSpan =
+    getConfigState('timeoutSpan') * getConfigState('roundTripTimeMS')
+  const firstUnackedSegmentNum = getServerState('firstUnackedSegmentNum')
+  const timestampFirstUnacked =
+    serverSegments[firstUnackedSegmentNum].sendingCompleteMS
+  const now = timestampFirstUnacked + timeoutSpan
+  setSessionState({
+    clockMS: now,
+  })
+  updateDataPanel()
+}
+
 export function nextPacket(isDelivered) {
   if (checkTimeoutNow()) {
     triggerTimeout()
@@ -39,19 +86,11 @@ function checkTimeoutNow() {
 function checkTimeoutLater() {
   if (pendingAcks.length == 0) return true
 
-  timeNextAck = getLastElem(pendingAcks).endMS
-
   const timestampFirstUnacked = getServerState('timestampFirstUnacked')
   const timeoutSpan =
     getServerState('timeoutSpan') * getConfigState('roundTripTimeMS')
 
-  return timeNextAck - timestampFirstUnacked >= timeoutSpan
-}
-
-function setClock(time) {
-  const newEntry = { ...getLastElem(sessionState) }
-  newEntry.clockMS = time
-  serverState.push(newEntry)
+  return getLastElem(pendingAcks).endMS - timestampFirstUnacked >= timeoutSpan
 }
 
 function isPendingAck() {
@@ -60,7 +99,7 @@ function isPendingAck() {
   return timeNextAck == getSessionState('clockMS')
 }
 
-function setTimestampFirstUnacked(time) {
+export function setTimestampFirstUnacked(time) {
   const newEntry = { ...getLastElem(serverState) }
   newEntry.timestampFirstUnacked = time
   serverState.push(newEntry)

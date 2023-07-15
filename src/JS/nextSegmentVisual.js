@@ -1,4 +1,7 @@
-function displayNewSegment() {
+import { SMALL_FACTOR, NAME_SPACE_URI } from './tcpMetaVisual'
+import { getConfigState, getSegmentAttribute } from './session'
+
+export default function displayNewSegment() {
   const start = getSegmentAttribute('startMS') / SMALL_FACTOR
   const end = getSegmentAttribute('endMS') / SMALL_FACTOR
   const ratio = getConfigState('ratio1pxToMS')

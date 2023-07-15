@@ -1,4 +1,20 @@
-function clientSendNewAck(isDelivered) {
+import updateDataPanel from './parameterDisplay'
+import {
+  NONE,
+  events,
+  algorithms,
+  clientAcks,
+  serverState,
+  getLastElem,
+  pendingAcks,
+  serverSegments,
+  getServerState,
+  getConfigState,
+  setServerState,
+  setSessionState,
+} from './session'
+
+export function clientSendNewAck(isDelivered) {
   //Fetch ack from pending array and also parameters
   const newAck = getLastElem(pendingAcks)
 
@@ -16,7 +32,44 @@ function clientSendNewAck(isDelivered) {
   }
 }
 
-function serverReceiveNewAck() {
+function trigger3duplicateAcksEvent() {
+  setServerState({
+    ccState: algorithms.DUP_3,
+    threshold: Math.max(2, Math.floor(getServerState('congWin') / 2)),
+    congWin: Math.floor(getServerState('congWin') / 2) + 3,
+    congWinFractions: 0,
+  })
+  console.log(serverState)
+  setSessionState({
+    lastEvent: events.DUP_3,
+  })
+
+  updateDataPanel()
+}
+
+function triggerThresholdEvent() {
+  let algorithm = getServerState('ccState')
+  switch (algorithm) {
+    case algorithms.SLOW_START:
+      setServerState({
+        ccState: algorithms.CONGESTION_AVOIDANCE,
+      })
+      setSessionState({
+        lastEvent: events.THRESHOLD_REACHED,
+      })
+      break
+    case algorithms.FAST_RECOVERY:
+      setServerState({
+        ccState: algorithms.SLOW_START,
+      })
+      setSessionState({
+        lastEvent: events.TIMEOUT,
+      })
+      break
+  }
+}
+
+export function serverReceiveNewAck() {
   const newAck = getLastElem(pendingAcks)
   const ackNum = newAck.ackNum
   const timeNow = newAck.endMS
@@ -89,9 +142,8 @@ function serverReceiveNewAck() {
         }
         break
       case algorithms.CONGESTION_AVOIDANCE:
-        const congWinFractions = getServerState('congWinFractions')
         setServerState({
-          congWinFractions: congWinFractions + 1,
+          congWinFractions: getServerState('congWinFractions') + 1,
           currentTraffic: currentTraffic - 1,
           confirmedReceived: ackNum,
         })

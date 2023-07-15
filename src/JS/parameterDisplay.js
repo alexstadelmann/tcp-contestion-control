@@ -1,6 +1,6 @@
+import { getLastElem, sessionState, getServerState } from './session'
 
-
-export function updateDataPanel() {
+export default function updateDataPanel() {
   document.querySelectorAll('.data').forEach((elem) => {
     if (elem.id == 'congWin') {
       //Special handling of the congestion window to deal with fractions

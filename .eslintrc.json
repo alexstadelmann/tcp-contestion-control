@@ -8,5 +8,6 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
+  "ignorePatterns": ["/dist"],
   "rules": {}
 }

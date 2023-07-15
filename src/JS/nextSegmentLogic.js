@@ -1,4 +1,23 @@
-function serverSendSegment(isDelivered) {
+import updateDataPanel from './parameterDisplay'
+import { addToClockMs } from './tcpMetaLogic'
+import { setTimestampFirstUnacked } from './nextPacketCoordinator'
+import {
+  NONE,
+  events,
+  pendingAcks,
+  clientBuffer,
+  setClientState,
+  getClientState,
+  serverSegments,
+  getServerState,
+  setServerState,
+  getConfigState,
+  setSessionState,
+  getSessionState,
+  getSegmentAttribute,
+} from './session'
+
+export function serverSendSegment(isDelivered) {
   //Fetch up to date parameters
   const now = getSessionState('clockMS')
   const seqNum = getServerState('seqNum')
@@ -47,7 +66,7 @@ function serverSendSegment(isDelivered) {
   }
 }
 
-function clientReceiveSegment() {
+export function clientReceiveSegment() {
   const roundTripTimeMS = getConfigState('roundTripTimeMS')
   //We know that the segment has arrived
   setSessionState({
@@ -59,6 +78,7 @@ function clientReceiveSegment() {
   clientBuffer.add(getSegmentAttribute('seqNum'))
 
   //Check if there is a or many segments already in buffer that fit after the received segment
+  // unexpected
   while (true) {
     if (clientBuffer.has(getClientState('BytesReceivedInOrder'))) {
       setClientState({

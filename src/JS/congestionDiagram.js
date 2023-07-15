@@ -1,3 +1,5 @@
+import { NAME_SPACE_URI } from './tcpMetaVisual'
+
 document.addEventListener('DOMContentLoaded', () => {
   //Add x axis numbers
   let number = 1

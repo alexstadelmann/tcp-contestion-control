@@ -1,8 +1,23 @@
+import updateDataPanel from './parameterDisplay'
+import { updateSeqDiagramMeta } from './tcpMetaVisual'
+import {
+  flags,
+  agents,
+  events,
+  tcpState,
+  metaPackets,
+  getServerState,
+  setServerState,
+  getConfigState,
+  setSessionState,
+  getSessionState,
+} from './session'
+
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelector('#startButton').addEventListener('click', establishTcp)
 })
 
-function establishTcp() {
+export function establishTcp() {
   const currentTcpState = getServerState('tcpState')
 
   switch (currentTcpState) {
@@ -58,7 +73,7 @@ const deactivateStartButton = () => {
   document.querySelector('#startButton').setAttribute('disabled', '')
 }
 
-const activateStartButton = () => {
+export const activateStartButton = () => {
   document.querySelector('#startButton').removeAttribute('disabled')
 }
 
@@ -67,7 +82,7 @@ const activateAllButtons = () => {
     button.removeAttribute('disabled')
   })
 }
-const deactivateAllButtons = () => {
+export const deactivateAllButtons = () => {
   document.querySelectorAll('#press input').forEach((button) => {
     button.setAttribute('disabled', '')
   })
@@ -89,7 +104,7 @@ function clientSendSYN() {
   addToClockMs(roundTripTimeMS / 2)
 }
 
-function addToClockMs(timeMS) {
+export function addToClockMs(timeMS) {
   setSessionState({
     clockMS: getSessionState('clockMS') + timeMS,
   })

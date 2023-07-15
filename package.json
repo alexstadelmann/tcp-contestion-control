@@ -3,16 +3,20 @@
   "version": "1.0.0",
   "description": "university project for tcp congestion control",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --config webpack.config.js"
+    "build": "webpack --config webpack.config.js",
+    "prettier": "prettier . --write"
   },
   "author": "Alexander Stadelmann",
   "license": "MIT",
   "private": true,
   "devDependencies": {
+    "css-loader": "^6.8.1",
     "eslint": "^8.45.0",
     "eslint-config-prettier": "^8.8.0",
     "prettier": "3.0.0",
+    "sass": "^1.63.6",
+    "sass-loader": "^13.3.2",
+    "style-loader": "^3.3.3",
     "webpack": "^5.88.1",
     "webpack-cli": "^5.1.4"
   }

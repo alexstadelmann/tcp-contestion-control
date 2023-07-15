@@ -1,6 +1,8 @@
+import { agents, metaPackets, getLastElem, getConfigState } from './session'
+
 // SVG works better when the viebox has units from 0-100 than units from 0-1000.
-const SMALL_FACTOR = 10
-const NAME_SPACE_URI = 'http://www.w3.org/2000/svg'
+export const SMALL_FACTOR = 10
+export const NAME_SPACE_URI = 'http://www.w3.org/2000/svg'
 
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('#press input').forEach((button) => {
@@ -9,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelector('#startButton').removeAttribute('disabled')
 })
 
-function updateSeqDiagramMeta() {
+export function updateSeqDiagramMeta() {
   if (metaPackets.length == 0) return
 
   const sender = getLastElem(metaPackets).sender

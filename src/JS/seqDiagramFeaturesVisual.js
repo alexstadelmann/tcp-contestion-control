@@ -1,9 +1,14 @@
-function displayFirstUnAckedBar() {
+import { SMALL_FACTOR, NAME_SPACE_URI } from './tcpMetaVisual'
+import { NONE, getServerState, serverSegments, getConfigState } from './session'
+
+export function displayFirstUnAckedBar() {
   const firstUnackedSegmentNum = getServerState('firstUnackedSegmentNum')
   //Delete previous Bar
   try {
     document.querySelector('#timeoutBar').remove()
-  } catch (error) {}
+  } catch (error) {
+    // empty block statement
+  }
   if (serverSegments.length <= firstUnackedSegmentNum) return
 
   const start = serverSegments[firstUnackedSegmentNum].sendingCompleteMS
@@ -19,7 +24,7 @@ function displayFirstUnAckedBar() {
   document.querySelector('#timeoutBarSvg').append(newTimeoutBar)
 }
 
-function displayTimeout() {
+export function displayTimeout() {
   const firstUnackedSegmentNum = getServerState('firstUnackedSegmentNum')
   const start = serverSegments[firstUnackedSegmentNum].sendingCompleteMS
   const timeoutSpan =

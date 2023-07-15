@@ -1,4 +1,18 @@
-function resendMissingSegment3Dup(isDelivered) {
+import updateDataPanel from './parameterDisplay'
+import { setTimestampFirstUnacked } from './nextPacketCoordinator'
+import {
+  events,
+  algorithms,
+  getServerState,
+  setServerState,
+  serverSegments,
+  getConfigState,
+  setSessionState,
+  getSessionState,
+  getSegmentAttribute,
+} from './session'
+
+export default function resendMissingSegment3Dup(isDelivered) {
   const firstUnackedSegmentNum = getServerState('firstUnackedSegmentNum')
 
   const lostSegment = serverSegments[firstUnackedSegmentNum]
@@ -18,7 +32,6 @@ function resendMissingSegment3Dup(isDelivered) {
     retransmitted: true,
   }
   serverSegments.push(retransmissionSegment)
-  setServerState({})
   setServerState({
     ccState: algorithms.FAST_RECOVERY,
     currentTraffic: getServerState('currentTraffic') + 1,

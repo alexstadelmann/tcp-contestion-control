@@ -1,6 +1,7 @@
+import updateDataPanel from './parameterDisplay'
+import { activateStartButton, deactivateAllButtons } from './tcpMetaLogic'
 
-
-const NONE = -1
+export const NONE = -1
 export const algorithms = {
   SLOW_START: 'SLOW_START',
   FAST_RECOVERY: 'FAST_RECOVERY',
@@ -9,25 +10,25 @@ export const algorithms = {
   DUP_3: 'DUPLICATE_TRANS',
 }
 
-const flags = {
+export const flags = {
   SYN: 'SYN',
   ACK: 'ACK',
   SYN_ACK: 'SYN-ACK',
 }
 
-const agents = {
+export const agents = {
   CLIENT: 'CLIENT',
   SERVER: 'SERVER',
 }
 
-const tcpState = {
+export const tcpState = {
   CLOSED: 'CLOSED',
   LISTEN: 'LISTEN',
   SYN_RECEIVED: 'SYN-RECEIVED',
   ESTABLISHED: 'ESTABLISHED',
 }
 
-const events = {
+export const events = {
   START_SERVER: 'start server',
   SYN: 'SYN',
   ACK: 'ACK',
@@ -57,7 +58,7 @@ const basicSettings = {
 
 const settings = [{ ...basicSettings }]
 
-const getLastElem = (array) => {
+export const getLastElem = (array) => {
   return array.at(-1)
 }
 
@@ -84,16 +85,17 @@ const initialSessionState = {
   clockMS: 0,
 }
 
-let serverState = [{ ...initialServerState }]
+// unnecessary lets
+export let serverState = [{ ...initialServerState }]
 let clientState = [{ ...initialClientState }]
-let sessionState = [{ ...initialSessionState }]
-let serverSegments = []
-let clientAcks = []
-let clientBuffer = new Set()
-let pendingAcks = []
-let metaPackets = []
+export let sessionState = [{ ...initialSessionState }]
+export let serverSegments = []
+export let clientAcks = []
+export let clientBuffer = new Set()
+export let pendingAcks = []
+export let metaPackets = []
 
-function resetApplication() {
+export function resetApplication() {
   serverState = [{ ...initialServerState }]
   clientState = [{ ...initialClientState }]
   serverSegments = []
@@ -116,7 +118,7 @@ function resetApplication() {
   document.querySelector('#mainSvg').style.height = '100%'
 }
 
-function setServerState(keyValuePairs) {
+export function setServerState(keyValuePairs) {
   const newEntry = { ...getLastElem(serverState) }
   for (const [key, newValue] of Object.entries(keyValuePairs)) {
     newEntry[key] = newValue
@@ -124,7 +126,7 @@ function setServerState(keyValuePairs) {
   serverState.push(newEntry)
 }
 
-function setClientState(keyValuePairs) {
+export function setClientState(keyValuePairs) {
   const newEntry = { ...getLastElem(clientState) }
   for (const [key, newValue] of Object.entries(keyValuePairs)) {
     newEntry[key] = newValue
@@ -132,7 +134,7 @@ function setClientState(keyValuePairs) {
   clientState.push(newEntry)
 }
 
-function setSessionState(keyValuePairs) {
+export function setSessionState(keyValuePairs) {
   const newEntry = { ...getLastElem(sessionState) }
   for (const [key, newValue] of Object.entries(keyValuePairs)) {
     newEntry[key] = newValue
@@ -140,27 +142,11 @@ function setSessionState(keyValuePairs) {
   sessionState.push(newEntry)
 }
 
-function setConfigState(keyValuePairs) {
-  const newEntry = { ...getLastElem(settings) }
-  for (const [key, newValue] of Object.entries(keyValuePairs)) {
-    newEntry[key] = newValue
-  }
-  settings.push(newEntry)
-}
-
-function getConfigState(key) {
+export function getConfigState(key) {
   return getLastElem(settings)[key]
 }
 
-function addSegment(keyValuePairs) {
-  const newEntry = { ...getLastElem(sessionState) }
-  for (const [key, newValue] of Object.entries(keyValuePairs)) {
-    newEntry[key] = newValue
-  }
-  sessionState.push(newEntry)
-}
-
-function setSettings(key, newValue) {
+export function setSettings(key, newValue) {
   const newEntrySettings = { ...getLastElem(settings) }
   newEntrySettings[key] = newValue
   settings.push(newEntrySettings)
@@ -170,19 +156,14 @@ export function getServerState(key) {
   return getLastElem(serverState)[key]
 }
 
-function getClientState(key) {
+export function getClientState(key) {
   return getLastElem(clientState)[key]
 }
 
-function getSessionState(key) {
+export function getSessionState(key) {
   return getLastElem(sessionState)[key]
 }
 
-function getSegmentAttribute(key) {
+export function getSegmentAttribute(key) {
   return getLastElem(serverSegments)[key]
-}
-
-function setSegAttribute(key, value) {
-  console.log('key', key, 'value: ', value)
-  serverSegments.at(-1)[key] = value
 }

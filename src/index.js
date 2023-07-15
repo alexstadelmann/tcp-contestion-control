@@ -1,11 +1,15 @@
-import { updateDataPanel} from "./parameterDisplay"
-import {
-  getServerState,
-  algorithms
-} from './session'
-import {
-  nextPacket
-} from './nextPacketCoordinator'
+import './style/mobile.sass'
+import './style/canvas.sass'
+import './style/desktop.sass'
+import updateDataPanel from './JS/parameterDisplay'
+import displayNewSegment from './JS/nextSegmentVisual'
+import resendMissingSegment from './JS/resendSegmentAfterTimeout'
+import resendMissingSegment3Dup from './JS/resendSegmentAfter3Dup'
+import { nextPacket } from './JS/nextPacketCoordinator'
+import { establishTcp } from './JS/tcpMetaLogic'
+import { clientReceiveSegment } from './JS/nextSegmentLogic'
+import { getServerState, algorithms, resetApplication } from './JS/session'
+
 document.addEventListener('DOMContentLoaded', () => {
   updateDataPanel()
 

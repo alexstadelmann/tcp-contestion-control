@@ -1,4 +1,7 @@
-function displayNewAck() {
+import { pendingAcks, getConfigState } from './session'
+import { SMALL_FACTOR, NAME_SPACE_URI } from './tcpMetaVisual'
+
+export default function displayNewAck() {
   const newAck = pendingAcks.pop()
   const start = newAck.startMS / SMALL_FACTOR
   const end = newAck.endMS / SMALL_FACTOR

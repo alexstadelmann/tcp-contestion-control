@@ -1,4 +1,19 @@
-function resendMissingSegment(isDelivered) {
+import updateDataPanel from './parameterDisplay'
+import { addToClockMs } from './tcpMetaLogic'
+import { displayFirstUnAckedBar } from './seqDiagramFeaturesVisual'
+import { setTimestampFirstUnacked } from './nextPacketCoordinator'
+import {
+  events,
+  algorithms,
+  serverSegments,
+  getServerState,
+  getConfigState,
+  setServerState,
+  setSessionState,
+  getSegmentAttribute,
+} from './session'
+
+export default function resendMissingSegment(isDelivered) {
   const firstUnackedSegmentNum = getServerState('firstUnackedSegmentNum')
 
   const lostSegment = serverSegments[firstUnackedSegmentNum]

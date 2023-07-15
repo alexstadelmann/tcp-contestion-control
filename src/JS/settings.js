@@ -1,3 +1,5 @@
+import { setSettings, resetApplication } from './session'
+
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('form.numeric').forEach((form) => {
     form.addEventListener('submit', (e) => {
