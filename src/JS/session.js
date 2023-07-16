@@ -48,7 +48,7 @@ export const events = {
 const basicSettings = {
   version: 'tahoe',
   roundTripTimeMS: 400,
-  seqSizeByte: 100,
+  segSizeByte: 500,
   transrateKBytePerSecond: 20,
   initialThreshold: 16,
   lang: 'en',
@@ -69,13 +69,15 @@ const initialServerState = {
   confirmedReceived: 0,
   currentTraffic: 0,
   threshold: getLastElem(settings).initialThreshold,
-  congWin: 0,
+  congWin: '',
   congWinFractions: 0,
   firstUnackedSegmentNum: 0,
   duplicateAcks: 0,
   timestampFirstUnacked: 0,
   round: 0,
-  roundCongWin: 1,
+  roundCongWin: [0,0],
+  firstOfRoundSeq: 0,
+  firstOfRoundMS: 0,
 }
 
 const initialClientState = {

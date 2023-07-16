@@ -5,7 +5,6 @@ import { displayTimeout } from '@/JS/seqDiagramFeaturesVisual'
 import { displayFirstUnAckedBar } from '@/JS/seqDiagramFeaturesVisual'
 import { clientSendNewAck, serverReceiveNewAck } from '@/JS/nextAckLogic'
 import { serverSendSegment, clientReceiveSegment } from '@/JS/nextSegmentLogic'
-import { addPointToCongestionDiagram } from '@/JS/congestionDiagram'
 
 import {
   events,
@@ -53,7 +52,6 @@ export function nextPacket(isDelivered) {
     displayTimeout()
     return
   }
-
   if (isPendingAck()) {
     clientSendNewAck(isDelivered)
     if (isDelivered) serverReceiveNewAck()
@@ -68,23 +66,14 @@ export function nextPacket(isDelivered) {
       triggerTimeout()
       return
     }
-    incrementRoundCounter()
+    
     clientSendNewAck(isDelivered)
     if (isDelivered) serverReceiveNewAck()
     displayNewAck()
   }
+  
   displayFirstUnAckedBar()
   updateDataPanel()
-}
-
-function incrementRoundCounter() {
-  setServerState({
-    round: getServerState('round') + 1,
-    roundCongWin: getServerState('congWin')
-  })
-  console.log('round: ', getServerState('round'))
-  console.log('roundCongwin:', getServerState('roundCongWin'))
-  addPointToCongestionDiagram()
 }
 
 function checkTimeoutNow() {

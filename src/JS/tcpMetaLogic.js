@@ -1,5 +1,6 @@
 import updateDataPanel from '@/JS/parameterDisplay'
 import { updateSeqDiagramMeta } from '@/JS/tcpMetaVisual'
+import { addPointToCongestionDiagram } from './congestionDiagram'
 import {
   flags,
   agents,
@@ -134,4 +135,15 @@ function clientSendACK() {
 
   addToClockMs(roundTripTimeMS / 2)
   metaPackets.push(newEntry)
+
+  setServerState({
+    congWin: 1,
+    round: 1,
+    roundCongWin:[1,1],
+    firstofRoundSeq: 1,
+    firstOfRoundMS: getSessionState('clockMS'),
+  })
+  addPointToCongestionDiagram()
 }
+
+

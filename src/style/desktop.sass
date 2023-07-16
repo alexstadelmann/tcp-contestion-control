@@ -17,7 +17,7 @@
   $spacing-small: 0.5em
 
   // Font-sizes
-  $font-size-0: 0.15em
+  $font-size-0: 0.1em
   $font-size-1: 1em
   $font-size-2: 1.5em
   $font-size-3: 2em
@@ -129,8 +129,8 @@
 
               height: 100%
               grid-template-columns: repeat(2, 1fr)
-              grid-template-rows: repeat(4, 1fr)
-              grid-template-areas: 'tcp cc' 'congWin unack' 'thresh event' 'press press'
+              grid-template-rows: repeat(5, 1fr)
+              grid-template-areas: 'tcp cc' 'congWin unack' 'thresh event' 'round round' 'press press'
 
               form
                 border: solid 1px white
@@ -149,6 +149,8 @@
                   grid-area: unack
                 &#threshForm
                   grind-area: thresh
+                &#roundForm
+                  grif-area: round
                 &#press
                   grid-area: press
                 &#event

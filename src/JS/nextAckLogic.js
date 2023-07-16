@@ -1,4 +1,6 @@
 import updateDataPanel from '@/JS/parameterDisplay'
+import { addPointToCongestionDiagram } from '@/JS/congestionDiagram'
+
 import {
   NONE,
   events,
@@ -76,9 +78,21 @@ export function serverReceiveNewAck() {
   const currentTraffic = getServerState('currentTraffic')
   const duplicateAcks = getServerState('duplicateAcks')
   let firstUnackedSegmentNum = getServerState('firstUnackedSegmentNum')
+  
+  const segSizeByte = getConfigState('segSizeByte')
 
-  const seqSizeByte = getConfigState('seqSizeByte')
 
+  //Check of a new round beginns
+  if (newAck.ackNum >= getServerState('firstOfRoundSeq') + segSizeByte) {
+    setServerState({
+      roundCongWin: [getServerState('round'), getServerState('congWin')],
+    })
+    addPointToCongestionDiagram()
+    setServerState({
+      firstOfRoundSeq: getServerState('seqNum'),
+      round: getServerState('round') + 1
+    })
+  }
   setServerState({
     currentTraffic: currentTraffic - 1,
   })
@@ -122,11 +136,11 @@ export function serverReceiveNewAck() {
         //If the ack acknowledges the first currentTraffic segment send or even a later segment, then update server state
         if (
           ackNum >=
-          serverSegments[firstUnackedSegmentNum].seqNum + seqSizeByte
+          serverSegments[firstUnackedSegmentNum].seqNum + segSizeByte
         ) {
           const numberOfSteps =
             (ackNum - serverSegments[firstUnackedSegmentNum].seqNum) /
-            seqSizeByte
+            segSizeByte
           firstUnackedSegmentNum += numberOfSteps
           const timestampFirstUnacked =
             serverSegments.length <= firstUnackedSegmentNum
@@ -154,11 +168,11 @@ export function serverReceiveNewAck() {
         //If the ack acknowledges the first currentTraffic segment send or even a later segment, then update server state
         if (
           ackNum >=
-          serverSegments[firstUnackedSegmentNum].seqNum + seqSizeByte
+          serverSegments[firstUnackedSegmentNum].seqNum + segSizeByte
         ) {
           const numberOfSteps =
             (ackNum - serverSegments[firstUnackedSegmentNum].seqNum) /
-            seqSizeByte
+            segSizeByte
           firstUnackedSegmentNum += numberOfSteps
           const timestampFirstUnacked =
             serverSegments.length <= firstUnackedSegmentNum

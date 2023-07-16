@@ -23,17 +23,17 @@ export function serverSendSegment(isDelivered) {
   const seqNum = getServerState('seqNum')
   const currentTraffic = getServerState('currentTraffic')
 
-  const seqSizeByte = getConfigState('seqSizeByte')
+  const segSizeByte = getConfigState('segSizeByte')
   const roundTripTimeMS = getConfigState('roundTripTimeMS')
   const transrateKBytePerSecond = getConfigState('transrateKBytePerSecond')
 
   //Compute new parameters
-  const sendingCompleteMS = now + seqSizeByte / transrateKBytePerSecond
-  const delayMS = seqSizeByte / transrateKBytePerSecond + roundTripTimeMS / 2
-  const transmissionTime = seqSizeByte / transrateKBytePerSecond
+  const sendingCompleteMS = now + segSizeByte / transrateKBytePerSecond
+  const delayMS = segSizeByte / transrateKBytePerSecond + roundTripTimeMS / 2
+  const transmissionTime = segSizeByte / transrateKBytePerSecond
 
   //Update clock
-  addToClockMs(seqSizeByte / transrateKBytePerSecond)
+  addToClockMs(segSizeByte / transrateKBytePerSecond)
 
   //Make new segment
   const newSegment = {
@@ -49,7 +49,7 @@ export function serverSendSegment(isDelivered) {
 
   //Update server state to reflect sending a new segment
   setServerState({
-    seqNum: seqNum + seqSizeByte,
+    seqNum: seqNum + segSizeByte,
     currentTraffic: currentTraffic + 1,
   })
 
@@ -84,7 +84,7 @@ export function clientReceiveSegment() {
       setClientState({
         BytesReceivedInOrder:
           getClientState('BytesReceivedInOrder') +
-          getConfigState('seqSizeByte'),
+          getConfigState('segSizeByte'),
       })
     } else {
       break
