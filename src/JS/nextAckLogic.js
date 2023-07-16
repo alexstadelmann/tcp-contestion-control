@@ -4,7 +4,6 @@ import {
   events,
   algorithms,
   clientAcks,
-  serverState,
   getLastElem,
   pendingAcks,
   serverSegments,
@@ -39,7 +38,6 @@ function trigger3duplicateAcksEvent() {
     congWin: Math.floor(getServerState('congWin') / 2) + 3,
     congWinFractions: 0,
   })
-  console.log(serverState)
   setSessionState({
     lastEvent: events.DUP_3,
   })

@@ -47,10 +47,10 @@ export const events = {
 
 const basicSettings = {
   version: 'tahoe',
-  roundTripTimeMS: 200,
-  seqSizeByte: 500,
+  roundTripTimeMS: 400,
+  seqSizeByte: 100,
   transrateKBytePerSecond: 20,
-  initialThreshold: 10,
+  initialThreshold: 16,
   lang: 'en',
   ratio1pxToMS: 1,
   timeoutSpan: 3,
@@ -74,6 +74,8 @@ const initialServerState = {
   firstUnackedSegmentNum: 0,
   duplicateAcks: 0,
   timestampFirstUnacked: 0,
+  round: 0,
+  roundCongWin: 1,
 }
 
 const initialClientState = {
