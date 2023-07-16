@@ -1,4 +1,4 @@
-import { setSettings, resetApplication } from './session'
+import { setSettings, resetApplication } from '@/JS/session'
 
 export default function registerSettingsEvents() {
   document.querySelectorAll('form.numeric').forEach((form) => {

@@ -1,5 +1,5 @@
-import updateDataPanel from './parameterDisplay'
-import { updateSeqDiagramMeta } from './tcpMetaVisual'
+import updateDataPanel from '@/JS/parameterDisplay'
+import { updateSeqDiagramMeta } from '@/JS/tcpMetaVisual'
 import {
   flags,
   agents,
@@ -11,7 +11,7 @@ import {
   getConfigState,
   setSessionState,
   getSessionState,
-} from './session'
+} from '@/JS/session'
 
 export function establishTcp() {
   const currentTcpState = getServerState('tcpState')

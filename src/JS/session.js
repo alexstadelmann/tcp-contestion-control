@@ -1,5 +1,5 @@
-import updateDataPanel from './parameterDisplay'
-import { activateStartButton, deactivateAllButtons } from './tcpMetaLogic'
+import updateDataPanel from '@/JS/parameterDisplay'
+import { activateStartButton, deactivateAllButtons } from '@/JS/tcpMetaLogic'
 
 export const NONE = -1
 export const algorithms = {

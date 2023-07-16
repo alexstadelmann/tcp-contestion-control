@@ -8,6 +8,11 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
   },
   mode: 'production',
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+    },
+  },
   module: {
     rules: [
       {
@@ -23,6 +28,6 @@ module.exports = {
     }),
   ],
   devServer: {
-    static: "./dist",
+    static: './dist',
   },
 }

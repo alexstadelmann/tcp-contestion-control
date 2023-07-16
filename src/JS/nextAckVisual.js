@@ -1,5 +1,5 @@
-import { pendingAcks, getConfigState } from './session'
-import { SMALL_FACTOR, NAME_SPACE_URI } from './tcpMetaVisual'
+import { pendingAcks, getConfigState } from '@/JS/session'
+import { SMALL_FACTOR, NAME_SPACE_URI } from '@/JS/tcpMetaVisual'
 
 export default function displayNewAck() {
   const newAck = pendingAcks.pop()

@@ -1,4 +1,4 @@
-import { NAME_SPACE_URI } from './tcpMetaVisual'
+import { NAME_SPACE_URI } from '@/JS/tcpMetaVisual'
 
 export default function renderCongestionDiagram() {
   //Add x axis numbers

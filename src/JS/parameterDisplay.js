@@ -1,4 +1,4 @@
-import { getLastElem, sessionState, getServerState } from './session'
+import { getLastElem, sessionState, getServerState } from '@/JS/session'
 
 export default function updateDataPanel() {
   document.querySelectorAll('.data').forEach((elem) => {

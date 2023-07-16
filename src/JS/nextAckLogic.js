@@ -1,4 +1,4 @@
-import updateDataPanel from './parameterDisplay'
+import updateDataPanel from '@/JS/parameterDisplay'
 import {
   NONE,
   events,
@@ -12,7 +12,7 @@ import {
   getConfigState,
   setServerState,
   setSessionState,
-} from './session'
+} from '@/JS/session'
 
 export function clientSendNewAck(isDelivered) {
   //Fetch ack from pending array and also parameters

@@ -1,5 +1,5 @@
-import { SMALL_FACTOR, NAME_SPACE_URI } from './tcpMetaVisual'
-import { getConfigState, getSegmentAttribute } from './session'
+import { SMALL_FACTOR, NAME_SPACE_URI } from '@/JS/tcpMetaVisual'
+import { getConfigState, getSegmentAttribute } from '@/JS/session'
 
 export default function displayNewSegment() {
   const start = getSegmentAttribute('startMS') / SMALL_FACTOR

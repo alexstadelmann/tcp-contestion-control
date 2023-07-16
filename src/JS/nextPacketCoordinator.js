@@ -1,10 +1,10 @@
-import displayNewAck from './nextAckVisual'
-import updateDataPanel from './parameterDisplay'
-import displayNewSegment from './nextSegmentVisual'
-import { displayTimeout } from './seqDiagramFeaturesVisual'
-import { displayFirstUnAckedBar } from './seqDiagramFeaturesVisual'
-import { clientSendNewAck, serverReceiveNewAck } from './nextAckLogic'
-import { serverSendSegment, clientReceiveSegment } from './nextSegmentLogic'
+import displayNewAck from '@/JS/nextAckVisual'
+import updateDataPanel from '@/JS/parameterDisplay'
+import displayNewSegment from '@/JS/nextSegmentVisual'
+import { displayTimeout } from '@/JS/seqDiagramFeaturesVisual'
+import { displayFirstUnAckedBar } from '@/JS/seqDiagramFeaturesVisual'
+import { clientSendNewAck, serverReceiveNewAck } from '@/JS/nextAckLogic'
+import { serverSendSegment, clientReceiveSegment } from '@/JS/nextSegmentLogic'
 import {
   events,
   algorithms,

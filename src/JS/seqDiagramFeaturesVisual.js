@@ -1,5 +1,5 @@
-import { SMALL_FACTOR, NAME_SPACE_URI } from './tcpMetaVisual'
-import { NONE, getServerState, serverSegments, getConfigState } from './session'
+import { SMALL_FACTOR, NAME_SPACE_URI } from '@/JS/tcpMetaVisual'
+import { NONE, getServerState, serverSegments, getConfigState } from '@/JS/session'
 
 export function displayFirstUnAckedBar() {
   const firstUnackedSegmentNum = getServerState('firstUnackedSegmentNum')

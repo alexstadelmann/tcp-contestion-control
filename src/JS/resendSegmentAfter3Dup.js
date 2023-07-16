@@ -1,5 +1,5 @@
-import updateDataPanel from './parameterDisplay'
-import { setTimestampFirstUnacked } from './nextPacketCoordinator'
+import updateDataPanel from '@/JS/parameterDisplay'
+import { setTimestampFirstUnacked } from '@/JS/nextPacketCoordinator'
 import {
   events,
   algorithms,
@@ -10,7 +10,7 @@ import {
   setSessionState,
   getSessionState,
   getSegmentAttribute,
-} from './session'
+} from '@/JS/session'
 
 export default function resendMissingSegment3Dup(isDelivered) {
   const firstUnackedSegmentNum = getServerState('firstUnackedSegmentNum')

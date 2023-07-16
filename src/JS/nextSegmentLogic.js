@@ -1,6 +1,6 @@
-import updateDataPanel from './parameterDisplay'
-import { addToClockMs } from './tcpMetaLogic'
-import { setTimestampFirstUnacked } from './nextPacketCoordinator'
+import updateDataPanel from '@/JS/parameterDisplay'
+import { addToClockMs } from '@/JS/tcpMetaLogic'
+import { setTimestampFirstUnacked } from '@/JS/nextPacketCoordinator'
 import {
   NONE,
   events,
@@ -15,7 +15,7 @@ import {
   setSessionState,
   getSessionState,
   getSegmentAttribute,
-} from './session'
+} from '@/JS/session'
 
 export function serverSendSegment(isDelivered) {
   //Fetch up to date parameters
