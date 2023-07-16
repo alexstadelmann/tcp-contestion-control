@@ -4,7 +4,7 @@
   "description": "university project for tcp congestion control",
   "scripts": {
     "build": "webpack --config webpack.config.js",
-    "prettier": "prettier . --write"
+    "format": "prettier . --write"
   },
   "author": "Alexander Stadelmann",
   "license": "MIT",
