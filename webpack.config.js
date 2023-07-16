@@ -22,4 +22,7 @@ module.exports = {
       inject: false,
     }),
   ],
+  devServer: {
+    static: "./dist",
+  },
 }
