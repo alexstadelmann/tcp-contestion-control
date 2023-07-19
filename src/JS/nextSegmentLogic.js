@@ -34,7 +34,7 @@ export function serverSendSegment(isDelivered) {
 
   //Update clock
   addToClockMs(segSizeByte / transrateKBytePerSecond)
-
+  const isLastInRound = getServerState('congWin')-getServerState('currentTraffic') == 1
   //Make new segment
   const newSegment = {
     startMS: now,
@@ -44,6 +44,7 @@ export function serverSendSegment(isDelivered) {
     isDelivered,
     transmissionTime,
     retransmitted: false,
+    isLastInRound
   }
   serverSegments.push(newSegment)
 

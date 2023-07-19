@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "webpack serve --open",
     "build": "webpack",
-    "format": "prettier . --write"
+    "format": "prettier . --write",
+    "visual": "webpack --json > stats.json"
   },
   "author": "Alexander Stadelmann",
   "license": "MIT",

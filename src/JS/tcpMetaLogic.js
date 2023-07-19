@@ -62,6 +62,7 @@ export function establishTcp() {
       }
       break
   }
+  console.log(metaPackets)
   updateSeqDiagramMeta()
   updateDataPanel()
 }

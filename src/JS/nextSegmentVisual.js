@@ -1,5 +1,6 @@
 import { SMALL_FACTOR, NAME_SPACE_URI } from '@/JS/tcpMetaVisual'
 import { getConfigState, getSegmentAttribute } from '@/JS/session'
+import { renderTimeRectangle } from '@/JS/tcpMetaVisual'
 
 export default function displayNewSegment() {
   const start = getSegmentAttribute('startMS') / SMALL_FACTOR
@@ -54,6 +55,12 @@ export default function displayNewSegment() {
 
     document.querySelector('#tcpSegments').append(newPacket)
     document.querySelector('#tcpSegments').append(newPacketText)
+    if (getSegmentAttribute('isLastInRound')) {
+      renderTimeRectangle(start, end, ratio,'1s', '#tcpSegments')
+    } else {
+      renderTimeRectangle(start, end - roundTripTimeMS / 2, ratio,'0.2s', '#tcpSegments')
+    }
+    
   } else {
     const newPacket = document.createElementNS(NAME_SPACE_URI, 'path')
     newPacket.setAttribute('stroke', 'pink')
@@ -87,5 +94,6 @@ export default function displayNewSegment() {
 
     document.querySelector('#tcpSegments').append(newPacket)
     document.querySelector('#tcpSegments').append(newPacketText)
+    renderTimeRectangle(start, end, ratio,'1s', '#tcpSegments')
   }
 }

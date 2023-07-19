@@ -43,7 +43,39 @@ function tcpMetaSegmentClientToServer(start, end, flag) {
 
   document.querySelector('#tcpMetaMessages').append(newPacket)
   document.querySelector('#tcpMetaMessages').append(newPacketText)
+  renderTimeRectangle(start, end, ratio,'1s', '#tcpMetaMessages')
 }
+export function renderTimeRectangle(start, end,ratio, time,  elementId) {
+  try {
+    document.querySelector('#timeRect').remove()
+  } catch (error) {}
+  
+
+  const timeRectangle = document.createElementNS(NAME_SPACE_URI, 'rect')
+  timeRectangle.setAttribute('x', 10)
+  timeRectangle.setAttribute('y', start)
+  timeRectangle.setAttribute('width', '80%')
+  timeRectangle.setAttribute('height', '100')
+  timeRectangle.setAttribute('fill-opacity', 1)
+  timeRectangle.setAttribute('id', 'timeRect')
+  timeRectangle.setAttribute('fill', 'white')
+  timeRectangle.setAttribute('stroke-width', '0.1')
+  timeRectangle.setAttribute('stroke', 'black')
+
+  const animate = document.createElementNS(NAME_SPACE_URI, 'animate')
+  animate.setAttribute('attributeType', 'XML')
+  animate.setAttribute('attributeName', 'y' )
+  animate.setAttribute('from', start*ratio)
+  animate.setAttribute('to', end*ratio)
+  animate.setAttribute('fill', 'freeze')
+  animate.setAttribute('begin','indefinite')
+  // animate.setAttribute('values', start*ratio + ';' + end*ratio)
+  animate.setAttribute('dur', time)
+  timeRectangle.append(animate)
+  document.querySelector(elementId).append(timeRectangle)
+  animate.beginElement()
+}
+
 
 function tcpMetaSegmentServerToClient(start, end, flag) {
   const ratio = getConfigState('ratio1pxToMS')
@@ -63,4 +95,5 @@ function tcpMetaSegmentServerToClient(start, end, flag) {
 
   document.querySelector('#tcpMetaMessages').append(newPacket)
   document.querySelector('#tcpMetaMessages').append(newPacketText)
+  renderTimeRectangle(start, end, ratio,'1s', '#tcpMetaMessages')
 }
