@@ -48,7 +48,7 @@ export const events = {
 const basicSettings = {
   version: 'tahoe',
   roundTripTimeMS: 400,
-  segSizeByte: 500,
+  seqSizeByte: 500,
   transrateKBytePerSecond: 20,
   initialThreshold: 16,
   lang: 'en',
