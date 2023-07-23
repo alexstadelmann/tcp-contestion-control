@@ -10,11 +10,12 @@ export default function displayNewSegment() {
   const isDelivered = getSegmentAttribute('isDelivered')
   const viewBoxHeight =
     document.querySelector('#mainSvg').viewBox.baseVal.height
-  const SCREEN_FACTOR = 0.8
-  if (end > SCREEN_FACTOR * viewBoxHeight) {
+
+  
+  if (end*ratio > viewBoxHeight - 20) {
     const mainSvg = document.querySelector('#mainSvg')
-    mainSvg.style.height = viewBoxHeight + roundTripTimeMS + '%'
-    mainSvg.viewBox.baseVal.height = viewBoxHeight + roundTripTimeMS
+    mainSvg.style.height = viewBoxHeight + roundTripTimeMS*ratio + '%'
+    mainSvg.viewBox.baseVal.height = viewBoxHeight + roundTripTimeMS/2*ratio
     document.querySelector('#lines').scrollTop =
       document.querySelector('#lines').scrollHeight
   }
