@@ -7,7 +7,7 @@ import { clientReceiveSegment } from '@/JS/nextSegmentLogic'
 import { getServerState, algorithms, resetApplication } from '@/JS/session'
 
 export function setActiveButtons() {
-  document.querySelectorAll('#press input').forEach((button) => {
+  document.querySelectorAll('#press button').forEach((button) => {
     button.setAttribute('disabled', '')
   })
   document.querySelector('#startButton').removeAttribute('disabled')

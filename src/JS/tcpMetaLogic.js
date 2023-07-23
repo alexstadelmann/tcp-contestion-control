@@ -75,12 +75,12 @@ export const activateStartButton = () => {
 }
 
 const activateAllButtons = () => {
-  document.querySelectorAll('#press input').forEach((button) => {
+  document.querySelectorAll('#press button').forEach((button) => {
     button.removeAttribute('disabled')
   })
 }
 export const deactivateAllButtons = () => {
-  document.querySelectorAll('#press input').forEach((button) => {
+  document.querySelectorAll('#press button').forEach((button) => {
     button.setAttribute('disabled', '')
   })
 }
