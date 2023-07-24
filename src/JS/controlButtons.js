@@ -2,9 +2,11 @@ import displayNewSegment from '@/JS/nextSegmentVisual'
 import resendMissingSegment from '@/JS/resendSegmentAfterTimeout'
 import resendMissingSegment3Dup from '@/JS/resendSegmentAfter3Dup'
 import { nextPacket } from '@/JS/nextPacketCoordinator'
-import { establishTcp } from '@/JS/tcpMetaLogic'
+import { establishTcp, deactivateAllButtons, finalizeSession } from '@/JS/tcpMetaLogic'
 import { clientReceiveSegment } from '@/JS/nextSegmentLogic'
 import { getServerState, algorithms, resetApplication } from '@/JS/session'
+import { clientSendNewAck, serverReceiveNewAck } from '@/JS/nextAckLogic'
+import displayNewAck from '@/JS/nextAckVisual'
 
 export function setActiveButtons() {
   document.querySelectorAll('#press button').forEach((button) => {
@@ -61,5 +63,15 @@ export const registerControlButtonsEvents = () => {
   })
   document.querySelector('#startButton').addEventListener('click', establishTcp)
   document.querySelector('#reset').addEventListener('click', resetApplication)
-  // endButton
+  document.querySelector('#tcpEnd').addEventListener('click', () => {
+    if (getServerState('confirmedReceived') != getServerState('seqNum')) {
+      clientSendNewAck(true)
+      serverReceiveNewAck()
+      displayNewAck()
+    } else {
+      finalizeSession()
+    }
+    deactivateAllButtons()
+    document.querySelector('#tcpEnd').removeAttribute('disabled')
+  })
 }

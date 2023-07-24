@@ -1,6 +1,22 @@
 import { SMALL_FACTOR, NAME_SPACE_URI } from '@/JS/tcpMetaVisual'
 import { getConfigState, getSegmentAttribute } from '@/JS/session'
 
+export function adaptSvgSize(end, roundTripTimeMS ) {
+  const ratio = getConfigState('ratio1pxToMS')
+
+  
+  const viewBoxHeight =
+    document.querySelector('#mainSvg').viewBox.baseVal.height
+    console.log('viewBoxHeight before', viewBoxHeight)
+    if (end*ratio > viewBoxHeight - 20) {
+      const mainSvg = document.querySelector('#mainSvg')
+      mainSvg.style.height = viewBoxHeight + roundTripTimeMS*ratio + '%'
+      mainSvg.viewBox.baseVal.height = viewBoxHeight + roundTripTimeMS/2*ratio
+      document.querySelector('#lines').scrollTop = document.querySelector('#lines').scrollHeight
+    }
+    console.log('after', document.querySelector('#mainSvg').viewBox.baseVal.height)
+}
+
 export default function displayNewSegment() {
   const start = getSegmentAttribute('startMS') / SMALL_FACTOR
   const end = getSegmentAttribute('endMS') / SMALL_FACTOR
@@ -8,17 +24,10 @@ export default function displayNewSegment() {
   const roundTripTimeMS = getConfigState('roundTripTimeMS') / SMALL_FACTOR
   const seqNum = getSegmentAttribute('seqNum')
   const isDelivered = getSegmentAttribute('isDelivered')
-  const viewBoxHeight =
-    document.querySelector('#mainSvg').viewBox.baseVal.height
-
   
-  if (end*ratio > viewBoxHeight - 20) {
-    const mainSvg = document.querySelector('#mainSvg')
-    mainSvg.style.height = viewBoxHeight + roundTripTimeMS*ratio + '%'
-    mainSvg.viewBox.baseVal.height = viewBoxHeight + roundTripTimeMS/2*ratio
-    document.querySelector('#lines').scrollTop =
-      document.querySelector('#lines').scrollHeight
-  }
+
+  adaptSvgSize(end, roundTripTimeMS)
+  
   const colorFill = getSegmentAttribute('retransmitted') ? 'pink' : 'none'
   const colorStroke = getSegmentAttribute('retransmitted') ? 'pink' : 'black'
   if (isDelivered) {

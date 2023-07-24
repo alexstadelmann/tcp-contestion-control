@@ -1,5 +1,6 @@
 import { pendingAcks, getConfigState } from '@/JS/session'
 import { SMALL_FACTOR, NAME_SPACE_URI } from '@/JS/tcpMetaVisual'
+import { adaptSvgSize } from './nextSegmentVisual'
 
 export default function displayNewAck() {
   const newAck = pendingAcks.pop()
@@ -38,5 +39,7 @@ export default function displayNewAck() {
     newText.setAttribute('y', start)
     newText.innerHTML = BytesReceivedInOrder
     document.querySelector('#tcpSegments').append(newText)
+
+    adaptSvgSize(end, roundTripTimeMS)
   }
 }

@@ -1,4 +1,6 @@
 import { agents, metaPackets, getLastElem, getConfigState } from '@/JS/session'
+import { adaptSvgSize } from './nextSegmentVisual'
+
 
 // SVG works better when the viebox has units from 0-100 than units from 0-1000.
 export const SMALL_FACTOR = 10
@@ -16,6 +18,7 @@ export function updateSeqDiagramMeta() {
   } else {
     tcpMetaSegmentServerToClient(start, end, flag)
   }
+  adaptSvgSize(end, getConfigState('roundTripTimeMS') / SMALL_FACTOR)
 }
 
 function tcpMetaSegmentClientToServer(start, end, flag) {
@@ -31,16 +34,18 @@ function tcpMetaSegmentClientToServer(start, end, flag) {
     'd',
     'M10 ' + start * ratio + ' ' + 'L90 ' + end * ratio,
   )
-  newPacket.setAttribute('id', flag)
+  newPacket.setAttribute('id', flag + start)
 
   const newPacketTextPath = document.createElementNS(NAME_SPACE_URI, 'textPath')
-  newPacketTextPath.setAttribute('href', '#' + flag)
+  newPacketTextPath.setAttribute('href', '#' + flag + start)
   newPacketTextPath.setAttribute('startOffset', '45%')
   newPacketTextPath.innerHTML = flag
 
   const newPacketText = document.createElementNS(NAME_SPACE_URI, 'text')
   newPacketText.append(newPacketTextPath)
 
+  console.log('newPacket', newPacket)
+  console.log('newPacketText', newPacketText)
   document.querySelector('#tcpMetaMessages').append(newPacket)
   document.querySelector('#tcpMetaMessages').append(newPacketText)
 }
@@ -51,10 +56,10 @@ function tcpMetaSegmentServerToClient(start, end, flag) {
   newPacket.setAttribute('d', 'M10 ' + end * ratio + 'L90 ' + start * ratio)
   newPacket.setAttribute('stroke', 'black')
   newPacket.setAttribute('stroke-width', '0.1')
-  newPacket.setAttribute('id', flag)
+  newPacket.setAttribute('id', flag + start)
 
   const newPacketTextPath = document.createElementNS(NAME_SPACE_URI, 'textPath')
-  newPacketTextPath.setAttribute('href', '#' + flag)
+  newPacketTextPath.setAttribute('href', '#' + flag + start)
   newPacketTextPath.setAttribute('startOffset', '45%')
   newPacketTextPath.innerHTML = flag
 

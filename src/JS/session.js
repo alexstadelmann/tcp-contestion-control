@@ -14,6 +14,8 @@ export const flags = {
   SYN: 'SYN',
   ACK: 'ACK',
   SYN_ACK: 'SYN-ACK',
+  FIN: 'FIN',
+  FIN_ACK: 'FIN-ACK'
 }
 
 export const agents = {
@@ -26,10 +28,12 @@ export const tcpState = {
   LISTEN: 'LISTEN',
   SYN_RECEIVED: 'SYN-RECEIVED',
   ESTABLISHED: 'ESTABLISHED',
+  FIN_WAIT_1: 'FIN_WAIT_1',
+  TIME_WAIT: 'TIME_WAIT',
 }
 
 export const events = {
-  START_SERVER: 'start server',
+  START_SERVER: 'Start Server',
   SYN: 'SYN',
   ACK: 'ACK',
   SYN_ACK: 'SYN ACK',
@@ -43,6 +47,9 @@ export const events = {
   THRESHOLD_REACHED: 'threshold',
   RETRANSMISSION: 'retrans',
   RETRANSMIT_LOSS: 'retrans loss',
+  FIN_SENT: 'FIN sent',
+  FIN_ACK: 'FIN_ACK',
+  WAIT_30s: 'Server waits 30s',
 }
 
 const basicSettings = {
