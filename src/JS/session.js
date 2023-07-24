@@ -60,10 +60,10 @@ const basicSettings = {
   initialThreshold: 16,
   lang: 'en',
   ratio1pxToMS: 1,
-  timeoutSpan: 3,
+  timeoutSpan: 2,
 }
 
-const settings = [{ ...basicSettings }]
+export const settings = [{ ...basicSettings }]
 
 export const getLastElem = (array) => {
   return array.at(-1)

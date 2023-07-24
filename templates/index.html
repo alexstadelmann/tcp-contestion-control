@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <meta charset="UTF-8">
     <title>TCP-Congestion-Control</title>
     <script src="main.js"></script>
   </head>
@@ -25,86 +26,55 @@
               <legend class="lang" id="textCongestionControlAlg">
                 Congestion Control Algorithm
               </legend>
+              <input type="radio" id="reno" name="option" value="Reno" checked/>
+              <label for="reno">Reno</label><br />
               <input
                 type="radio"
                 id="tahoe"
                 name="option"
                 value="Tahoe"
-                checked
+                
               />
               <label for="tahoe">Tahoe</label><br />
-              <input type="radio" id="reno" name="option" value="Reno" />
-              <label for="reno">Reno</label><br />
+              
             </fieldset>
           </form>
-          <form id="roundTripTimeMS" class="numeric">
+          <form class="numeric">
             <fieldset>
               <legend class="lang" id="textRoundTripDelay">
                 Round Trip Delay in ms
               </legend>
-              <input type="number" value="200" />
+              <input type="number" class='setting' id="roundTripTimeMS"/>
             </fieldset>
           </form>
-          <form id="segSizeByte" class="numeric">
+          <form class="numeric settings">
             <fieldset>
               <legend class="lang" id="textSegmentSize">
                 Segment Size in Byte
               </legend>
-              <input type="number" value="500" />
+              <input type="number" id="segSizeByte"  class='setting' />
             </fieldset>
           </form>
-          <form id="timeout" class="numeric">
+          <form  class="numeric">
             <fieldset>
               <legend class="lang" id="textTimeout">Timeout Span in RTT</legend>
-              <input type="number" value="2" />
+              <input type="number" id="timeoutSpan" class='setting'/>
             </fieldset>
           </form>
-          <form id="initialThreshold" class="numeric">
+          <form  class="numeric">
             <fieldset>
               <legend class="lang" id="textInitialThreshold">
                 Initial Threshhold in MSS
               </legend>
-              <input type="number" />
+              <input type="number" id="initialThreshold" class='setting'/>
             </fieldset>
           </form>
-          <form id="transrateKBytePerSecond" class="numeric">
+          <form  class="numeric">
             <fieldset>
               <legend class="lang" id="textTransmissionRate">
                 Transmission Rate in kByte/s
               </legend>
-              <input type="number" value="20" />
-            </fieldset>
-          </form>
-          <form id="clientBuffering">
-            <fieldset>
-              <legend class="lang" id="textClientBuffering">
-                Client Caching
-              </legend>
-              <input
-                type="radio"
-                id="clientBufferingActive"
-                name="clientBf"
-                value="Active"
-              />
-              <label
-                for="clientBufferingActive"
-                class="lang"
-                id="textClientBufferingActive"
-                >Active</label
-              ><br />
-              <input
-                type="radio"
-                id="clientBufferingInactive"
-                name="clientBf"
-                value="Inactive"
-                checked
-              />
-              <label
-                for="clientBufferingInactive"
-                class="lang"
-                name="textClientBufferingInactive"
-                >Inactive</label
-              ><br />
+              <input type="number" id="transrateKBytePerSecond" class='setting' />
             </fieldset>
           </form>
           <form id="changeLang">

@@ -1,4 +1,4 @@
-import { setSettings, resetApplication } from '@/JS/session'
+import { setSettings, resetApplication, settings } from '@/JS/session'
 
 export default function registerSettingsEvents() {
   document.querySelectorAll('form.numeric').forEach((form) => {
@@ -6,11 +6,13 @@ export default function registerSettingsEvents() {
       e.preventDefault()
     })
     form.addEventListener('change', (e) => {
+      
       //Each form has only one input
       const newValue = parseInt(form.elements[1].value)
       if (!newValue > 0) return false
-      setSettings(form.id, newValue)
+      setSettings(form.elements[1].id, newValue)
       resetApplication()
+      console.log(settings)
       e.preventDefault()
     })
   })
