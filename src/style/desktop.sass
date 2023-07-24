@@ -130,10 +130,11 @@
               height: 100%
               grid-template-columns: repeat(2, 1fr)
               grid-template-rows: repeat(5, 1fr)
-              grid-template-areas: 'tcp cc' 'congWin unack' 'thresh event' 'round round' 'press press'
+              grid-template-areas: 'tcp tcp' 'cc cc' 'congWin unack' 'thresh round' 'press press' 'event event'
 
               form
                 border: solid 1px white
+                padding: 1%
                 display: flex
                 justify-content: space-evenly
                 align-items: center
@@ -144,7 +145,6 @@
                   grid-area: cc
                 &#congWinForm
                   grid-area: congWin
-                  justify-content: center
                 &#unack
                   grid-area: unack
                 &#threshForm
@@ -155,17 +155,18 @@
                   grid-area: press
                 &#event
                   grid-area: event
-                input[type='number']
+                input
+                  font-size: $font-size-1
+                  padding: 2% 5%
+                  width: 100%
+                  pointer-events: none
+                input[type='number'], input#congWin
                   font-size: $font-size-1
                   width: 40%
-                  justify-content: center
+                  
                   padding: 2% 5%
                   pointer-events: none
-                input[type='text']
-                  font-size: $font-size-1
-                  width: 60%
-                  padding: 2% 5%
-                  pointer-events: none
+                
                 button
                   width: 80%
                   height: 60%
