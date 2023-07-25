@@ -34,7 +34,7 @@ export default function renderCongestionDiagram() {
     newNumberOnXAxis.setAttribute('y', viewBoxUnitIterator)
     newNumberOnXAxis.setAttribute('text-anchor', 'middle')
     newNumberOnXAxis.innerHTML = number
-    document.querySelector('#diagramSvg').append(newNumberOnXAxis)
+    document.querySelector('#axisNumbers').append(newNumberOnXAxis)
     number += 5
     viewBoxUnitIterator -= Y_AXIS_STEP
   }
@@ -42,7 +42,6 @@ export default function renderCongestionDiagram() {
 
 export function addPointToCongestionDiagram() {
   const [round, roundCongWin] = getServerState('roundCongWin')
-  console.log(getServerState('roundCongWin'))
   const xCoordinate = round*X_AXIS_STEP
   const yCoordinate = 100 - Y_AXIS_PADDING - roundCongWin*2
   const svgPoint = document.createElementNS(NAME_SPACE_URI, 'circle')
@@ -52,7 +51,7 @@ export function addPointToCongestionDiagram() {
   svgPoint.setAttribute('color', 'blue')
   svgPoint.setAttribute('fill', 'blue')
   svgPoint.setAttribute('stroke-width', 3)
-  document.querySelector('#diagramSvg').append(svgPoint)
+  document.querySelector('#dataPoints').append(svgPoint)
 }
 
 

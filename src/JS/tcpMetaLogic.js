@@ -222,7 +222,6 @@ function sendTcpMeta(from, flag) {
       endMS: now + roundTripTimeMS / 2,
     }
   }
-  console.log(newEntry)
   metaPackets.push(newEntry)
   addToClockMs(roundTripTimeMS / 2)
 }

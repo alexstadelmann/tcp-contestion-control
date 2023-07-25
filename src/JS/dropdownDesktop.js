@@ -4,9 +4,6 @@ export default function registerDropdownDesktopEvents() {
   document
     .querySelector('#dropdownMenu')
     .addEventListener('click', switchDropdownDesktop)
-  document
-    .querySelector('#extendedData')
-    .addEventListener('click', switchExtendedData)
 }
 
 function switchDropdownDesktop() {
@@ -15,8 +12,3 @@ function switchDropdownDesktop() {
     dropdownElement.style.display == 'block' ? 'none' : 'block'
 }
 
-function switchExtendedData() {
-  const extendedDataElement = document.querySelector('#extendedDataSpace')
-  extendedDataElement.style.display =
-    extendedDataElement.style.display == 'block' ? 'none' : 'block'
-}

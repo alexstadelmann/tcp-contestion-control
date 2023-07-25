@@ -44,8 +44,6 @@ function tcpMetaSegmentClientToServer(start, end, flag) {
   const newPacketText = document.createElementNS(NAME_SPACE_URI, 'text')
   newPacketText.append(newPacketTextPath)
 
-  console.log('newPacket', newPacket)
-  console.log('newPacketText', newPacketText)
   document.querySelector('#tcpMetaMessages').append(newPacket)
   document.querySelector('#tcpMetaMessages').append(newPacketText)
 }

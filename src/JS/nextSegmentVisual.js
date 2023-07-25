@@ -7,14 +7,12 @@ export function adaptSvgSize(end, roundTripTimeMS ) {
   
   const viewBoxHeight =
     document.querySelector('#mainSvg').viewBox.baseVal.height
-    console.log('viewBoxHeight before', viewBoxHeight)
     if (end*ratio > viewBoxHeight - 20) {
       const mainSvg = document.querySelector('#mainSvg')
       mainSvg.style.height = viewBoxHeight + roundTripTimeMS*ratio + '%'
       mainSvg.viewBox.baseVal.height = viewBoxHeight + roundTripTimeMS/2*ratio
       document.querySelector('#lines').scrollTop = document.querySelector('#lines').scrollHeight
     }
-    console.log('after', document.querySelector('#mainSvg').viewBox.baseVal.height)
 }
 
 export default function displayNewSegment() {

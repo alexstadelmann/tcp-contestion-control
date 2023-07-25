@@ -12,11 +12,7 @@
         <span id="mobileMenu">&#8801;</span>
         <button type='button' id="desktopMenu" class="lang">Configuration</button>
       </menu>
-      <menu id="extendedData">
-        <button type='button' id="extendedData">Extended</button>
-      </menu>
-
-      <button type='reset' id="reset">Reset</button>
+      
     </header>
     <main>
       <section id="dropdownSpace" class="visual">
@@ -96,49 +92,35 @@
           </form>
         </div>
       </section>
-      <section id="extendedDataSpace" class="visual">
-        <div id="extendedDataContent">
-          <form id="duplicateAcksForm" class="numeric">
-            <fieldset>
-              <legend class="lang" id="textDuplicateAck">
-                Duplicate Acknowlegments
-              </legend>
-              <input type="number" id="duplicateAcks" value="0" class="data" />
-            </fieldset>
-          </form>
-        </div>
-      </section>
+      
       <section id="dataSpace" class="visual">
         <div id="dataContent">
           <form id="tcpStateForm">
-            <span>TCP State:</span>
+            <span class='lang' id='textTcpState'>TCP State:</span>
             <input type="text" id="tcpState" class="data" />
           </form>
           <form id="ccStateForm">
-            <span>CC State:</span>
+            <span class='lang' id='textCcState'>CC State:</span>
             <input type="text" id="ccState" class="data" />
           </form>
           <form id="congWinForm">
-            <span
-              >Congestion<br />
-              Window:</span
-            >
+            <span class='lang' id='textCongWin'>Congestion<br/>Window:</span>
             <input type="text" value="0" id="congWin" class="data" />
           </form>
           <form id="currentTrafficForm">
-            <span>Current Trafic:</span>
+            <span class='lang' id='textCurrentTraffic'>Current<br/>Trafic:</span>
             <input type="number" value="0" id="currentTraffic" class="data" />
           </form>
           <form id="threshForm">
-            <span>Threshold:</span>
+            <span class='lang' id='textThreshold'>Threshold:</span>
             <input type="number" value="10" id="threshold" class="data" />
           </form>
           <form id="event">
-            <span>Last Event:</span>
+            <span>Event:</span>
             <input type="text" value="" id="lastEvent" class="sessionData" />
           </form>
           <form id='roundForm'>
-            <span>Round:</span>
+            <span class='lang' id='textRound'>Round:</span>
             <input type='number' value='' id='round' class='data'/>
           </form>
           <form id="press">

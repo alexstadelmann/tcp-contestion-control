@@ -54,9 +54,9 @@ export const events = {
 
 const basicSettings = {
   version: 'tahoe',
-  roundTripTimeMS: 400,
-  segSizeByte: 500,
-  transrateKBytePerSecond: 20,
+  roundTripTimeMS: 300,
+  segSizeByte: 100,
+  transrateKBytePerSecond: 7,
   initialThreshold: 16,
   lang: 'en',
   ratio1pxToMS: 1,
@@ -109,6 +109,7 @@ export let metaPackets = []
 export function resetApplication() {
   serverState = [{ ...initialServerState }]
   clientState = [{ ...initialClientState }]
+  sessionState = [{ ...initialSessionState }]
   serverSegments = []
   clientAcks = []
   pendingAcks = []
@@ -119,6 +120,9 @@ export function resetApplication() {
   document.querySelectorAll('#mainSvg g').forEach((elem) => {
     elem.innerHTML = ''
   })
+
+  //Empty congWin diagram
+  document.querySelector('#dataPoints').innerHTML = ''
 
   //Make only start button clickable
   deactivateAllButtons()

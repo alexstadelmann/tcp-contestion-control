@@ -1,5 +1,5 @@
 // CSS only for mobile
-@media screen and (max-width: 399px)
+@media screen and (max-width: 1000px)
 
   // Colors
   $background-1: #d5b7b278
@@ -64,10 +64,9 @@
           span#mobileMenu
             display: block
             font-size: $menu-size
-          span#desktopMenu
+          button#desktopMenu
             display: none
-          span#extendedData
-            display: none
+          
 
       main
         height: 80%
@@ -78,9 +77,6 @@
           align-items: center
           display: none
           height: 100%
-
-          &#extendedDataSpace
-            display: none
 
           &#dropdownSpace
             div#dropdownContent
@@ -110,7 +106,7 @@
 
           &#seqSpace
             background-color: $background-2
-            height: 80%
+            height: 70%
             display: block
             div#seqContent
               display: flex
@@ -118,15 +114,14 @@
               font-size: $font-size-0
           &#dataSpace
             background-color: $background-3
-            height: 20%
+            height: 30%
             display: block
             div#dataContent
               display: grid
-
               height: 100%
               grid-template-columns: repeat(2, 1fr)
-              grid-template-rows: repeat(4, 1fr)
-              grid-template-areas: 'tcp cc' 'thresh unack' 'event event' 'press press'
+              grid-template-rows: repeat(6, 1fr)
+              grid-template-areas: 'tcp tcp' 'cc cc' 'congWin unack' 'thresh round' 'press press' 'event event'
               form
                 border: solid 1px white
                 display: flex
@@ -134,27 +129,33 @@
                 align-items: center
                 font-size: $font-size-3
 
-                &#tcpState
+                &#tcpStateForm
                   grid-area: tcp
-                &#ccState
+                &#ccStateForm
                   grid-area: cc
-                &#thresh
-                  grid-area: thresh
+                &#congWinForm
+                  grid-area: congWin
                 &#unack
                   grid-area: unack
-                &#event
-                  grid-area: event
+                &#threshForm
+                  grind-area: thresh
+                &#roundForm
+                  grif-area: round
                 &#press
                   grid-area: press
-                input[type='number']
+                &#event
+                  grid-area: event
+                input
                   font-size: $font-size-3
-                  width: 50%
-                  padding: 1% 5%
+                  padding: 0 2%
+                  width: 80%
+                  height: 60%
                   pointer-events: none
-                input[type='text']
+                input[type='number'], input#congWin
                   font-size: $font-size-3
-                  width: 60%
-                  padding: 1% 5%
+                  width: 40%
+                  height: 60%
+                  padding: 0 2%
                   pointer-events: none
                 button
                   width: 80%
@@ -162,11 +163,14 @@
                   font-size: $font-size-3
 
           &#congwinSpace
-            height: 80%
+            grid-area: cong-win
             background-color: $background-4
+            height: 70%
             div#congwinContent
               display: flex
               height: 100%
+              #diagramSvg
+                font-size: 3px
           &#autoSpace
             height: 80%
             background-color: $background-5

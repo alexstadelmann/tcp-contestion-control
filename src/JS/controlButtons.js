@@ -4,7 +4,7 @@ import resendMissingSegment3Dup from '@/JS/resendSegmentAfter3Dup'
 import { nextPacket } from '@/JS/nextPacketCoordinator'
 import { establishTcp, deactivateAllButtons, finalizeSession } from '@/JS/tcpMetaLogic'
 import { clientReceiveSegment } from '@/JS/nextSegmentLogic'
-import { getServerState, algorithms, resetApplication } from '@/JS/session'
+import { getServerState, algorithms } from '@/JS/session'
 import { clientSendNewAck, serverReceiveNewAck } from '@/JS/nextAckLogic'
 import displayNewAck from '@/JS/nextAckVisual'
 
@@ -62,7 +62,6 @@ export const registerControlButtonsEvents = () => {
     }
   })
   document.querySelector('#startButton').addEventListener('click', establishTcp)
-  document.querySelector('#reset').addEventListener('click', resetApplication)
   document.querySelector('#tcpEnd').addEventListener('click', () => {
     if (getServerState('confirmedReceived') != getServerState('seqNum')) {
       clientSendNewAck(true)

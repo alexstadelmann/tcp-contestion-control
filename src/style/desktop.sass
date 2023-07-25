@@ -1,4 +1,4 @@
-@media screen and (min-width: 400px)
+@media screen and (min-width: 1000px)
 
   // Colors
   $background-1: #d5b7b278
@@ -54,7 +54,7 @@
           justify-content: center
           span#mobileMenu
             display: none
-          button#desktopMenu, button#extendedData
+          button#desktopMenu
             display: flex
             height: 100%
             justify-content: center
@@ -72,28 +72,6 @@
         grid-template-areas: 'extend extend' 'drop drop' 'seq data' 'seq cong-win' 'automaton automaton'
 
         section
-          &#extendedDataSpace
-            display: none
-            grid-area: extend
-            div#extendedDataContent
-              display: grid
-              grid-template-columns: repeat(3, 1fr)
-              grid-template-rows: repeat(2, 1fr)
-              background-color: $background-2
-              height: 30vh
-              form
-                font-size: $font-size-1
-                display: flex
-                justify-content: center
-                align-items: center
-                pointer-events: none
-                fieldset
-                  padding: 1vh
-                  height: 80%
-                  width: 80%
-                  input
-                    font-size: $font-size-1
-
           &#dropdownSpace
             display: none
             grid-area: drop
@@ -124,6 +102,7 @@
           &#dataSpace
             grid-area: data
             background-color: $background-3
+            height: 100%
             div#dataContent
               display: grid
 
@@ -157,14 +136,14 @@
                   grid-area: event
                 input
                   font-size: $font-size-1
-                  padding: 2% 5%
-                  width: 100%
+                  padding: 0% 1%
+                  width: 80%
                   pointer-events: none
                 input[type='number'], input#congWin
                   font-size: $font-size-1
                   width: 40%
                   
-                  padding: 2% 5%
+                  padding: 0% 1%
                   pointer-events: none
                 
                 button

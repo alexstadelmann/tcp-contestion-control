@@ -53,6 +53,34 @@ const langDictionary = {
     en: 'Configuration',
     de: 'Einstellungen',
   },
+  textTcpState: {
+    en: 'TCP State:',
+    de: 'TCP Status:',
+  },
+  textCcState: {
+    en: 'CC State:',
+    de: 'CC Status:',
+  },
+  textTimeout: {
+    en: 'Timeout Span in MSS',
+    de: 'Timeout Zeitspanne in MSS',
+  },
+  textCongWin: {
+    en: 'Congestion<br/>Window:',
+    de: 'Staufenster:',
+  },
+  textCurrentTraffic: {
+    en: 'Current<br/>Traffic:',
+    de: 'Aktueller<br/>Verkehr:'
+  },
+  textRound: {
+    en: 'Round:',
+    de: 'Runde',
+  },
+  textThreshold: {
+    en: 'Threshold:',
+    de: 'Übergangsschwelle:',
+  }
 }
 
 export default function regsiterChangeLanguageEvent() {
@@ -64,6 +92,7 @@ export default function regsiterChangeLanguageEvent() {
 
 function setLang(lang) {
   document.querySelectorAll('.lang').forEach((elem) => {
+    console.log(elem)
     elem.innerHTML = langDictionary[elem.id][lang]
   })
 }
