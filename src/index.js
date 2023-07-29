@@ -5,6 +5,7 @@ import updateDataPanel from '@/JS/parameterDisplay'
 import registerSettingsEvents from '@/JS/settings'
 import renderCongestionDiagram from '@/JS/congestionDiagram'
 import registerNavbarMobileEvents from '@/JS/navbarMobile'
+import registerDemoSequenceEvents from '@/JS/demoSequence'
 import regsiterChangeLanguageEvent from '@/JS/languages'
 import registerDropdownMobileEvents from '@/JS/dropdownMobile'
 import registerDropdownDesktopEvents from '@/JS/dropdownDesktop'
@@ -20,6 +21,7 @@ const init = () => {
   regsiterChangeLanguageEvent()
   registerDropdownMobileEvents()
   registerDropdownDesktopEvents()
+  registerDemoSequenceEvents()
   renderCongestionDiagram()
   updateDataPanel()
   registerControlButtonsEvents()

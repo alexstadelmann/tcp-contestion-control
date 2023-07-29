@@ -12,6 +12,42 @@ import { getServerState, algorithms } from '@/JS/session'
 import { clientSendNewAck, serverReceiveNewAck } from '@/JS/nextAckLogic'
 import displayNewAck from '@/JS/nextAckVisual'
 
+export const sendPacket = () => {
+  let algorithm = getServerState('ccState')
+  switch (algorithm) {
+    case algorithms.SLOW_START:
+      nextPacket(true)
+      break
+    case algorithms.TIMEOUT:
+      resendMissingSegment(true)
+      clientReceiveSegment()
+      displayNewSegment()
+      break
+    case algorithms.DUP_3:
+      resendMissingSegment3Dup(true)
+      clientReceiveSegment()
+      displayNewSegment()
+      break
+    case algorithms.CONGESTION_AVOIDANCE:
+      nextPacket(true)
+      break
+    case algorithms.FAST_RECOVERY:
+      nextPacket(true)
+  }
+}
+
+export const endTcp = () => {
+  if (getServerState('confirmedReceived') != getServerState('seqNum')) {
+    clientSendNewAck(true)
+    serverReceiveNewAck()
+    displayNewAck()
+  } else {
+    finalizeSession()
+  }
+  deactivateAllButtons()
+  document.querySelector('#tcpEnd').removeAttribute('disabled')
+}
+
 export function setActiveButtons() {
   document.querySelectorAll('#press button').forEach((button) => {
     button.setAttribute('disabled', '')
@@ -20,29 +56,7 @@ export function setActiveButtons() {
 }
 
 export const registerControlButtonsEvents = () => {
-  document.querySelector('#send').addEventListener('click', () => {
-    let algorithm = getServerState('ccState')
-    switch (algorithm) {
-      case algorithms.SLOW_START:
-        nextPacket(true)
-        break
-      case algorithms.TIMEOUT:
-        resendMissingSegment(true)
-        clientReceiveSegment()
-        displayNewSegment()
-        break
-      case algorithms.DUP_3:
-        resendMissingSegment3Dup(true)
-        clientReceiveSegment()
-        displayNewSegment()
-        break
-      case algorithms.CONGESTION_AVOIDANCE:
-        nextPacket(true)
-        break
-      case algorithms.FAST_RECOVERY:
-        nextPacket(true)
-    }
-  })
+  document.querySelector('#send').addEventListener('click', sendPacket)
   document.querySelector('#loss').addEventListener('click', () => {
     let algorithm = getServerState('ccState')
     switch (algorithm) {
@@ -66,15 +80,5 @@ export const registerControlButtonsEvents = () => {
     }
   })
   document.querySelector('#startButton').addEventListener('click', establishTcp)
-  document.querySelector('#tcpEnd').addEventListener('click', () => {
-    if (getServerState('confirmedReceived') != getServerState('seqNum')) {
-      clientSendNewAck(true)
-      serverReceiveNewAck()
-      displayNewAck()
-    } else {
-      finalizeSession()
-    }
-    deactivateAllButtons()
-    document.querySelector('#tcpEnd').removeAttribute('disabled')
-  })
+  document.querySelector('#tcpEnd').addEventListener('click', endTcp)
 }
