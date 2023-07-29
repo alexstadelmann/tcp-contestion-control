@@ -1,4 +1,3 @@
-// use templates and meaningful variable names instead of ids
 const langDictionary = {
   textTcpCongestionControl: {
     en: 'TCP-Congestion-Control',

@@ -13,6 +13,7 @@ import {
   getConfigState,
   setServerState,
   setSessionState,
+  getSessionState
 } from '@/JS/session'
 
 export function clientSendNewAck(isDelivered) {
@@ -72,7 +73,7 @@ function triggerThresholdEvent() {
 export function serverReceiveNewAck() {
   const newAck = getLastElem(pendingAcks)
   const ackNum = newAck.ackNum
-  const timeNow = newAck.endMS
+  
 
   const congWin = getServerState('congWin')
   const currentTraffic = getServerState('currentTraffic')
@@ -96,9 +97,17 @@ export function serverReceiveNewAck() {
   setServerState({
     currentTraffic: currentTraffic - 1,
   })
+ 
+
+  console.log(newAck.endMS)
+
+  if (newAck.endMS > getSessionState('clockMS')) {
+    setSessionState({
+      clockMS: newAck.endMS
+    })
+  }
   setSessionState({
     lastEvent: events.NEW_ACK,
-    clockMS: timeNow,
   })
 
   //Check is ack is a duplicate
