@@ -11,4 +11,3 @@ function switchDropdownDesktop() {
   dropdownElement.style.display =
     dropdownElement.style.display == 'block' ? 'none' : 'block'
 }
-

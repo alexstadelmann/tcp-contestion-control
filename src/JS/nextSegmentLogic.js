@@ -33,11 +33,11 @@ export function serverSendSegment(isDelivered) {
   const transmissionTime = segSizeByte / transrateKBytePerSecond
 
   //Update clock
-  console.log('transtime',transmissionTime)
+  console.log('transtime', transmissionTime)
   setSessionState({
-    clockMS: getSessionState('clockMS') + transmissionTime
+    clockMS: getSessionState('clockMS') + transmissionTime,
   })
-  
+
   console.log(getSessionState('clockMS'))
   //Make new segment
   const newSegment = {
@@ -49,7 +49,7 @@ export function serverSendSegment(isDelivered) {
     transmissionTime,
     retransmitted: false,
   }
-  
+
   serverSegments.push(newSegment)
 
   //Update server state to reflect sending a new segment

@@ -42,8 +42,8 @@ export default function renderCongestionDiagram() {
 
 export function addPointToCongestionDiagram() {
   const [round, roundCongWin] = getServerState('roundCongWin')
-  const xCoordinate = round*X_AXIS_STEP
-  const yCoordinate = 100 - Y_AXIS_PADDING - roundCongWin*2
+  const xCoordinate = round * X_AXIS_STEP
+  const yCoordinate = 100 - Y_AXIS_PADDING - roundCongWin * 2
   const svgPoint = document.createElementNS(NAME_SPACE_URI, 'circle')
   svgPoint.setAttribute('cx', xCoordinate)
   svgPoint.setAttribute('cy', yCoordinate)
@@ -53,5 +53,3 @@ export function addPointToCongestionDiagram() {
   svgPoint.setAttribute('stroke-width', 3)
   document.querySelector('#dataPoints').append(svgPoint)
 }
-
-

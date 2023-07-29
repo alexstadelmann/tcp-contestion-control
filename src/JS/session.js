@@ -15,7 +15,7 @@ export const flags = {
   ACK: 'ACK',
   SYN_ACK: 'SYN-ACK',
   FIN: 'FIN',
-  FIN_ACK: 'FIN-ACK'
+  FIN_ACK: 'FIN-ACK',
 }
 
 export const agents = {
@@ -54,9 +54,9 @@ export const events = {
 
 const basicSettings = {
   version: 'tahoe',
-  roundTripTimeMS: 200,
+  roundTripTimeMS: 400,
   segSizeByte: 100,
-  transrateKBytePerSecond: 10,
+  transrateKBytePerSecond: 5,
   initialThreshold: 16,
   lang: 'en',
   ratio1pxToMS: 1,
@@ -82,7 +82,7 @@ const initialServerState = {
   duplicateAcks: 0,
   timestampFirstUnacked: 0,
   round: 0,
-  roundCongWin: [0,0],
+  roundCongWin: [0, 0],
   firstOfRoundSeq: 0,
   firstOfRoundMS: 0,
 }

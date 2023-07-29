@@ -140,10 +140,10 @@ function clientSendACK() {
   setServerState({
     congWin: 1,
     round: 1,
-    roundCongWin:[1,1],
+    roundCongWin: [1, 1],
     firstofRoundSeq: 1,
     firstOfRoundMS: getSessionState('clockMS'),
-    confirmedReceived: 1
+    confirmedReceived: 1,
   })
   addPointToCongestionDiagram()
 }
@@ -154,51 +154,49 @@ export function finalizeSession() {
 
   switch (currentTcpState) {
     case tcpState.ESTABLISHED:
-      if(lastEvent == events.FIN_SENT) {
+      if (lastEvent == events.FIN_SENT) {
         sendTcpMeta(agents.CLIENT, flags.FIN_ACK)
         setSessionState({
-          lastEvent: events.FIN_ACK
+          lastEvent: events.FIN_ACK,
         })
       } else {
         sendTcpMeta(agents.SERVER, flags.FIN)
         setSessionState({
-          lastEvent: events.FIN_SENT
+          lastEvent: events.FIN_SENT,
         })
         setServerState({
-          tcpState: tcpState.FIN_WAIT_1
+          tcpState: tcpState.FIN_WAIT_1,
         })
       }
       break
     case tcpState.FIN_WAIT_1:
-      if(lastEvent == events.FIN_SENT) {
+      if (lastEvent == events.FIN_SENT) {
         sendTcpMeta(agents.CLIENT, flags.FIN_ACK)
         setSessionState({
-          lastEvent: events.FIN_ACK
+          lastEvent: events.FIN_ACK,
         })
       } else {
         sendTcpMeta(agents.SERVER, flags.ACK)
         setSessionState({
-          lastEvent: events.ACK
+          lastEvent: events.ACK,
         })
         setServerState({
-          tcpState: tcpState.TIME_WAIT
+          tcpState: tcpState.TIME_WAIT,
         })
       }
-      
+
       break
     case tcpState.TIME_WAIT:
       setSessionState({
-        lastEvent: events.WAIT_30s
+        lastEvent: events.WAIT_30s,
       })
       setServerState({
-        tcpState: tcpState.CLOSED
+        tcpState: tcpState.CLOSED,
       })
-    
   }
   updateSeqDiagramMeta()
   updateDataPanel()
 }
-
 
 function sendTcpMeta(from, flag) {
   const now = getSessionState('clockMS')
@@ -213,7 +211,6 @@ function sendTcpMeta(from, flag) {
       endMS: now + roundTripTimeMS / 2,
       ackNum,
     }
-  
   } else if (from == agents.SERVER) {
     newEntry = {
       sender: agents.SERVER,
@@ -225,4 +222,3 @@ function sendTcpMeta(from, flag) {
   metaPackets.push(newEntry)
   addToClockMs(roundTripTimeMS / 2)
 }
-
