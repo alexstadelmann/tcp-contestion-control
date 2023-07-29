@@ -70,7 +70,7 @@ const langDictionary = {
   },
   textCurrentTraffic: {
     en: 'Current<br/>Traffic:',
-    de: 'Aktueller<br/>Verkehr:'
+    de: 'Aktueller<br/>Verkehr:',
   },
   textRound: {
     en: 'Round:',
@@ -79,7 +79,7 @@ const langDictionary = {
   textThreshold: {
     en: 'Threshold:',
     de: 'Übergangsschwelle:',
-  }
+  },
 }
 
 export default function regsiterChangeLanguageEvent() {

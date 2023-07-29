@@ -1,7 +1,6 @@
 import { agents, metaPackets, getLastElem, getConfigState } from '@/JS/session'
 import { adaptSvgSize } from './nextSegmentVisual'
 
-
 // SVG works better when the viebox has units from 0-100 than units from 0-1000.
 export const SMALL_FACTOR = 10
 export const NAME_SPACE_URI = 'http://www.w3.org/2000/svg'

@@ -1,5 +1,10 @@
 import { SMALL_FACTOR, NAME_SPACE_URI } from '@/JS/tcpMetaVisual'
-import { NONE, getServerState, serverSegments, getConfigState } from '@/JS/session'
+import {
+  NONE,
+  getServerState,
+  serverSegments,
+  getConfigState,
+} from '@/JS/session'
 import { adaptSvgSize } from './nextSegmentVisual'
 
 export function displayFirstUnAckedBar() {
@@ -31,7 +36,7 @@ export function displayTimeout() {
   const timeoutSpan =
     getConfigState('timeoutSpan') * getConfigState('roundTripTimeMS')
   const end = start + timeoutSpan
-  adaptSvgSize(end/SMALL_FACTOR, timeoutSpan/SMALL_FACTOR)
+  adaptSvgSize(end / SMALL_FACTOR, timeoutSpan / SMALL_FACTOR)
   const newTimeoutBar = document.createElementNS(NAME_SPACE_URI, 'path')
   newTimeoutBar.setAttribute('stroke', 'pink')
   newTimeoutBar.setAttribute('fill', 'pink')

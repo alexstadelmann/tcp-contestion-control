@@ -2,7 +2,11 @@ import displayNewSegment from '@/JS/nextSegmentVisual'
 import resendMissingSegment from '@/JS/resendSegmentAfterTimeout'
 import resendMissingSegment3Dup from '@/JS/resendSegmentAfter3Dup'
 import { nextPacket } from '@/JS/nextPacketCoordinator'
-import { establishTcp, deactivateAllButtons, finalizeSession } from '@/JS/tcpMetaLogic'
+import {
+  establishTcp,
+  deactivateAllButtons,
+  finalizeSession,
+} from '@/JS/tcpMetaLogic'
 import { clientReceiveSegment } from '@/JS/nextSegmentLogic'
 import { getServerState, algorithms } from '@/JS/session'
 import { clientSendNewAck, serverReceiveNewAck } from '@/JS/nextAckLogic'

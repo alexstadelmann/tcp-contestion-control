@@ -66,12 +66,12 @@ export function nextPacket(isDelivered) {
       triggerTimeout()
       return
     }
-    
+
     clientSendNewAck(isDelivered)
     if (isDelivered) serverReceiveNewAck()
     displayNewAck()
   }
-  
+
   displayFirstUnAckedBar()
   updateDataPanel()
 }

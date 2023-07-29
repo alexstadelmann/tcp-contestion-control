@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>TCP-Congestion-Control</title>
     <script src="main.js"></script>
   </head>
@@ -10,9 +10,10 @@
       <h1 id="textTcpCongestionControl" class="lang">TCP Congestion Control</h1>
       <menu id="dropdownMenu">
         <span id="mobileMenu">&#8801;</span>
-        <button type='button' id="desktopMenu" class="lang">Configuration</button>
+        <button type="button" id="desktopMenu" class="lang">
+          Configuration
+        </button>
       </menu>
-      
     </header>
     <main>
       <section id="dropdownSpace" class="visual">
@@ -22,17 +23,16 @@
               <legend class="lang" id="textCongestionControlAlg">
                 Congestion Control Algorithm
               </legend>
-              <input type="radio" id="reno" name="option" value="Reno" checked/>
-              <label for="reno">Reno</label><br />
               <input
                 type="radio"
-                id="tahoe"
+                id="reno"
                 name="option"
-                value="Tahoe"
-                
+                value="Reno"
+                checked
               />
+              <label for="reno">Reno</label><br />
+              <input type="radio" id="tahoe" name="option" value="Tahoe" />
               <label for="tahoe">Tahoe</label><br />
-              
             </fieldset>
           </form>
           <form class="numeric">
@@ -40,7 +40,7 @@
               <legend class="lang" id="textRoundTripDelay">
                 Round Trip Delay in ms
               </legend>
-              <input type="number" class='setting' id="roundTripTimeMS"/>
+              <input type="number" class="setting" id="roundTripTimeMS" />
             </fieldset>
           </form>
           <form class="numeric settings">
@@ -48,29 +48,33 @@
               <legend class="lang" id="textSegmentSize">
                 Segment Size in Byte
               </legend>
-              <input type="number" id="segSizeByte"  class='setting' />
+              <input type="number" id="segSizeByte" class="setting" />
             </fieldset>
           </form>
-          <form  class="numeric">
+          <form class="numeric">
             <fieldset>
               <legend class="lang" id="textTimeout">Timeout Span in RTT</legend>
-              <input type="number" id="timeoutSpan" class='setting'/>
+              <input type="number" id="timeoutSpan" class="setting" />
             </fieldset>
           </form>
-          <form  class="numeric">
+          <form class="numeric">
             <fieldset>
               <legend class="lang" id="textInitialThreshold">
                 Initial Threshhold in MSS
               </legend>
-              <input type="number" id="initialThreshold" class='setting'/>
+              <input type="number" id="initialThreshold" class="setting" />
             </fieldset>
           </form>
-          <form  class="numeric">
+          <form class="numeric">
             <fieldset>
               <legend class="lang" id="textTransmissionRate">
                 Transmission Rate in kByte/s
               </legend>
-              <input type="number" id="transrateKBytePerSecond" class='setting' />
+              <input
+                type="number"
+                id="transrateKBytePerSecond"
+                class="setting"
+              />
             </fieldset>
           </form>
           <form id="changeLang">
@@ -92,42 +96,44 @@
           </form>
         </div>
       </section>
-      
+
       <section id="dataSpace" class="visual">
         <div id="dataContent">
           <form id="tcpStateForm">
-            <span class='lang' id='textTcpState'>TCP State:</span>
+            <span class="lang" id="textTcpState">TCP State:</span>
             <input type="text" id="tcpState" class="data" />
           </form>
           <form id="ccStateForm">
-            <span class='lang' id='textCcState'>CC State:</span>
+            <span class="lang" id="textCcState">CC State:</span>
             <input type="text" id="ccState" class="data" />
           </form>
           <form id="congWinForm">
-            <span class='lang' id='textCongWin'>Congestion<br/>Window:</span>
+            <span class="lang" id="textCongWin">Congestion<br />Window:</span>
             <input type="text" value="0" id="congWin" class="data" />
           </form>
           <form id="currentTrafficForm">
-            <span class='lang' id='textCurrentTraffic'>Current<br/>Trafic:</span>
+            <span class="lang" id="textCurrentTraffic"
+              >Current<br />Trafic:</span
+            >
             <input type="number" value="0" id="currentTraffic" class="data" />
           </form>
           <form id="threshForm">
-            <span class='lang' id='textThreshold'>Threshold:</span>
+            <span class="lang" id="textThreshold">Threshold:</span>
             <input type="number" value="10" id="threshold" class="data" />
           </form>
           <form id="event">
             <span>Event:</span>
             <input type="text" value="" id="lastEvent" class="sessionData" />
           </form>
-          <form id='roundForm'>
-            <span class='lang' id='textRound'>Round:</span>
-            <input type='number' value='' id='round' class='data'/>
+          <form id="roundForm">
+            <span class="lang" id="textRound">Round:</span>
+            <input type="number" value="" id="round" class="data" />
           </form>
           <form id="press">
-            <button type='button' id="send" >Next</button>
-            <button type='button' id="loss" >Loss</button>
-            <button type='button' id="startButton" >Start</button>
-            <button type='button' id="tcpEnd" >End</button>
+            <button type="button" id="send">Next</button>
+            <button type="button" id="loss">Loss</button>
+            <button type="button" id="startButton">Start</button>
+            <button type="button" id="tcpEnd">End</button>
           </form>
         </div>
       </section>

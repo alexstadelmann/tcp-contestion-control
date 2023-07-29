@@ -13,7 +13,7 @@ import {
   getConfigState,
   setServerState,
   setSessionState,
-  getSessionState
+  getSessionState,
 } from '@/JS/session'
 
 export function clientSendNewAck(isDelivered) {
@@ -73,15 +73,13 @@ function triggerThresholdEvent() {
 export function serverReceiveNewAck() {
   const newAck = getLastElem(pendingAcks)
   const ackNum = newAck.ackNum
-  
 
   const congWin = getServerState('congWin')
   const currentTraffic = getServerState('currentTraffic')
   const duplicateAcks = getServerState('duplicateAcks')
   let firstUnackedSegmentNum = getServerState('firstUnackedSegmentNum')
-  
-  const segSizeByte = getConfigState('segSizeByte')
 
+  const segSizeByte = getConfigState('segSizeByte')
 
   //Check of a new round beginns
   if (newAck.ackNum >= getServerState('firstOfRoundSeq') + segSizeByte) {
@@ -91,19 +89,18 @@ export function serverReceiveNewAck() {
     addPointToCongestionDiagram()
     setServerState({
       firstOfRoundSeq: getServerState('seqNum'),
-      round: getServerState('round') + 1
+      round: getServerState('round') + 1,
     })
   }
   setServerState({
     currentTraffic: currentTraffic - 1,
   })
- 
 
   console.log(newAck.endMS)
 
   if (newAck.endMS > getSessionState('clockMS')) {
     setSessionState({
-      clockMS: newAck.endMS
+      clockMS: newAck.endMS,
     })
   }
   setSessionState({

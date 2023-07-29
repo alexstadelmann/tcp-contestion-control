@@ -6,7 +6,6 @@ export default function registerSettingsEvents() {
       e.preventDefault()
     })
     form.addEventListener('change', (e) => {
-      
       //Each form has only one input
       const newValue = parseInt(form.elements[1].value)
       if (!newValue > 0) return false

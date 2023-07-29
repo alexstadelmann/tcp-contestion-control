@@ -15,7 +15,7 @@ export const flags = {
   ACK: 'ACK',
   SYN_ACK: 'SYN-ACK',
   FIN: 'FIN',
-  FIN_ACK: 'FIN-ACK'
+  FIN_ACK: 'FIN-ACK',
 }
 
 export const agents = {
@@ -82,7 +82,7 @@ const initialServerState = {
   duplicateAcks: 0,
   timestampFirstUnacked: 0,
   round: 0,
-  roundCongWin: [0,0],
+  roundCongWin: [0, 0],
   firstOfRoundSeq: 0,
   firstOfRoundMS: 0,
 }
