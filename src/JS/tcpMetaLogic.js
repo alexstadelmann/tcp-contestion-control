@@ -118,7 +118,7 @@ function serverSendSYNACK() {
     endMS: now + roundTripTimeMS / 2,
     ackNum: 1,
   }
-
+  console.log(newEntry)
   metaPackets.push(newEntry)
   addToClockMs(roundTripTimeMS / 2)
 }
@@ -198,27 +198,29 @@ export function finalizeSession() {
   updateDataPanel()
 }
 
-function sendTcpMeta(from, flag) {
-  const now = getSessionState('clockMS')
-  const roundTripTimeMS = getConfigState('roundTripTimeMS')
-  let newEntry = {}
-  if (from == agents.CLIENT) {
-    const ackNum = getClientState('BytesReceivedInOrder')
-    newEntry = {
-      sender: agents.CLIENT,
-      flag,
-      startMS: now,
-      endMS: now + roundTripTimeMS / 2,
-      ackNum,
-    }
-  } else if (from == agents.SERVER) {
-    newEntry = {
-      sender: agents.SERVER,
-      flag,
-      startMS: now,
-      endMS: now + roundTripTimeMS / 2,
-    }
-  }
-  metaPackets.push(newEntry)
-  addToClockMs(roundTripTimeMS / 2)
-}
+// function sendTcpMeta(from, flag) {
+//   const now = getSessionState('clockMS')
+//   const roundTripTimeMS = getConfigState('roundTripTimeMS')
+//   let newEntry = {}
+//   if (from == agents.CLIENT) {
+//     const ackNum = getClientState('BytesReceivedInOrder')
+//     newEntry = {
+//       sender: agents.CLIENT,
+//       flag,
+//       startMS: now,
+//       endMS: now + roundTripTimeMS / 2,
+//       ackNum,
+//     }
+//   } else if (from == agents.SERVER) {
+//     newEntry = {
+//       sender: agents.SERVER,
+//       flag,
+//       startMS: now,
+//       endMS: now + roundTripTimeMS / 2,
+//     }
+//   }
+  
+//   metaPackets.push(newEntry)
+  
+//   addToClockMs(roundTripTimeMS / 2)
+// }

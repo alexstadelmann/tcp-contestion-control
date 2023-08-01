@@ -34,9 +34,8 @@ const sequences = {
   ],
 }
 
-
+let i = 0
 const runSequence = (sequenceActions, delaySeconds = 0.5) => {
-  let i = 0
   const msTimeout = delaySeconds * 1000
   setTimeout(() => {
     const currentAction = sequenceActions[i]
