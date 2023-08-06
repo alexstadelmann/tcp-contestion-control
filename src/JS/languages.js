@@ -69,8 +69,8 @@ const langDictionary = {
     de: 'Staufenster:',
   },
   textCurrentTraffic: {
-    en: 'Current<br/>Traffic:',
-    de: 'Aktueller<br/>Verkehr:',
+    en: 'Segments<br/>in flight:',
+    de: 'Segmente<br/>im Netz:',
   },
   textRound: {
     en: 'Round:',
@@ -91,7 +91,7 @@ export default function regsiterChangeLanguageEvent() {
 
 function setLang(lang) {
   document.querySelectorAll('.lang').forEach((elem) => {
-    console.log(elem)
+    
     elem.innerHTML = langDictionary[elem.id][lang]
   })
 }

@@ -54,10 +54,10 @@ export const events = {
 
 const basicSettings = {
   version: 'tahoe',
-  roundTripTimeMS: 400,
+  roundTripTimeMS: 300,
   segSizeByte: 100,
   transrateKBytePerSecond: 5,
-  initialThreshold: 16,
+  initialThreshold: 4,
   lang: 'en',
   ratio1pxToMS: 1,
   timeoutSpan: 2,
@@ -107,6 +107,7 @@ export let pendingAcks = []
 export let metaPackets = []
 
 export function resetApplication() {
+  initialServerState.threshold = getLastElem(settings).initialThreshold
   serverState = [{ ...initialServerState }]
   clientState = [{ ...initialClientState }]
   sessionState = [{ ...initialSessionState }]

@@ -96,7 +96,7 @@ export function serverReceiveNewAck() {
     currentTraffic: currentTraffic - 1,
   })
 
-  console.log(newAck.endMS)
+  
 
   if (newAck.endMS > getSessionState('clockMS')) {
     setSessionState({
