@@ -7,3 +7,4 @@
 * Fast Recovery 
 
 To this day, these four algorithms still form the backbone of the internet's congestion control.
+Visit the visualization at: [https://tcp-congestion-control.netlify.app/](https://tcp-congestion-control.netlify.app/)
