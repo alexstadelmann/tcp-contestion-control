@@ -1,3 +1,7 @@
-# tcp-contestion-control
+# Visualization Web App for TCP-Contestion-Control
 
-A visualization Application for congestion control algorithms in TCP Reno and Tahoe.
+### The main Congestion Control Algorithms are presented:
+* Slow Start
+* Congestion Avoidance
+* Fast Retransmit
+* Fast Recovery 
